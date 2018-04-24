@@ -63,6 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201804242256597_InitialMigration.cs" />
+    <Compile Include="Migrations\201804242256597_InitialMigration.Designer.cs">
+      <DependentUpon>201804242256597_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
     </Compile>
@@ -405,7 +410,11 @@
     <None Include="packages.config" />
     <None Include="Repositories\T4Helper.ttinclude" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804242256597_InitialMigration.resx">
+      <DependentUpon>201804242256597_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Code Generation\CodeFirstGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

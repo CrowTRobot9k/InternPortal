@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using InternPortal.Data.Models;
 
 namespace InternPortal.UI.Controllers
 {
@@ -12,8 +13,8 @@ namespace InternPortal.UI.Controllers
     public class HomeController : BaseController
     {
 
-        public HomeController()
-            : base()
+        public HomeController(IInternUnitOfWork unitOfWork)
+            : base(unitOfWork)
         {
 
         }

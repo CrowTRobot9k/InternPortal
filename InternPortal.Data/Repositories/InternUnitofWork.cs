@@ -93,7 +93,7 @@ namespace InternPortal.Data.Models
 			public IAnswerRepository Answers => new AnswerRepository(_context);
 
 		
-		public IInternContext Context()
+		public IInternPortalContext Context()
 		{
 			return _context;
 		}

@@ -21,7 +21,7 @@ namespace InternPortal.UI.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("TemplateProjectConnection", throwIfV1Schema: false)
+            : base("InternPortalConnection", throwIfV1Schema: false)
         {
         }
 

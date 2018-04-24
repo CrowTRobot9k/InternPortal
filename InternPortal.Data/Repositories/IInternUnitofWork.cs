@@ -45,7 +45,7 @@ namespace InternPortal.Data.Models
 			IAnswerRepository Answers { get; }
 			
 	//Change this to the context type
-	IInternContext Context();
+	IInternPortalContext Context();
 	void Complete();
 
 	}
