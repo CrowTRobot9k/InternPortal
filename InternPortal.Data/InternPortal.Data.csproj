@@ -63,6 +63,331 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Answer.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnswerConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Application.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationStatu.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplicationStatuConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRoleConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaimConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLoginConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CodeFirstGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IInternPortalContext.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InternPortalContext.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InternPortalContextFactory.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Message.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MessageConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Question.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionOption.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionOptionConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionType.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionTypeConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserUpload.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserUploadConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AnswerconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AnswerRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationstatuconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationstatuRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetroleconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetroleconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetroleRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetrolerepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserclaimconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserclaimconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserclaimRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserclaimrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserloginconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserloginconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserloginRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserloginrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAnswerconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAnswerRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationstatuconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationstatuRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetroleconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetroleconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetroleRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetrolerepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserclaimconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserclaimconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserclaimRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserclaimrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserloginconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserloginconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserloginRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserloginrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IInternportalcontextfactoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IInternportalcontextfactoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IInternUnitofWork.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IInternunitofworkRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IMessageconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IMessageRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InternportalcontextfactoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InternportalcontextfactoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InternUnitofWork.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InternunitofworkRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestionconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestionoptionconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestionoptionRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestionRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestiontypeconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestiontypeRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUserconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUserRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUseruploadconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUseruploadRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MessageconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MessageRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionoptionconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionoptionRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestiontypeconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestiontypeRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RepositoryGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UseruploadconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UseruploadRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />
@@ -75,7 +400,10 @@
     <None Include="Code Generation\EF.Reverse.POCO.Core.ttinclude" />
     <None Include="Code Generation\EF.Reverse.POCO.ttinclude" />
     <None Include="Code Generation\T4Helper.ttinclude" />
+    <None Include="Models\EF.Reverse.POCO.Core.ttinclude" />
+    <None Include="Models\EF.Reverse.POCO.ttinclude" />
     <None Include="packages.config" />
+    <None Include="Repositories\T4Helper.ttinclude" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -83,8 +411,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CodeFirstGenerator.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\CodeFirstGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CodeFirstGenerator.cs</LastGenOutput>
+    </Content>
     <Content Include="ReadMe.txt" />
     <Content Include="Code Generation\RepositoryGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepositoryGenerator.cs</LastGenOutput>
+    </Content>
+    <Content Include="Repositories\RepositoryGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RepositoryGenerator.cs</LastGenOutput>
     </Content>
