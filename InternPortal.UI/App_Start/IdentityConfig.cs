@@ -24,7 +24,7 @@ namespace InternPortal.UI
         {
             var client = new SmtpClient();
             //client.EnableSsl = true;
-            client.Host = "PBMAIL01.prolacta.com";
+            client.Host = "smtp.gmail.com";
             return client.SendMailAsync(ConfigurationManager.AppSettings["TemplateEmailAddress"],
                                         message.Destination,
                                         message.Subject,
