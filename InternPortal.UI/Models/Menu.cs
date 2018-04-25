@@ -16,9 +16,9 @@ namespace InternPortal.UI.Models
                 new MenuItem
                 {
                     Id = 100,
-                    NameOption = "Menu Item",
-                    Controller = "Home",
-                    Action = "Index",
+                    NameOption = "Interns",
+                    Controller = "",
+                    Action = "",
                     ImageClass = "fa fa-users fa-lg",
                     Status = true,
                     IsParent = true,
@@ -29,10 +29,10 @@ namespace InternPortal.UI.Models
                         new MenuItem()
                         {
                             Id = 100,
-                            NameOption = "Sub Menu",
-                            Controller = "Home",
-                            Action = "Index",
-                            ImageClass = "fa fa-address-card",
+                            NameOption = "View Applications",
+                            Controller = "Application",
+                            Action = "ViewAll",
+                            ImageClass = "fa fa-file-alt fa-lg",
                             Status = true,
                             IsParent = false,
                             ParentId = 0
