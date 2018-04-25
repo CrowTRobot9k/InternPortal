@@ -87,13 +87,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201804242256597_InitialMigration.cs" />
-    <Compile Include="Migrations\201804242256597_InitialMigration.Designer.cs">
-      <DependentUpon>201804242256597_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804251704184_SeedTables.cs" />
-    <Compile Include="Migrations\201804251704184_SeedTables.Designer.cs">
-      <DependentUpon>201804251704184_SeedTables.cs</DependentUpon>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Migrations\201804251839145_InitialMigration.cs" />
+    <Compile Include="Migrations\201804251839145_InitialMigration.Designer.cs">
+      <DependentUpon>201804251839145_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
@@ -441,14 +438,6 @@
     <None Include="Repositories\T4Helper.ttinclude" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804242256597_InitialMigration.resx">
-      <DependentUpon>201804242256597_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804251704184_SeedTables.resx">
-      <DependentUpon>201804251704184_SeedTables.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Code Generation\CodeFirstGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CodeFirstGenerator.cs</LastGenOutput>
@@ -469,6 +458,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804251839145_InitialMigration.resx">
+      <DependentUpon>201804251839145_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

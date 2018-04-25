@@ -37,8 +37,8 @@ namespace InternPortal.Data.Models
             Property(x => x.DateTimeSent).HasColumnName(@"DateTimeSent").HasColumnType("datetime").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.User_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_MessagesFrom_User
-            HasRequired(a => a.User_UserIdTo).WithMany(b => b.Messages_UserIdTo).HasForeignKey(c => c.UserIdTo).WillCascadeOnDelete(false); // FK_MessagesTo_User
+            HasRequired(a => a.User_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdFrom
+            HasRequired(a => a.User_UserIdTo).WithMany(b => b.Messages_UserIdTo).HasForeignKey(c => c.UserIdTo).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdTo
             InitializePartial();
         }
         partial void InitializePartial();

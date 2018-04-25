@@ -36,7 +36,7 @@ namespace InternPortal.Data.Models
             Property(x => x.UploadDescription).HasColumnName(@"UploadDescription").HasColumnType("nvarchar(max)").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.User).WithOptional(b => b.UserUpload).WillCascadeOnDelete(false); // FK_UserUploads_User
+            HasRequired(a => a.User).WithOptional(b => b.UserUpload).WillCascadeOnDelete(false); // FK_dbo.UserUploads_dbo.User_UploadId
             InitializePartial();
         }
         partial void InitializePartial();

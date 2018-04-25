@@ -36,28 +36,28 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Applications where [Application].[UserId] point to this entity (FK_Application_User)
+        /// Child Applications where [Application].[UserId] point to this entity (FK_dbo.Application_dbo.User_UserId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_Application_User
+        public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_dbo.Application_dbo.User_UserId
         /// <summary>
-        /// Child Messages where [Messages].[UserIdFrom] point to this entity (FK_MessagesFrom_User)
+        /// Child Messages where [Messages].[UserIdFrom] point to this entity (FK_dbo.Messages_dbo.User_UserIdFrom)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Messages.FK_MessagesFrom_User
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Messages.FK_dbo.Messages_dbo.User_UserIdFrom
         /// <summary>
-        /// Child Messages where [Messages].[UserIdTo] point to this entity (FK_MessagesTo_User)
+        /// Child Messages where [Messages].[UserIdTo] point to this entity (FK_dbo.Messages_dbo.User_UserIdTo)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Messages.FK_MessagesTo_User
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Messages.FK_dbo.Messages_dbo.User_UserIdTo
         /// <summary>
-        /// Parent (One-to-One) User pointed by [UserUploads].[UploadId] (FK_UserUploads_User)
+        /// Parent (One-to-One) User pointed by [UserUploads].[UploadId] (FK_dbo.UserUploads_dbo.User_UploadId)
         /// </summary>
-        public virtual UserUpload UserUpload { get; set; } // UserUploads.FK_UserUploads_User
+        public virtual UserUpload UserUpload { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.User_UploadId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent AspNetUser pointed by [User].([Id]) (FK_User_AspNetUsers)
+        /// Parent AspNetUser pointed by [User].([Id]) (FK_dbo.User_dbo.AspNetUsers_Id)
         /// </summary>
-        public virtual AspNetUser AspNetUser { get; set; } // FK_User_AspNetUsers
+        public virtual AspNetUser AspNetUser { get; set; } // FK_dbo.User_dbo.AspNetUsers_Id
 
         public User()
         {

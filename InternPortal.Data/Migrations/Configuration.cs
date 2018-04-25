@@ -20,6 +20,10 @@ namespace InternPortal.Data.Migrations
             SeedRoles(context);
 
             SeedUsers(context);
+
+            SeedApplicationStatus(context);
+
+            SeedQuestionType(context);
         }
 
         private void SeedRoles(IInternPortalContext context)
@@ -58,6 +62,29 @@ namespace InternPortal.Data.Migrations
                 userManager.AddToRole(user.Id, "intern");
             }
 
+        }
+
+        private void SeedApplicationStatus(IInternPortalContext context)
+        {
+            context.ApplicationStatus.AddOrUpdate(a => a.Status,
+                new ApplicationStatu { ApplicationStatusId = 1, Status = "Pending" },
+                new ApplicationStatu { ApplicationStatusId = 2, Status = "Reviewed" },
+                new ApplicationStatu { ApplicationStatusId = 3, Status = "PhoneInterviewed" },
+                new ApplicationStatu { ApplicationStatusId = 4, Status = "InPersonInterviewed" },
+                new ApplicationStatu { ApplicationStatusId = 5, Status = "OfferExtended" },
+                new ApplicationStatu { ApplicationStatusId = 6, Status = "Hired" },
+                new ApplicationStatu { ApplicationStatusId = 7, Status = "Rejected" });
+        }
+
+        private void SeedQuestionType(IInternPortalContext context)
+        {
+            context.QuestionTypes.AddOrUpdate(q => q.QuestionType_,
+                new QuestionType { QuestionTypeId = 1, QuestionType_ = "TextBox" },
+                new QuestionType { QuestionTypeId = 2, QuestionType_ = "TextArea" },
+                new QuestionType { QuestionTypeId = 3, QuestionType_ = "RadioButton" },
+                new QuestionType { QuestionTypeId = 4, QuestionType_ = "Checkbox" },
+                new QuestionType { QuestionTypeId = 5, QuestionType_ = "DropDown" },
+                new QuestionType { QuestionTypeId = 6, QuestionType_ = "Date" });
         }
     }
 }

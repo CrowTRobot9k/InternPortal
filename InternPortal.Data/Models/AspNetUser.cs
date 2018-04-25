@@ -47,9 +47,9 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins.FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId
         /// <summary>
-        /// Child Users where [User].[Id] point to this entity (FK_User_AspNetUsers)
+        /// Child Users where [User].[Id] point to this entity (FK_dbo.User_dbo.AspNetUsers_Id)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<User> Users { get; set; } // User.FK_User_AspNetUsers
+        public virtual System.Collections.Generic.ICollection<User> Users { get; set; } // User.FK_dbo.User_dbo.AspNetUsers_Id
 
         public AspNetUser()
         {

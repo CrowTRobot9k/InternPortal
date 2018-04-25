@@ -14,16 +14,16 @@ namespace InternPortal.Data.Migrations
                         AnswerId = c.Int(nullable: false),
                         ApplicationId = c.Int(nullable: false),
                         QuestionId = c.Int(nullable: false),
-                        OptionId = c.Int(nullable: false),
-                        Answer1_AnswerId = c.Int(nullable: false),
+                        OptionId = c.Int(),
+                        AnswerValue = c.String(nullable: false, unicode: false),
                     })
                 .PrimaryKey(t => t.AnswerId)
-                .ForeignKey("dbo.Answers", t => t.Answer1_AnswerId)
                 .ForeignKey("dbo.Application", t => t.ApplicationId)
                 .ForeignKey("dbo.Question", t => t.QuestionId)
+                .ForeignKey("dbo.QuestionOptions", t => t.OptionId)
                 .Index(t => t.ApplicationId)
                 .Index(t => t.QuestionId)
-                .Index(t => t.Answer1_AnswerId);
+                .Index(t => t.OptionId);
             
             CreateTable(
                 "dbo.Application",
@@ -183,7 +183,7 @@ namespace InternPortal.Data.Migrations
                 c => new
                     {
                         ApplicationStatusId = c.Int(nullable: false),
-                        ApplicationStatus = c.String(maxLength: 50),
+                        Status = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.ApplicationStatusId);
             
@@ -204,6 +204,7 @@ namespace InternPortal.Data.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Answers", "OptionId", "dbo.QuestionOptions");
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Question", "QuestionId", "dbo.QuestionTypes");
             DropForeignKey("dbo.QuestionOptions", "QuestionId", "dbo.Question");
@@ -217,7 +218,6 @@ namespace InternPortal.Data.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Answers", "Answer1_AnswerId", "dbo.Answers");
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.QuestionOptions", new[] { "QuestionId" });
@@ -229,7 +229,7 @@ namespace InternPortal.Data.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.User", new[] { "Id" });
             DropIndex("dbo.Application", new[] { "UserId" });
-            DropIndex("dbo.Answers", new[] { "Answer1_AnswerId" });
+            DropIndex("dbo.Answers", new[] { "OptionId" });
             DropIndex("dbo.Answers", new[] { "QuestionId" });
             DropIndex("dbo.Answers", new[] { "ApplicationId" });
             DropTable("dbo.AspNetUserRoles");

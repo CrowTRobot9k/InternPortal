@@ -44,7 +44,7 @@ namespace InternPortal.Data.Models
             Property(x => x.Ethnicity).HasColumnName(@"Ethnicity").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
 
             // Foreign keys
-            HasRequired(a => a.AspNetUser).WithMany(b => b.Users).HasForeignKey(c => c.Id).WillCascadeOnDelete(false); // FK_User_AspNetUsers
+            HasRequired(a => a.AspNetUser).WithMany(b => b.Users).HasForeignKey(c => c.Id).WillCascadeOnDelete(false); // FK_dbo.User_dbo.AspNetUsers_Id
             InitializePartial();
         }
         partial void InitializePartial();

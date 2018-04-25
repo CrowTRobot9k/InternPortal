@@ -28,16 +28,16 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answers].[ApplicationId] point to this entity (FK_Answers_Application)
+        /// Child Answers where [Answers].[ApplicationId] point to this entity (FK_dbo.Answers_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_Answers_Application
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Application_ApplicationId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent User pointed by [Application].([UserId]) (FK_Application_User)
+        /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)
         /// </summary>
-        public virtual User User { get; set; } // FK_Application_User
+        public virtual User User { get; set; } // FK_dbo.Application_dbo.User_UserId
 
         public Application()
         {

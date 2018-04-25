@@ -20,7 +20,7 @@ namespace InternPortal.Data.Models
     public partial class ApplicationStatu
     {
         public int ApplicationStatusId { get; set; } // ApplicationStatusId (Primary key)
-        public string ApplicationStatus { get; set; } // ApplicationStatus (length: 50)
+        public string Status { get; set; } // Status (length: 50)
 
         public ApplicationStatu()
         {

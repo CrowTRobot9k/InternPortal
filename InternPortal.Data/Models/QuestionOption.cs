@@ -23,15 +23,23 @@ namespace InternPortal.Data.Models
         public int QuestionId { get; set; } // QuestionId
         public string OptionValue { get; set; } // OptionValue
 
+        // Reverse navigation
+
+        /// <summary>
+        /// Child Answers where [Answers].[OptionId] point to this entity (FK_Answers_QuestionOptions)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_Answers_QuestionOptions
+
         // Foreign keys
 
         /// <summary>
-        /// Parent Question pointed by [QuestionOptions].([QuestionId]) (FK_QuestionOptions_Question)
+        /// Parent Question pointed by [QuestionOptions].([QuestionId]) (FK_dbo.QuestionOptions_dbo.Question_QuestionId)
         /// </summary>
-        public virtual Question Question { get; set; } // FK_QuestionOptions_Question
+        public virtual Question Question { get; set; } // FK_dbo.QuestionOptions_dbo.Question_QuestionId
 
         public QuestionOption()
         {
+            Answers = new System.Collections.Generic.List<Answer>();
             InitializePartial();
         }
 

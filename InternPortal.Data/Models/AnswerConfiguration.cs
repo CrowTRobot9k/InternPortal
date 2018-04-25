@@ -32,12 +32,13 @@ namespace InternPortal.Data.Models
             Property(x => x.AnswerId).HasColumnName(@"AnswerId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsRequired();
             Property(x => x.QuestionId).HasColumnName(@"QuestionId").HasColumnType("int").IsRequired();
-            Property(x => x.OptionId).HasColumnName(@"OptionId").HasColumnType("int").IsRequired();
+            Property(x => x.OptionId).HasColumnName(@"OptionId").HasColumnType("int").IsOptional();
+            Property(x => x.AnswerValue).HasColumnName(@"AnswerValue").HasColumnType("varchar(max)").IsRequired().IsUnicode(false);
 
             // Foreign keys
-            HasRequired(a => a.Answer1).WithOptional(b => b.Answer2).WillCascadeOnDelete(false); // FK_Answers_Answers
-            HasRequired(a => a.Application).WithMany(b => b.Answers).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_Answers_Application
-            HasRequired(a => a.Question).WithMany(b => b.Answers).HasForeignKey(c => c.QuestionId).WillCascadeOnDelete(false); // FK_Answers_Question
+            HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_Answers_QuestionOptions
+            HasRequired(a => a.Application).WithMany(b => b.Answers).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.Application_ApplicationId
+            HasRequired(a => a.Question).WithMany(b => b.Answers).HasForeignKey(c => c.QuestionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.Question_QuestionId
             InitializePartial();
         }
         partial void InitializePartial();

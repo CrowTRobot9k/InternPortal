@@ -22,31 +22,25 @@ namespace InternPortal.Data.Models
         public int AnswerId { get; set; } // AnswerId (Primary key)
         public int ApplicationId { get; set; } // ApplicationId
         public int QuestionId { get; set; } // QuestionId
-        public int OptionId { get; set; } // OptionId
-
-        // Reverse navigation
-
-        /// <summary>
-        /// Parent (One-to-One) Answer pointed by [Answers].[AnswerId] (FK_Answers_Answers)
-        /// </summary>
-        public virtual Answer Answer2 { get; set; } // Answers.FK_Answers_Answers
+        public int? OptionId { get; set; } // OptionId
+        public string AnswerValue { get; set; } // AnswerValue
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Answer pointed by [Answers].([AnswerId]) (FK_Answers_Answers)
+        /// Parent Application pointed by [Answers].([ApplicationId]) (FK_dbo.Answers_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual Answer Answer1 { get; set; } // FK_Answers_Answers
+        public virtual Application Application { get; set; } // FK_dbo.Answers_dbo.Application_ApplicationId
 
         /// <summary>
-        /// Parent Application pointed by [Answers].([ApplicationId]) (FK_Answers_Application)
+        /// Parent Question pointed by [Answers].([QuestionId]) (FK_dbo.Answers_dbo.Question_QuestionId)
         /// </summary>
-        public virtual Application Application { get; set; } // FK_Answers_Application
+        public virtual Question Question { get; set; } // FK_dbo.Answers_dbo.Question_QuestionId
 
         /// <summary>
-        /// Parent Question pointed by [Answers].([QuestionId]) (FK_Answers_Question)
+        /// Parent QuestionOption pointed by [Answers].([OptionId]) (FK_Answers_QuestionOptions)
         /// </summary>
-        public virtual Question Question { get; set; } // FK_Answers_Question
+        public virtual QuestionOption QuestionOption { get; set; } // FK_Answers_QuestionOptions
 
         public Answer()
         {

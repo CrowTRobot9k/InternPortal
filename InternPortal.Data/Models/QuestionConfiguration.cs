@@ -34,7 +34,7 @@ namespace InternPortal.Data.Models
             Property(x => x.Question_).HasColumnName(@"Question").HasColumnType("nvarchar(max)").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.QuestionType_QuestionId).WithOptional(b => b.Question).WillCascadeOnDelete(false); // FK_Question_QuestionTypes
+            HasRequired(a => a.QuestionType_QuestionId).WithOptional(b => b.Question).WillCascadeOnDelete(false); // FK_dbo.Question_dbo.QuestionTypes_QuestionId
             InitializePartial();
         }
         partial void InitializePartial();

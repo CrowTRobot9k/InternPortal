@@ -25,9 +25,9 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Parent (One-to-One) QuestionType pointed by [Question].[QuestionId] (FK_Question_QuestionTypes)
+        /// Parent (One-to-One) QuestionType pointed by [Question].[QuestionId] (FK_dbo.Question_dbo.QuestionTypes_QuestionId)
         /// </summary>
-        public virtual Question Question { get; set; } // Question.FK_Question_QuestionTypes
+        public virtual Question Question { get; set; } // Question.FK_dbo.Question_dbo.QuestionTypes_QuestionId
 
         public QuestionType()
         {

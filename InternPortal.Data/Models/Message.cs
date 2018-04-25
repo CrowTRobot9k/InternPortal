@@ -29,14 +29,14 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent User pointed by [Messages].([UserIdFrom]) (FK_MessagesFrom_User)
+        /// Parent User pointed by [Messages].([UserIdFrom]) (FK_dbo.Messages_dbo.User_UserIdFrom)
         /// </summary>
-        public virtual User User_UserIdFrom { get; set; } // FK_MessagesFrom_User
+        public virtual User User_UserIdFrom { get; set; } // FK_dbo.Messages_dbo.User_UserIdFrom
 
         /// <summary>
-        /// Parent User pointed by [Messages].([UserIdTo]) (FK_MessagesTo_User)
+        /// Parent User pointed by [Messages].([UserIdTo]) (FK_dbo.Messages_dbo.User_UserIdTo)
         /// </summary>
-        public virtual User User_UserIdTo { get; set; } // FK_MessagesTo_User
+        public virtual User User_UserIdTo { get; set; } // FK_dbo.Messages_dbo.User_UserIdTo
 
         public Message()
         {

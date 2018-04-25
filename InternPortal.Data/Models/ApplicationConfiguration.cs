@@ -36,7 +36,7 @@ namespace InternPortal.Data.Models
             Property(x => x.ApplicationStatus).HasColumnName(@"ApplicationStatus").HasColumnType("int").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.User).WithMany(b => b.Applications).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_Application_User
+            HasRequired(a => a.User).WithMany(b => b.Applications).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.User_UserId
             InitializePartial();
         }
         partial void InitializePartial();

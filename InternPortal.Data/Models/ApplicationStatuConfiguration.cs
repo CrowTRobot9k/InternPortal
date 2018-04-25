@@ -30,7 +30,7 @@ namespace InternPortal.Data.Models
             HasKey(x => x.ApplicationStatusId);
 
             Property(x => x.ApplicationStatusId).HasColumnName(@"ApplicationStatusId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.ApplicationStatus).HasColumnName(@"ApplicationStatus").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
+            Property(x => x.Status).HasColumnName(@"Status").HasColumnType("nvarchar").IsOptional().HasMaxLength(50);
             InitializePartial();
         }
         partial void InitializePartial();

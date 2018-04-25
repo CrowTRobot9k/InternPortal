@@ -28,9 +28,9 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent User pointed by [UserUploads].([UploadId]) (FK_UserUploads_User)
+        /// Parent User pointed by [UserUploads].([UploadId]) (FK_dbo.UserUploads_dbo.User_UploadId)
         /// </summary>
-        public virtual User User { get; set; } // FK_UserUploads_User
+        public virtual User User { get; set; } // FK_dbo.UserUploads_dbo.User_UploadId
 
         public UserUpload()
         {

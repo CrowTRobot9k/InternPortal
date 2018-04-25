@@ -26,20 +26,20 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answers].[QuestionId] point to this entity (FK_Answers_Question)
+        /// Child Answers where [Answers].[QuestionId] point to this entity (FK_dbo.Answers_dbo.Question_QuestionId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_Answers_Question
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Question_QuestionId
         /// <summary>
-        /// Child QuestionOptions where [QuestionOptions].[QuestionId] point to this entity (FK_QuestionOptions_Question)
+        /// Child QuestionOptions where [QuestionOptions].[QuestionId] point to this entity (FK_dbo.QuestionOptions_dbo.Question_QuestionId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<QuestionOption> QuestionOptions { get; set; } // QuestionOptions.FK_QuestionOptions_Question
+        public virtual System.Collections.Generic.ICollection<QuestionOption> QuestionOptions { get; set; } // QuestionOptions.FK_dbo.QuestionOptions_dbo.Question_QuestionId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent QuestionType pointed by [Question].([QuestionId]) (FK_Question_QuestionTypes)
+        /// Parent QuestionType pointed by [Question].([QuestionId]) (FK_dbo.Question_dbo.QuestionTypes_QuestionId)
         /// </summary>
-        public virtual QuestionType QuestionType_QuestionId { get; set; } // FK_Question_QuestionTypes
+        public virtual QuestionType QuestionType_QuestionId { get; set; } // FK_dbo.Question_dbo.QuestionTypes_QuestionId
 
         public Question()
         {
