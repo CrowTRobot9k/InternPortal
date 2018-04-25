@@ -853,6 +853,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Dto\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Views\Application\" />
     <Folder Include="Views\Message\" />
     <Folder Include="Views\User\" />
@@ -865,10 +866,6 @@
     <ProjectReference Include="..\InternPortal.Data\InternPortal.Data.csproj">
       <Project>{a0358eb5-6ef2-4339-bb80-1d8dc32003f4}</Project>
       <Name>InternPortal.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TemplateProject.Data\TemplateProject.Data.csproj">
-      <Project>{747844f0-da0a-4061-8d2b-71b00ea46a58}</Project>
-      <Name>TemplateProject.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
