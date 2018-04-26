@@ -21,6 +21,7 @@ namespace InternPortal.UI.Controllers
 
         public ActionResult CreateApplication()
         {
+
             return View();
         }
 

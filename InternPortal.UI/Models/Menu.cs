@@ -32,7 +32,7 @@ namespace InternPortal.UI.Models
                             NameOption = "View Applications",
                             Controller = "Application",
                             Action = "ViewAll",
-                            ImageClass = "fa fa-file-alt fa-lg",
+                            ImageClass = "fa fa-file",
                             Status = true,
                             IsParent = false,
                             ParentId = 0

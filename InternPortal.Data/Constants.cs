@@ -27,9 +27,8 @@ namespace InternPortal.Data
             RadioButton = 3,
             Checkbox = 4,
             DropDown = 5,
-            Date = 6
+            Date = 6,
+            Numeric = 7
         }
-
-
     }
 }

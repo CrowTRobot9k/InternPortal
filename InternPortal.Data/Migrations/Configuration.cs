@@ -7,6 +7,8 @@ namespace InternPortal.Data.Migrations
     using System.Linq;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity;
+    using InternPortal.Data;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<InternPortal.Data.Models.InternPortalContext>
     {
@@ -84,7 +86,102 @@ namespace InternPortal.Data.Migrations
                 new QuestionType { QuestionTypeId = 3, QuestionType_ = "RadioButton" },
                 new QuestionType { QuestionTypeId = 4, QuestionType_ = "Checkbox" },
                 new QuestionType { QuestionTypeId = 5, QuestionType_ = "DropDown" },
-                new QuestionType { QuestionTypeId = 6, QuestionType_ = "Date" });
+                new QuestionType { QuestionTypeId = 6, QuestionType_ = "Date" },
+                new QuestionType { QuestionTypeId = 7, QuestionType_ ="Numeric"});
+        }
+
+        private void SeedQuestions()
+        {
+            var textBox = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.TextBox,
+                Question_ = "Question1"
+            };
+
+            var textArea = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.TextArea,
+                Question_ = "Question2"
+            };
+
+            var dropDown = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.DropDown,
+                Question_ = "Question3"
+            };
+
+            dropDown.QuestionOptions = new List<QuestionOption>()
+            {
+                new QuestionOption()
+                {
+                    Question = dropDown,
+                    OptionValue = "Option1",
+
+                },
+                new QuestionOption()
+                {
+                    Question = dropDown,
+                    OptionValue = "Option2",
+
+                }
+            };
+
+            var radioButton = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.RadioButton,
+                Question_ = "",
+
+            };
+
+            radioButton.QuestionOptions = new List<QuestionOption>()
+            {
+                new QuestionOption()
+                {
+                    Question = radioButton,
+                    OptionValue = "",
+                    
+                },
+                new QuestionOption()
+                {
+                    Question = radioButton,
+                    OptionValue = "",
+
+                }
+            };
+
+            var checkBox = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.Checkbox,
+                Question_ = ""
+            };
+
+            checkBox.QuestionOptions = new List<QuestionOption>()
+            {
+                new QuestionOption()
+                {
+                    Question = checkBox,
+                    OptionValue = "",
+
+                },
+                new QuestionOption()
+                {
+                    Question = checkBox,
+                    OptionValue = "",
+
+                }
+            };
+
+            var date = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.Date,
+                Question_ = ""
+            };
+
+            var numeric = new Question()
+            {
+                QuestionType = (int)InternPortal.Data.Constants.QuestionType.Numeric,
+                Question_ = ""
+            };
         }
     }
 }

@@ -36,16 +36,16 @@ namespace InternPortal.UI
              ));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
-             "~/Scripts/kendo/2017.2.621/jszip.min.js",
-             "~/Scripts/kendo/2017.2.621/kendo.all.min.js",
+             "~/Scripts/kendo/2018.1.117/jszip.min.js",
+             "~/Scripts/kendo/2018.1.117/kendo.all.min.js",
              // "~/Scripts/kendo/kendo.timezones.min.js", // uncomment if using the Scheduler
-             "~/Scripts/kendo/2017.2.621/kendo.aspnetmvc.min.js"));
+             "~/Scripts/kendo/2018.1.117/kendo.aspnetmvc.min.js"));
 
 
             bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
-                "~/Content/Kendo/2017.2.621/kendo.common.min.css",
-                "~/Content/Kendo/2017.2.621/kendo.bootstrap.min.css",
-                "~/Content/Kendo/2017.2.621/kendo.custom.css"));
+                "~/Content/Kendo/2018.1.117/kendo.common.min.css",
+                "~/Content/Kendo/2018.1.117/kendo.bootstrap.min.css",
+                "~/Content/Kendo/2018.1.117/kendo.custom.css"));
 
 
         }
