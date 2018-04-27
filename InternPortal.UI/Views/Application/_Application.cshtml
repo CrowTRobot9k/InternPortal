@@ -1,0 +1,15 @@
+﻿@model InternPortal.Data.Models.Application
+
+@Html.HiddenFor(model => model.ApplicationId)
+
+@Html.HiddenFor(model => model.UserId)
+
+@Html.HiddenFor(model => model.User.UserId)
+
+@Html.HiddenFor(model => model.User.Id)
+
+@Html.HiddenFor(model => model.ApplicationStartDate)
+
+@Html.HiddenFor(model => model.ApplicationCompleteDate)
+
+@Html.HiddenFor(model => model.ApplicationStatus)

@@ -25,12 +25,13 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Parent (One-to-One) QuestionType pointed by [Question].[QuestionId] (FK_dbo.Question_dbo.QuestionTypes_QuestionId)
+        /// Child Questions where [Question].[QuestionTypeId] point to this entity (FK_dbo.Question_dbo.QuestionTypes_QuestionId)
         /// </summary>
-        public virtual Question Question { get; set; } // Question.FK_dbo.Question_dbo.QuestionTypes_QuestionId
+        public virtual System.Collections.Generic.ICollection<Question> Questions { get; set; } // Question.FK_dbo.Question_dbo.QuestionTypes_QuestionId
 
         public QuestionType()
         {
+            Questions = new System.Collections.Generic.List<Question>();
             InitializePartial();
         }
 

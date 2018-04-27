@@ -149,13 +149,13 @@ namespace InternPortal.Data.Migrations
                 "dbo.Question",
                 c => new
                     {
-                        QuestionId = c.Int(nullable: false),
-                        QuestionType = c.Int(nullable: false),
+                        QuestionId = c.Int(nullable: false, identity: true),
+                        QuestionTypeId = c.Int(nullable: false),
                         Question = c.String(),
                     })
                 .PrimaryKey(t => t.QuestionId)
-                .ForeignKey("dbo.QuestionTypes", t => t.QuestionId)
-                .Index(t => t.QuestionId);
+                .ForeignKey("dbo.QuestionTypes", t => t.QuestionTypeId)
+                .Index(t => t.QuestionTypeId);
             
             CreateTable(
                 "dbo.QuestionOptions",
@@ -206,7 +206,7 @@ namespace InternPortal.Data.Migrations
         {
             DropForeignKey("dbo.Answers", "OptionId", "dbo.QuestionOptions");
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.Question", "QuestionId", "dbo.QuestionTypes");
+            DropForeignKey("dbo.Question", "QuestionTypeId", "dbo.QuestionTypes");
             DropForeignKey("dbo.QuestionOptions", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Answers", "ApplicationId", "dbo.Application");
             DropForeignKey("dbo.Application", "UserId", "dbo.User");
@@ -221,7 +221,7 @@ namespace InternPortal.Data.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.QuestionOptions", new[] { "QuestionId" });
-            DropIndex("dbo.Question", new[] { "QuestionId" });
+            DropIndex("dbo.Question", new[] { "QuestionTypeId" });
             DropIndex("dbo.UserUploads", new[] { "UploadId" });
             DropIndex("dbo.Messages", new[] { "UserIdTo" });
             DropIndex("dbo.Messages", new[] { "UserIdFrom" });

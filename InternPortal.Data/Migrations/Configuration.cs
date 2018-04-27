@@ -26,6 +26,8 @@ namespace InternPortal.Data.Migrations
             SeedApplicationStatus(context);
 
             SeedQuestionType(context);
+
+            SeedQuestions(context);
         }
 
         private void SeedRoles(IInternPortalContext context)
@@ -90,98 +92,103 @@ namespace InternPortal.Data.Migrations
                 new QuestionType { QuestionTypeId = 7, QuestionType_ ="Numeric"});
         }
 
-        private void SeedQuestions()
+        private void SeedQuestions(IInternPortalContext context)
         {
+            
             var textBox = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.TextBox,
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.TextBox,
                 Question_ = "Question1"
             };
 
             var textArea = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.TextArea,
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.TextArea,
                 Question_ = "Question2"
             };
 
             var dropDown = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.DropDown,
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.DropDown,
                 Question_ = "Question3"
             };
 
-            dropDown.QuestionOptions = new List<QuestionOption>()
-            {
+            dropDown.QuestionOptions.Add(
                 new QuestionOption()
                 {
-                    Question = dropDown,
-                    OptionValue = "Option1",
-
-                },
-                new QuestionOption()
-                {
-                    Question = dropDown,
-                    OptionValue = "Option2",
-
+                    OptionValue = "Option1"
                 }
-            };
+            );
+
+            dropDown.QuestionOptions.Add(
+                new QuestionOption()
+                {
+                    OptionValue = "Option2"
+                }
+            );
 
             var radioButton = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.RadioButton,
-                Question_ = "",
-
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.RadioButton,
+                Question_ = "RadioButton"
             };
 
-            radioButton.QuestionOptions = new List<QuestionOption>()
-            {
+            radioButton.QuestionOptions.Add(
                 new QuestionOption()
                 {
-                    Question = radioButton,
-                    OptionValue = "",
-                    
-                },
-                new QuestionOption()
-                {
-                    Question = radioButton,
-                    OptionValue = "",
+                    OptionValue = "Radiobutton Option 1"          
+                });
 
+            radioButton.QuestionOptions.Add(
+                new QuestionOption()
+                {
+                    OptionValue = "Radiobutton Option 2"
                 }
-            };
+            );
 
             var checkBox = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.Checkbox,
-                Question_ = ""
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.Checkbox,
+                Question_ = "Check Box"
             };
 
-            checkBox.QuestionOptions = new List<QuestionOption>()
-            {
+            checkBox.QuestionOptions.Add(
                 new QuestionOption()
                 {
-                    Question = checkBox,
-                    OptionValue = "",
-
-                },
-                new QuestionOption()
-                {
-                    Question = checkBox,
-                    OptionValue = "",
-
+                    OptionValue = "Checkbox Option 1"
                 }
-            };
+             );
+
+            checkBox.QuestionOptions.Add(
+                new QuestionOption()
+                {
+                    OptionValue = "Checkbox Option 2"
+                }
+            );
 
             var date = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.Date,
-                Question_ = ""
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.Date,
+                Question_ = "Date"
             };
 
             var numeric = new Question()
             {
-                QuestionType = (int)InternPortal.Data.Constants.QuestionType.Numeric,
-                Question_ = ""
+                QuestionTypeId = (int)InternPortal.Data.Constants.QuestionType.Numeric,
+                Question_ = "Numeric"
             };
+
+            context.Questions.AddOrUpdate(q=>q.Question_ ,
+                textBox,
+                textArea,
+                dropDown,
+                radioButton,
+                checkBox,
+                date,
+                numeric
+            );
         }
+
+        
     }
 }

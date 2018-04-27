@@ -24,6 +24,7 @@ namespace InternPortal.Data.Models
         public int QuestionId { get; set; } // QuestionId
         public int? OptionId { get; set; } // OptionId
         public string AnswerValue { get; set; } // AnswerValue
+        public bool OptionValue { get; set; } // OptionValue
 
         // Foreign keys
 
@@ -38,9 +39,9 @@ namespace InternPortal.Data.Models
         public virtual Question Question { get; set; } // FK_dbo.Answers_dbo.Question_QuestionId
 
         /// <summary>
-        /// Parent QuestionOption pointed by [Answers].([OptionId]) (FK_Answers_QuestionOptions)
+        /// Parent QuestionOption pointed by [Answers].([OptionId]) (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
         /// </summary>
-        public virtual QuestionOption QuestionOption { get; set; } // FK_Answers_QuestionOptions
+        public virtual QuestionOption QuestionOption { get; set; } // FK_dbo.Answers_dbo.QuestionOptions_OptionId
 
         public Answer()
         {

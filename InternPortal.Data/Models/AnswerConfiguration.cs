@@ -34,9 +34,10 @@ namespace InternPortal.Data.Models
             Property(x => x.QuestionId).HasColumnName(@"QuestionId").HasColumnType("int").IsRequired();
             Property(x => x.OptionId).HasColumnName(@"OptionId").HasColumnType("int").IsOptional();
             Property(x => x.AnswerValue).HasColumnName(@"AnswerValue").HasColumnType("varchar(max)").IsRequired().IsUnicode(false);
+            Property(x=>x.OptionValue).HasColumnName(@"OptionValue").HasColumnType("bit").IsRequired();
 
             // Foreign keys
-            HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_Answers_QuestionOptions
+            HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.QuestionOptions_OptionId
             HasRequired(a => a.Application).WithMany(b => b.Answers).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.Application_ApplicationId
             HasRequired(a => a.Question).WithMany(b => b.Answers).HasForeignKey(c => c.QuestionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.Question_QuestionId
             InitializePartial();

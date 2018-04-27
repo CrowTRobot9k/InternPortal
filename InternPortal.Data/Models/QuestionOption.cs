@@ -26,9 +26,9 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answers].[OptionId] point to this entity (FK_Answers_QuestionOptions)
+        /// Child Answers where [Answers].[OptionId] point to this entity (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_Answers_QuestionOptions
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.QuestionOptions_OptionId
 
         // Foreign keys
 

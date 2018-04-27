@@ -12,3 +12,9 @@
     font-size: 17px;
     color: white;
 }
+
+.k-textbox .k-icon {
+    top: 50%;
+    margin: -8px -8px 0 !important;
+    position: absolute;
+}

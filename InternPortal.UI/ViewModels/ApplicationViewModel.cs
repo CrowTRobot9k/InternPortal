@@ -10,6 +10,6 @@ namespace InternPortal.UI.ViewModels
     {
         public Application Application { get; set; }
 
-        public IEnumerable<Question> Questions { get; set; }
+        public List<QuestionAnswerViewModel> QuestionAnswers { get; set; }
     }
 }

@@ -1,0 +1,118 @@
+﻿@using InternPortal.Data.Models;
+@using InternPortal.Data;
+
+@model List<InternPortal.UI.ViewModels.QuestionAnswerViewModel>
+
+
+
+<div class="form-horizontal">
+    <h4>Questions</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        @Html.HiddenFor(m => @Model[i].Question.QuestionId)
+
+        switch (Model[i].Question.QuestionTypeId)
+        {
+            case ((int)Constants.QuestionType.TextBox):
+                <div class="form-group">
+                    @Html.LabelFor(model => @Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @(Html.TextBoxFor(model => Model[i].Answers.FirstOrDefault().AnswerValue, new { id = Model[i].Question.QuestionId.ToString(), @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                break;
+            case ((int)Constants.QuestionType.TextArea):
+                <div class="form-group">
+                    @Html.LabelFor(model => @Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => @Model[i].Answers.FirstOrDefault().AnswerValue, new { id = Model[i].Question.QuestionId.ToString(), @class = "form-control", rows = "5", @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                break;
+            case ((int)Constants.QuestionType.Date):
+                <div class="form-group">
+                    @Html.LabelFor(model => @Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @(Html.TextBoxFor(model => Model[i].Answers.FirstOrDefault().AnswerValue, new { id = Model[i].Question.QuestionId.ToString(), @class = "k-textbox datepicker" }))
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                break;
+            case ((int)Constants.QuestionType.RadioButton):
+                <div class="form-group">
+                    @Html.LabelFor(model => @Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @for (var o = 0; o < @Model[i].Question.QuestionOptions.Count(); o++)
+                        {
+                            if (@Model[i].Answers.Select(a => a.OptionId ?? 0).Contains(Model[i].Question.QuestionOptions.ToList()[o].OptionId))
+                            {
+                                <label>
+                                    @Html.RadioButtonFor(
+                                  model => @Model[i].Question.QuestionOptions.ToList()[o].OptionValue,
+                                              @Model[i].Answers.
+                                                  Where(a => a.OptionId == Model[i].Question.QuestionOptions.ToList()[o].OptionId).FirstOrDefault().OptionValue,
+                                                      new { @Name = Model[i].Question.QuestionId.ToString() })@Model[i].Question.QuestionOptions.ToList()[o].OptionValue
+                                                </label>
+                                                <br>
+                                            }
+                                        }
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                break;
+            case ((int)Constants.QuestionType.Checkbox):
+                <div class="form-group">
+                    @Html.LabelFor(model => @Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @for (var o = 0; o < @Model[i].Question.QuestionOptions.Count(); o++)
+                        {
+                            if (@Model[i].Answers.Select(a => a.OptionId ?? 0).Contains(Model[i].Question.QuestionOptions.ToList()[o].OptionId))
+                            {
+                                <label>
+                                    @Html.CheckBoxFor(model => @Model[i].Answers[0].OptionValue,
+                                              new { @Name = Model[i].Question.QuestionId.ToString() })
+                                @Model[i].Question.QuestionOptions.ToList()[o].OptionValue
+                            </label>
+                            <br>
+                        }
+                    }
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                break;
+            case ((int)Constants.QuestionType.Numeric):
+                <div class="form-group">
+                    @Html.LabelFor(model => Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @(Html.TextBoxFor(model => Model[i].Answers.FirstOrDefault().AnswerValue, new { @class = "k-textbox integer", id = Model[i].Question.QuestionId, @type = "number", step = "1" }))
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                        break;
+            case ((int)Constants.QuestionType.DropDown):
+                 <div class="form-group">
+                    @Html.LabelFor(model => Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Kendo().DropDownListFor(model=> Model[i].Answers.FirstOrDefault().OptionValue).BindTo(Model[i].Question.QuestionOptions.Select(q=>q.OptionValue).ToList())
+                    @Html.ValidationMessageFor(model => Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                </div>
+                </div>
+            break;
+            default:
+                <div class="form-group">
+                    @Html.LabelFor(model => @Model[i].Question.Question_, Model[i].Question.Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @(Html.TextBoxFor(model => Model[i].Answers.FirstOrDefault().AnswerValue, new { id = Model[i].Question.QuestionId.ToString(), @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
+                        @Html.ValidationMessageFor(model => @Model[i].Question.QuestionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                break;
+
+        }
+
+    }
+</div>

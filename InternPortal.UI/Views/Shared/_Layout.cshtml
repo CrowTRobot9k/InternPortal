@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Template Project</title>
+    <title>Intern Portal</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -34,6 +34,128 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="@Url.Content("~/Scripts/kendo/2018.1.117/kendo.all.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/kendo/2018.1.117/kendo.aspnetmvc.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    <script>
+        $(document).ready(function () {
+            //limit to two decimal places.
+            $('.2decimal').each(function (i, obj) {
+                $(obj).blur(function () {
+                    var num = parseFloat($(this).val());
+                    $(this).val(num.toFixed(2));
+                });
+            });
+
+            //only allow integers for these fields.
+            $('.integer').each(function (i, obj) {
+                $(obj).keypress(function () {
+                    return event.charCode >= 48 && event.charCode <= 57;
+                });
+            });
+
+            $('.datepicker').each(function () {
+                $(this).kendoDatePicker();
+            });
+
+
+        });
+
+        function callService(url, callback) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                error: function (e) {
+                    //alert(e);
+                },
+                dataType: 'json',
+                success: callback
+            });
+        }
+
+        function showConfirmDialog(title, alertText, closeText, confirmText, callback, closeCallback) {
+            var confirmDialog = $('#ConfirmDialog');
+            confirmDialog.kendoDialog
+                ({
+                    width: "400px",
+                    title: title,
+                    closable: true,
+                    modal: true,
+                    content: alertText,
+                    actions: [
+                        {
+                            text: closeText,
+                            action: closeCallback
+                        },
+                        {
+                            text: confirmText,
+                            primary: true,
+                            action: callback
+                        }
+                    ]
+                });
+            confirmDialog.data("kendoDialog").open();
+        }
+
+        function showApiDialog(title, alertText, closeText, confirmText, url) {
+            var confirmDialog = $('#ConfirmDialog');
+            confirmDialog.kendoDialog
+                ({
+                    width: "400px",
+                    title: title,
+                    closable: true,
+                    modal: false,
+                    content: alertText,
+                    actions: [
+                        { text: closeText },
+                        {
+                            text: confirmText,
+                            primary: true,
+                            action: function (e) {
+                                window.location.href = (url);
+                            }
+                        }
+                    ]
+                });
+            confirmDialog.data("kendoDialog").open();
+        }
+
+        function showAlertDialog(title, alertText, buttonText, closeCallback) {
+            var alertDialog = $('#AlertDialog');
+            alertDialog.kendoDialog
+                ({
+                    width: "400px",
+                    title: title,
+                    closable: true,
+                    modal: false,
+                    content: alertText,
+                    actions: [
+                        {
+                            text: buttonText,
+                            action: closeCallback
+                        }
+                    ]
+                });
+            alertDialog.data("kendoDialog").open();
+        }
+
+        function showAlert(title, alertText, buttonText) {
+            var alertDialog = $('#AlertDialog');
+            alertDialog.kendoDialog
+                ({
+                    width: "400px",
+                    title: title,
+                    closable: true,
+                    modal: false,
+                    content: alertText,
+                    actions: [
+                        {
+                            text: buttonText
+
+                        }
+                    ]
+                });
+            alertDialog.data("kendoDialog").open();
+        }
+
+    </script>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -212,7 +334,7 @@ desired effect
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="/User/CreateUser" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div>
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
@@ -234,24 +356,26 @@ desired effect
             </nav>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
-        
-            @*@Html.Action("Index", "Menu")*@
-        
+        @*@Html.Action("Index", "Menu")*@
+
         <!-- Content Wrapper. Contains page content -->
         @*<div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    @ViewBag.Title
-                    <small>@ViewBag.Description</small>
-                </h1>
-            </section>
-            <!-- Main content -->*@
-            <section class="content">
-                @RenderBody()
-            </section>
-            <!-- /.content -->
-        </div>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                @ViewBag.Title
+                <small>@ViewBag.Description</small>
+            </h1>
+        </section>
+        <!-- Main content -->*@
+        @* Dialogs for confirms and alerts *@
+        <div id="ConfirmDialog"></div>
+        <div id="AlertDialog"></div>
+        <section class="content">
+            @RenderBody()
+        </section>
+        <!-- /.content -->
+    </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
         <footer class="main-footer">

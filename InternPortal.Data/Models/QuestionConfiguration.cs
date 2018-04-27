@@ -29,12 +29,12 @@ namespace InternPortal.Data.Models
             ToTable("Question", schema);
             HasKey(x => x.QuestionId);
 
-            Property(x => x.QuestionId).HasColumnName(@"QuestionId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.QuestionType).HasColumnName(@"QuestionType").HasColumnType("int").IsRequired();
+            Property(x => x.QuestionId).HasColumnName(@"QuestionId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.QuestionTypeId).HasColumnName(@"QuestionTypeId").HasColumnType("int").IsRequired();
             Property(x => x.Question_).HasColumnName(@"Question").HasColumnType("nvarchar(max)").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.QuestionType_QuestionId).WithOptional(b => b.Question).WillCascadeOnDelete(false); // FK_dbo.Question_dbo.QuestionTypes_QuestionId
+            HasRequired(a => a.QuestionType).WithMany(b => b.Questions).HasForeignKey(c => c.QuestionTypeId).WillCascadeOnDelete(false); // FK_dbo.Question_dbo.QuestionTypes_QuestionId
             InitializePartial();
         }
         partial void InitializePartial();
