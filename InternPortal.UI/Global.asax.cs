@@ -7,7 +7,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
+using InternPortal.Data.Models;
 using InternPortal.UI.App_Start;
+using InternPortal.UI.Dto;
 
 namespace InternPortal.UI
 {
@@ -25,6 +27,29 @@ namespace InternPortal.UI
             {
                 //Create Mappings here;
                 //example cfg.CreateMap<Entity,EntityDto>();
+                cfg.CreateMap<User, UserDto>();
+                cfg.CreateMap<UserDto, User>();
+
+                cfg.CreateMap<Application, ApplicationDto>();
+                cfg.CreateMap<ApplicationDto, Application>();
+
+                cfg.CreateMap<Question, QuestionDto>();
+                cfg.CreateMap<QuestionDto, Question>();
+
+                cfg.CreateMap<QuestionOption, QuestionOptionDto>();
+                cfg.CreateMap<QuestionOptionDto, QuestionOptionDto>();
+
+                cfg.CreateMap<Answer, AnswerDto>();
+                cfg.CreateMap<AnswerDto, Answer>();
+
+                cfg.CreateMap<Message, MessageDto>();
+                cfg.CreateMap<MessageDto, Message>();
+
+                cfg.CreateMap<QuestionType, QuestionTypeDto>();
+                cfg.CreateMap<QuestionTypeDto, QuestionType>();
+
+                cfg.CreateMap<UserUpload, UserUploadDto>();
+                cfg.CreateMap<UserUploadDto, UserUpload>();
             });
         }
     }

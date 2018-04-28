@@ -10,10 +10,27 @@
 @using (Html.BeginForm())
 {
 
+    @Html.HiddenFor(model => model.Application.User.Id)
 
-    @Html.Partial("_Application", Model.Application)
+    @Html.HiddenFor(model => model.Application.User.Id)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStartDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStartDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStatus)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStatus)
+
+    @*@Html.Partial("_Application", Model.Application)*@
 
     @Html.Partial("_Questions", Model.QuestionAnswers)
+
+
 
     <div class="row">
         <div class="col-md-3">
