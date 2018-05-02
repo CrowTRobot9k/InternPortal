@@ -1130,6 +1130,9 @@
     <Content Include="Views\Application\_Application.cshtml" />
     <Content Include="Views\Application\CreateApplication.cshtml" />
     <Content Include="Views\Application\_Questions.cshtml" />
+    <Content Include="Views\Application\_Question.cshtml" />
+    <Content Include="Views\Application\_Answer.cshtml" />
+    <Content Include="Views\Application\_Option.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

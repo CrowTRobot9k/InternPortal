@@ -52,15 +52,29 @@ namespace InternPortal.UI.Controllers
             //get all questions
             var questions = _unitOfWork.Questions.GetAll().ToList();
 
-            //get answer to each question or inittialize new answer for question.
-            viewModel.QuestionAnswers = 
-                questions.Select(i => 
-            new QuestionAnswerViewModel(i,
-                _unitOfWork.Answers.
-                    Where(a=>a.QuestionId==i.QuestionId 
-                        && a.ApplicationId==(viewModel.Application.ApplicationId))
-                            .ToList()?? new List<Answer>())
-            ).ToList();
+            //get answer to each question or initialize new answer for question.
+            //foreach (var question in questions)
+            //{
+            //    viewModel.QuestionAnswers.Add(
+            //        new QuestionAnswerViewModel(question,
+            //           question.QuestionOptions?? _unitOfWork.Answers.
+            //        Where(a => a.QuestionId == question.QuestionId
+            //            && a.ApplicationId == viewModel.Application.ApplicationId 
+            //            && question.QuestionOptions.Select(i=> i.OptionId)==a.OptionId).ToList()
+
+            //        )
+            //    };
+            //}
+
+
+            //viewModel.QuestionAnswers = 
+            //    questions.Select(i => 
+            //new QuestionAnswerViewModel(i,
+            //    _unitOfWork.Answers.
+            //        Where(a=>a.QuestionId==i.QuestionId 
+            //            && a.ApplicationId==(viewModel.Application.ApplicationId))
+            //                .ToList()?? new List<Answer>())
+            //).ToList();
 
             return View(viewModel);
         }

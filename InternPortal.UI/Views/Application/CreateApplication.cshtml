@@ -9,21 +9,31 @@
 
 @using (Html.BeginForm())
 {
-
+    <div class="form-horizontal">
 
     @Html.Partial("_Application", Model.Application)
 
-    @Html.Partial("_Questions", Model.QuestionAnswers)
 
-    <div class="row">
-        <div class="col-md-3">
-            @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
-        </div>
-        <div class="col-md-3">
-            <input type="submit" value="Save" class="btn btn-default" formaction="/Application/SaveApplication" formmethod="post" />
-        </div>
-        <div class="col-md-3">
-            @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
-        </div>
+    @foreach (var qa in Model.QuestionAnswers)
+    {
+        @Html.Partial("_Question", qa.Question)
+        foreach (var a in qa.Answers)
+        {
+        @Html.Partial("_Answer", a);
+        }
+    }
     </div>
+        @*@Html.Partial("_Questions", Model.QuestionAnswers)*@
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="Save" class="btn btn-default" formaction="/Application/SaveApplication" formmethod="post" />
+            </div>
+            <div class="col-md-3">
+                @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
 }
