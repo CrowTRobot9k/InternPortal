@@ -11,7 +11,23 @@
 {
     <div class="form-horizontal">
 
-    @Html.Partial("_Application", Model.Application)
+    @Html.HiddenFor(model => model.Application.User.Id)
+
+    @Html.HiddenFor(model => model.Application.User.Id)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStartDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStartDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStatus)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStatus)
+
+    @*@Html.Partial("_Application", Model.Application)*@
 
 
     @foreach (var qa in Model.QuestionAnswers)
@@ -36,4 +52,18 @@
                 @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
             </div>
         </div>
+}
+
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Save" class="btn btn-default" formaction="/Application/SaveApplication" formmethod="post" />
+        </div>
+        <div class="col-md-3">
+            @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
 }

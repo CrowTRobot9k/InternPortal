@@ -286,6 +286,14 @@
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Dto\AnswerDto.cs" />
+    <Compile Include="Dto\ApplicationDto.cs" />
+    <Compile Include="Dto\MessageDto.cs" />
+    <Compile Include="Dto\QuestionDto.cs" />
+    <Compile Include="Dto\QuestionOptionDto.cs" />
+    <Compile Include="Dto\QuestionTypeDto.cs" />
+    <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="Dto\UserUploadDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1136,7 +1144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Dto\" />
     <Folder Include="Views\InternService\" />
     <Folder Include="Views\Message\" />
   </ItemGroup>

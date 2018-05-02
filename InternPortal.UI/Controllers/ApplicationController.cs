@@ -87,8 +87,6 @@ namespace InternPortal.UI.Controllers
                 return View("CreateUser", viewModel);
             }
 
-
-            //viewModel.QuestionAnswers.Select(i => i.Answers.Select(answer => viewModel.Application.Answers.Add(new Answer { A})));
             foreach (var qa in viewModel.QuestionAnswers)
             {
                 //update or add answer to question
@@ -96,9 +94,9 @@ namespace InternPortal.UI.Controllers
                 {
                     var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.AnswerId == answer.AnswerId);
 
-                    if (updateAnswer!=null)
+                    if (updateAnswer != null)
                     {
-                        updateAnswer=answer;
+                        updateAnswer = answer;
                     }
                     else
                     {
