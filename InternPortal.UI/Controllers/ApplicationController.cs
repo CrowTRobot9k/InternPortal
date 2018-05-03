@@ -1,5 +1,7 @@
-﻿using InternPortal.Data;
+﻿using AutoMapper;
+using InternPortal.Data;
 using InternPortal.Data.Models;
+using InternPortal.UI.Dto;
 using InternPortal.UI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,9 +37,9 @@ namespace InternPortal.UI.Controllers
             var viewModel = new ApplicationViewModel()
             {
                 //get in progress application or new
-                Application = _unitOfWork.Applications.GetAll()
+                Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
                                 .Where(i => i.UserId == user.UserId && i.ApplicationCompleteDate != null).FirstOrDefault()
-                                ?? new Application()
+                                ?? new Application())
             };
 
             //new application: assign user, start date, initial pending status (should interviews be pending if they are not completed?).
@@ -50,32 +52,38 @@ namespace InternPortal.UI.Controllers
            }
 
             //get all questions
-            var questions = _unitOfWork.Questions.GetAll().ToList();
+            viewModel.Questions = Mapper.Map<IEnumerable<QuestionDto>>(_unitOfWork.Questions.GetAll().ToList()).ToList();
 
             //get answer to each question or initialize new answer for question.
-            //foreach (var question in questions)
-            //{
-            //    viewModel.QuestionAnswers.Add(
-            //        new QuestionAnswerViewModel(question,
-            //           question.QuestionOptions?? _unitOfWork.Answers.
-            //        Where(a => a.QuestionId == question.QuestionId
-            //            && a.ApplicationId == viewModel.Application.ApplicationId 
-            //            && question.QuestionOptions.Select(i=> i.OptionId)==a.OptionId).ToList()
+            foreach (var question in viewModel.Questions)
+            {
+                if (question.QuestionOptions.Count() > 0)
+                {
+                    //Todo: Optimize this
+                    foreach (var option in question.QuestionOptions)
+                    {
+                        option.Answers = viewModel.Application.Answers.Where(a => 
+                               a.QuestionId == question.QuestionId 
+                            && a.ApplicationId == viewModel.Application.ApplicationId
+                            && a.OptionId == option.OptionId).ToList();
 
-            //        )
-            //    };
-            //}
-
-
-            //viewModel.QuestionAnswers = 
-            //    questions.Select(i => 
-            //new QuestionAnswerViewModel(i,
-            //    _unitOfWork.Answers.
-            //        Where(a=>a.QuestionId==i.QuestionId 
-            //            && a.ApplicationId==(viewModel.Application.ApplicationId))
-            //                .ToList()?? new List<Answer>())
-            //).ToList();
-
+                        if (!question.Answers.Any(a => a.QuestionId == question.QuestionId && a.OptionId == option.OptionId && a.ApplicationId == viewModel.Application.ApplicationId))
+                        {
+                            var newAnswer = new AnswerDto() { QuestionId = question.QuestionId, OptionId = option.OptionId };
+                            option.Answers.Add(newAnswer);
+                            question.Answers.Add(newAnswer);
+                        }
+                    }
+                }
+                else
+                {
+                    if (!viewModel.Application.Answers.Any(a => a.QuestionId == question.QuestionId && a.ApplicationId == viewModel.Application.ApplicationId))
+                    {
+                        question.Answers.Add(new AnswerDto() {  QuestionId = question.QuestionId });
+                    }
+                }
+            }
+           
             return View(viewModel);
         }
 
@@ -87,26 +95,21 @@ namespace InternPortal.UI.Controllers
                 return View("CreateUser", viewModel);
             }
 
-            foreach (var qa in viewModel.QuestionAnswers)
-            {
                 //update or add answer to question
-                foreach (var answer in qa.Answers)
+            foreach (var answer in viewModel.Application.Answers)
+            {
+                var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.AnswerId == answer.AnswerId);
+
+                if (updateAnswer != null)
                 {
-                    var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.AnswerId == answer.AnswerId);
-
-                    if (updateAnswer != null)
-                    {
-                        updateAnswer = answer;
-                    }
-                    else
-                    {
-                        answer.QuestionId = qa.Question.QuestionId;
-
-                        viewModel.Application.Answers.Add
-                        (
-                           answer
-                        );
-                    }
+                    updateAnswer = answer;
+                }
+                else
+                {
+                    viewModel.Application.Answers.Add
+                    (
+                       answer
+                    );
                 }
             }
 
@@ -119,7 +122,7 @@ namespace InternPortal.UI.Controllers
             }
             else
             {
-                _unitOfWork.Applications.Add(viewModel.Application);
+                _unitOfWork.Applications.Add(Mapper.Map<Application>(viewModel.Application));
             }
 
             _unitOfWork.Complete();

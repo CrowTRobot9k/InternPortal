@@ -13,11 +13,7 @@ namespace InternPortal.UI.Dto
         public System.DateTime? ApplicationCompleteDate { get; set; } // ApplicationCompleteDate
         public int? ApplicationStatus { get; set; } // ApplicationStatus
 
-        // Foreign keys
-
-        /// <summary>
-        /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)
-        /// </summary>
-        public virtual UserDto User { get; set; } // FK_dbo.Application_dbo.User_UserId
+        public List<AnswerDto> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Application_ApplicationId
+        public UserDto User { get; set; } // FK_dbo.Application_dbo.User_UserId
     }
 }

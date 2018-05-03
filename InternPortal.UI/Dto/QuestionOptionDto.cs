@@ -10,5 +10,7 @@ namespace InternPortal.UI.Dto
         public int OptionId { get; set; } // OptionId (Primary key)
         public int QuestionId { get; set; } // QuestionId
         public string OptionValue { get; set; } // OptionValue
+
+        public List<AnswerDto> Answers { get; set; }
     }
 }
