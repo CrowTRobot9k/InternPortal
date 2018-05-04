@@ -29,12 +29,12 @@ namespace InternPortal.Data.Models
             ToTable("Answers", schema);
             HasKey(x => x.AnswerId);
 
-            Property(x => x.AnswerId).HasColumnName(@"AnswerId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.AnswerId).HasColumnName(@"AnswerId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsRequired();
             Property(x => x.QuestionId).HasColumnName(@"QuestionId").HasColumnType("int").IsRequired();
             Property(x => x.OptionId).HasColumnName(@"OptionId").HasColumnType("int").IsOptional();
-            Property(x => x.AnswerValue).HasColumnName(@"AnswerValue").HasColumnType("varchar(max)").IsRequired().IsUnicode(false);
-            Property(x=>x.OptionValue).HasColumnName(@"OptionValue").HasColumnType("bit").IsRequired();
+            Property(x => x.AnswerValue).HasColumnName(@"AnswerValue").HasColumnType("varchar(max)").IsOptional().IsUnicode(false);
+            Property(x=>x.OptionValue).HasColumnName(@"OptionValue").HasColumnType("bit").IsOptional();
 
             // Foreign keys
             HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.QuestionOptions_OptionId

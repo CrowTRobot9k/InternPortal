@@ -37,7 +37,7 @@ namespace InternPortal.UI
                 cfg.CreateMap<QuestionDto, Question>();
 
                 cfg.CreateMap<QuestionOption, QuestionOptionDto>();
-                cfg.CreateMap<QuestionOptionDto, QuestionOptionDto>();
+                cfg.CreateMap<QuestionOptionDto, QuestionOption>();
 
                 cfg.CreateMap<Answer, AnswerDto>();
                 cfg.CreateMap<AnswerDto, Answer>();

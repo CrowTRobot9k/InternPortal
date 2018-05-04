@@ -99,11 +99,13 @@ namespace InternPortal.UI.Controllers
                 return View("CreateApplication", viewModel);
             }
 
+            viewModel.Application.Answers = Mapper.Map<IEnumerable<AnswerDto>>(_unitOfWork.Answers.Where(a => a.ApplicationId == viewModel.Application.ApplicationId).ToList() ?? new List<Answer>()).ToList();
+
                 //update or add answer to question
             foreach (var question in viewModel.Questions)
             {
                 //questions only 1 possible answer
-                if (question.QuestionType.QuestionTypeId != (int)Constants.QuestionType.Checkbox)
+                if (question.QuestionTypeId != (int)Constants.QuestionType.Checkbox)
                 {
 
                     var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == question.Answers.FirstOrDefault().QuestionId);
@@ -124,14 +126,14 @@ namespace InternPortal.UI.Controllers
                 {
                     foreach (var option in question.QuestionOptions)
                     {
-                        var updateMultipleAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == question.Answers.FirstOrDefault().QuestionId && i.OptionId == option.OptionId);
+                        var updateMultipleAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == option.QuestionId && i.OptionId == option.OptionId);
 
                         if (updateMultipleAnswer != null)
                         {
                             updateMultipleAnswer = option.Answers.FirstOrDefault();
                         }
                         else
-                        {
+                        {                        
                             viewModel.Application.Answers.Add
                             (
                                option.Answers.FirstOrDefault()

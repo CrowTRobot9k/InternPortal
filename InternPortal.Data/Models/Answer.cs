@@ -24,7 +24,7 @@ namespace InternPortal.Data.Models
         public int QuestionId { get; set; } // QuestionId
         public int? OptionId { get; set; } // OptionId
         public string AnswerValue { get; set; } // AnswerValue
-        public bool OptionValue { get; set; } // OptionValue
+        public bool? OptionValue { get; set; } // OptionValue
 
         // Foreign keys
 
