@@ -38,7 +38,7 @@ namespace InternPortal.UI.Controllers
             {
                 //get in progress application or new
                 Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
-                                .Where(i => i.UserId == user.UserId && i.ApplicationCompleteDate != null).FirstOrDefault()
+                                .Where(i => i.UserId == user.UserId && i.ApplicationCompleteDate == null).FirstOrDefault()
                                 ?? new Application())
             };
 
@@ -99,56 +99,39 @@ namespace InternPortal.UI.Controllers
                 return View("CreateApplication", viewModel);
             }
 
-            viewModel.Application.Answers = Mapper.Map<IEnumerable<AnswerDto>>(_unitOfWork.Answers.Where(a => a.ApplicationId == viewModel.Application.ApplicationId).ToList() ?? new List<Answer>()).ToList();
-
-                //update or add answer to question
-            foreach (var question in viewModel.Questions)
-            {
-                //questions only 1 possible answer
-                if (question.QuestionTypeId != (int)Constants.QuestionType.Checkbox)
-                {
-
-                    var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == question.Answers.FirstOrDefault().QuestionId);
-
-                    if (updateAnswer != null)
-                    {
-                        updateAnswer = question.Answers.FirstOrDefault();
-                    }
-                    else
-                    {
-                        viewModel.Application.Answers.Add
-                        (
-                           question.Answers.FirstOrDefault()
-                        );
-                    }
-                }
-                else
-                {
-                    foreach (var option in question.QuestionOptions)
-                    {
-                        var updateMultipleAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == option.QuestionId && i.OptionId == option.OptionId);
-
-                        if (updateMultipleAnswer != null)
-                        {
-                            updateMultipleAnswer = option.Answers.FirstOrDefault();
-                        }
-                        else
-                        {                        
-                            viewModel.Application.Answers.Add
-                            (
-                               option.Answers.FirstOrDefault()
-                            );
-                        }
-                    }
-                }
-            }
-
             var applicationToSave = _unitOfWork.Applications.Where(i => i.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
+
+            if (applicationToSave != null)
+            {
+                viewModel.Application.Answers = Mapper.Map<IEnumerable<AnswerDto>>(_unitOfWork.Answers.Where(a => a.ApplicationId == viewModel.Application.ApplicationId).ToList() ?? new List<Answer>()).ToList();
+
+                applicationToSave = _unitOfWork.Applications.UpdateApplicationAnswers(applicationToSave, Mapper.Map<IEnumerable<Question>>(viewModel.Questions));
+            }
+            else
+            {
+                viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationAnswers(Mapper.Map<Application>(viewModel.Application), Mapper.Map<IEnumerable<Question>>(viewModel.Questions)));
+            }
 
             //add or update application
             if (applicationToSave != null)
             {
-                _unitOfWork.Context().Entry(applicationToSave).CurrentValues.SetValues(viewModel.Application);
+                //add or update each answer
+                foreach (var answer in viewModel.Application.Answers)
+                {
+                    var answerToUpdate = _unitOfWork.Answers.Where(a => a.AnswerId == answer.AnswerId).FirstOrDefault();
+
+                    if (answerToUpdate != null)
+                    {
+                        _unitOfWork.Context().Entry(answerToUpdate).CurrentValues.SetValues(Mapper.Map<Answer>(answer));
+                    }
+                    else
+                    {
+                        _unitOfWork.Answers.Add(Mapper.Map<Answer>(answer));
+                    }
+                        
+                }
+
+                _unitOfWork.Context().Entry(applicationToSave).CurrentValues.SetValues(Mapper.Map<Application>(viewModel.Application));
             }
             else
             {
@@ -157,7 +140,7 @@ namespace InternPortal.UI.Controllers
 
             _unitOfWork.Complete();
 
-            return View("CreateApplication",viewModel);
+            return RedirectToAction("CreateApplication");
         }
 
         public ActionResult UpdateApplication()

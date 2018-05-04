@@ -34,7 +34,7 @@ namespace InternPortal.Data.Models
             Property(x => x.QuestionId).HasColumnName(@"QuestionId").HasColumnType("int").IsRequired();
             Property(x => x.OptionId).HasColumnName(@"OptionId").HasColumnType("int").IsOptional();
             Property(x => x.AnswerValue).HasColumnName(@"AnswerValue").HasColumnType("varchar(max)").IsOptional().IsUnicode(false);
-            Property(x=>x.OptionValue).HasColumnName(@"OptionValue").HasColumnType("bit").IsOptional();
+            Property(x => x.OptionValue).HasColumnName(@"OptionValue").HasColumnType("bit").IsOptional();
 
             // Foreign keys
             HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.QuestionOptions_OptionId

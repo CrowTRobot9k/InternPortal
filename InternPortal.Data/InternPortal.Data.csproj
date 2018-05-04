@@ -108,6 +108,10 @@
     <Compile Include="Migrations\201805040524422_MadeAnswerIdIdentityColumn.Designer.cs">
       <DependentUpon>201805040524422_MadeAnswerIdIdentityColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805041836533_FixIdentityColumnAnswer.cs" />
+    <Compile Include="Migrations\201805041836533_FixIdentityColumnAnswer.Designer.cs">
+      <DependentUpon>201805041836533_FixIdentityColumnAnswer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805040524422_MadeAnswerIdIdentityColumn.resx">
       <DependentUpon>201805040524422_MadeAnswerIdIdentityColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805041836533_FixIdentityColumnAnswer.resx">
+      <DependentUpon>201805041836533_FixIdentityColumnAnswer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

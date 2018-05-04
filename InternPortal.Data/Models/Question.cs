@@ -37,9 +37,9 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent QuestionType pointed by [Question].([QuestionTypeId]) (FK_dbo.Question_dbo.QuestionTypes_QuestionId)
+        /// Parent QuestionType pointed by [Question].([QuestionTypeId]) (FK_dbo.Question_dbo.QuestionTypes_QuestionTypeId)
         /// </summary>
-        public virtual QuestionType QuestionType { get; set; } // FK_dbo.Question_dbo.QuestionTypes_QuestionId
+        public virtual QuestionType QuestionType { get; set; } // FK_dbo.Question_dbo.QuestionTypes_QuestionTypeId
 
         public Question()
         {
