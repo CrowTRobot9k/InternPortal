@@ -57,29 +57,33 @@ namespace InternPortal.UI.Controllers
             //get answer to each question or initialize new answer for question.
             foreach (var question in viewModel.Questions)
             {
-                if (question.QuestionOptions.Count() > 0)
+                //questions only 1 possible answer
+                if (question.QuestionType.QuestionTypeId != (int)Constants.QuestionType.Checkbox)
                 {
-                    //Todo: Optimize this
-                    foreach (var option in question.QuestionOptions)
-                    {
-                        option.Answers = viewModel.Application.Answers.Where(a => 
-                               a.QuestionId == question.QuestionId 
-                            && a.ApplicationId == viewModel.Application.ApplicationId
-                            && a.OptionId == option.OptionId).ToList();
+                    question.Answers = viewModel.Application.Answers.Where(a =>
+                                   a.QuestionId == question.QuestionId
+                                && a.ApplicationId == viewModel.Application.ApplicationId
+                                ).ToList();
 
-                        if (!question.Answers.Any(a => a.QuestionId == question.QuestionId && a.OptionId == option.OptionId && a.ApplicationId == viewModel.Application.ApplicationId))
-                        {
-                            var newAnswer = new AnswerDto() { QuestionId = question.QuestionId, OptionId = option.OptionId };
-                            option.Answers.Add(newAnswer);
-                            question.Answers.Add(newAnswer);
-                        }
+                    if (!question.Answers.Any(a => a.QuestionId == question.QuestionId && a.ApplicationId == viewModel.Application.ApplicationId))
+                    {
+                        question.Answers.Add(new AnswerDto() { QuestionId = question.QuestionId });
                     }
                 }
+                //questions with multiple possible answers
                 else
                 {
-                    if (!viewModel.Application.Answers.Any(a => a.QuestionId == question.QuestionId && a.ApplicationId == viewModel.Application.ApplicationId))
+                    foreach (var option in question.QuestionOptions)
                     {
-                        question.Answers.Add(new AnswerDto() {  QuestionId = question.QuestionId });
+                        option.Answers = viewModel.Application.Answers.Where(a =>
+                        a.QuestionId == question.QuestionId
+                        && a.ApplicationId == viewModel.Application.ApplicationId
+                        && a.OptionId == option.OptionId).ToList();
+
+                        if (!option.Answers.Any(a => a.QuestionId == question.QuestionId && a.ApplicationId == viewModel.Application.ApplicationId && a.OptionId == option.OptionId))
+                        {
+                            option.Answers.Add(new AnswerDto() { QuestionId = question.QuestionId, OptionId = option.OptionId });
+                        }
                     }
                 }
             }
@@ -92,24 +96,48 @@ namespace InternPortal.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateUser", viewModel);
+                return View("CreateApplication", viewModel);
             }
 
                 //update or add answer to question
-            foreach (var answer in viewModel.Application.Answers)
+            foreach (var question in viewModel.Questions)
             {
-                var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.AnswerId == answer.AnswerId);
-
-                if (updateAnswer != null)
+                //questions only 1 possible answer
+                if (question.QuestionType.QuestionTypeId != (int)Constants.QuestionType.Checkbox)
                 {
-                    updateAnswer = answer;
+
+                    var updateAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == question.Answers.FirstOrDefault().QuestionId);
+
+                    if (updateAnswer != null)
+                    {
+                        updateAnswer = question.Answers.FirstOrDefault();
+                    }
+                    else
+                    {
+                        viewModel.Application.Answers.Add
+                        (
+                           question.Answers.FirstOrDefault()
+                        );
+                    }
                 }
                 else
                 {
-                    viewModel.Application.Answers.Add
-                    (
-                       answer
-                    );
+                    foreach (var option in question.QuestionOptions)
+                    {
+                        var updateMultipleAnswer = viewModel.Application.Answers.FirstOrDefault(i => i.QuestionId == question.Answers.FirstOrDefault().QuestionId && i.OptionId == option.OptionId);
+
+                        if (updateMultipleAnswer != null)
+                        {
+                            updateMultipleAnswer = option.Answers.FirstOrDefault();
+                        }
+                        else
+                        {
+                            viewModel.Application.Answers.Add
+                            (
+                               option.Answers.FirstOrDefault()
+                            );
+                        }
+                    }
                 }
             }
 
