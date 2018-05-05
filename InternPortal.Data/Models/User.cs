@@ -48,9 +48,9 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Messages.FK_dbo.Messages_dbo.User_UserIdTo
         /// <summary>
-        /// Parent (One-to-One) User pointed by [UserUploads].[UploadId] (FK_dbo.UserUploads_dbo.User_UploadId)
+        /// Child UserUploads where [UserUploads].[UserId] point to this entity (FK_dbo.UserUploads_dbo.User_UserId)
         /// </summary>
-        public virtual UserUpload UserUpload { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.User_UploadId
+        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.User_UserId
 
         // Foreign keys
 
@@ -64,6 +64,7 @@ namespace InternPortal.Data.Models
             Applications = new System.Collections.Generic.List<Application>();
             Messages_UserIdFrom = new System.Collections.Generic.List<Message>();
             Messages_UserIdTo = new System.Collections.Generic.List<Message>();
+            UserUploads = new System.Collections.Generic.List<UserUpload>();
             InitializePartial();
         }
 

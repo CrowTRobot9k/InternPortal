@@ -1,17 +1,46 @@
-﻿
+﻿@model InternPortal.UI.ViewModels.HomePageViewModel
+
 @{
     ViewBag.Title = "Home Page";
     ViewBag.Decription = "";
 }
 
+
 <div class="container-fluid">
-    <div class="row">
-        <div class="text-center">
-            <div class="form-group">
-                <label for="exampleInputPassword1">Start New Application:</label>
-                @Html.ActionLink("Start", "CreateUser", "User", null, new { @class = "btn btn-primary" })
+    @if (!User.IsInRole("admin"))
+    {
+        if (Model.User == null)
+        {
+            <div class="row">
+                <div class="text-center">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Start Profile:</label>
+                        @Html.ActionLink("Start", "CreateUser", "User", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-        
+        }
+        else if (Model.User.Applications.FirstOrDefault() == null)
+        {
+            <div class="row">
+                <div class="text-center">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Start Application:</label>
+                        @Html.ActionLink("Continue", "Application", "Aplication", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+        if (Model.User!=null && Model.User.Applications.FirstOrDefault() != null)
+        {
+            <div class="row">
+                <div class="text-center">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Continue Application:</label>
+                        @Html.ActionLink("Continue", "Resume", "Application", new { applicationId = Model.User.Applications.Where(i=>i.ApplicationCompleteDate == null).OrderBy(i=>i.ApplicationStartDate).FirstOrDefault().ApplicationId}, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>

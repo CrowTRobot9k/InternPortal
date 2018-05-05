@@ -24,7 +24,7 @@ namespace InternPortal.UI.Controllers
             return View();
         }
 
-        public ActionResult CreateApplication()
+        public ActionResult Application()
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault();
@@ -96,7 +96,7 @@ namespace InternPortal.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateApplication", viewModel);
+                return View("Application", viewModel);
             }
 
             var applicationToSave = _unitOfWork.Applications.Where(i => i.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
@@ -116,7 +116,7 @@ namespace InternPortal.UI.Controllers
             if (applicationToSave != null)
             {
                 //add or update each answer
-                foreach (var answer in viewModel.Application.Answers)
+                foreach (var answer in applicationToSave.Answers)
                 {
                     var answerToUpdate = _unitOfWork.Answers.Where(a => a.AnswerId == answer.AnswerId).FirstOrDefault();
 
@@ -140,15 +140,23 @@ namespace InternPortal.UI.Controllers
 
             _unitOfWork.Complete();
 
-            return RedirectToAction("CreateApplication");
+            return RedirectToAction("Application");
         }
 
-        public ActionResult UpdateApplication()
+        public ActionResult Resume(int applicationId)
         {
-            return View();
+            if (!_unitOfWork.Applications.GetAll().Any(a => a.ApplicationId == applicationId))
+            {
+                return View("Application");
+            }
+
+            var userUpload = Mapper.Map<UserUploadDto>(_unitOfWork.UserUploads.Where(u => u.ApplicationId == applicationId).FirstOrDefault() ?? new UserUpload() { ApplicationId = applicationId });
+
+            return View(userUpload);       
         }
 
-        public ActionResult DeleteApplication()
+
+        public ActionResult SaveResume()
         {
             return View();
         }

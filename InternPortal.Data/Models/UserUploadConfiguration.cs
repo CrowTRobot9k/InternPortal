@@ -30,13 +30,15 @@ namespace InternPortal.Data.Models
             HasKey(x => x.UploadId);
 
             Property(x => x.UploadId).HasColumnName(@"UploadId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
+            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsOptional();
+            Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsOptional();
             Property(x => x.UploadLocation).HasColumnName(@"UploadLocation").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.UploadTitle).HasColumnName(@"UploadTitle").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.UploadDescription).HasColumnName(@"UploadDescription").HasColumnType("nvarchar(max)").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.User).WithOptional(b => b.UserUpload).WillCascadeOnDelete(false); // FK_dbo.UserUploads_dbo.User_UploadId
+            HasOptional(a => a.Application).WithMany(b => b.UserUploads).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_dbo.UserUploads_dbo.Application_ApplicationId
+            HasOptional(a => a.User).WithMany(b => b.UserUploads).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_dbo.UserUploads_dbo.User_UserId
             InitializePartial();
         }
         partial void InitializePartial();
