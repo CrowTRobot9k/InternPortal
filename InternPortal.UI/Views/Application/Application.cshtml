@@ -116,28 +116,24 @@
 
                     @Html.HiddenFor(model => Model.Questions[i].Answers[a].QuestionId)
 
-                    @Html.HiddenFor(model => Model.Questions[i].Answers[a].OptionId)
-
-                    @*@Html.EditorFor(model => Model.Questions[i].Answers[a].AnswerValue, new { htmlAttributes = new { @class = "form-control" } })*@
-
-                    @*@Html.EditorFor(model => Model.Questions[i].Answers[a].OptionValue)*@
-
-                    @switch (Model.Questions[i].QuestionTypeId)
-                    {
-                        case ((int)Constants.QuestionType.TextBox):
-                            @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
-                            break;
-                        case ((int)Constants.QuestionType.TextArea):
-                            @Html.TextAreaFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "form-control", rows = "5", @style = "width:100%" })
-                            break;
-                        case ((int)Constants.QuestionType.Date):
-                            @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox datepicker" }))
-                            break;
-                        case ((int)Constants.QuestionType.Numeric):
-                            @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { @class = "k-textbox integer", id = Model.Questions[i].QuestionId.ToString(), @type = "number", step = "1" }))
-                            break;
-                        default:
-                            break;
+                      @Html.HiddenFor(model => Model.Questions[i].Answers[a].OptionId)
+           
+                      @switch (Model.Questions[i].QuestionTypeId)
+                      {
+                          case ((int)Constants.QuestionType.TextBox):
+                              @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
+                          break;
+                          case ((int)Constants.QuestionType.TextArea):
+                                      @Html.TextAreaFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "form-control", rows = "5", @style = "width:100%" })
+                          break;
+                          case ((int)Constants.QuestionType.Date):
+                                      @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox datepicker" }))
+                          break;
+                          case ((int)Constants.QuestionType.Numeric):
+                                      @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { @class = "k-textbox integer", id = Model.Questions[i].QuestionId.ToString(), @type = "number", step = "1" }))
+                          break;
+                          default:
+                          break;
 
                     }
                 </div>
@@ -149,6 +145,8 @@
     }
 </div>
     @*@Html.Partial("_Questions", Model.QuestionAnswers)*@
+     }
+    </div>
 
     <div class="row">
         <div class="col-md-3">
@@ -158,7 +156,7 @@
             <input type="submit" value="Save" class="btn btn-default" formaction="/Application/SaveApplication" formmethod="post" />
         </div>
         <div class="col-md-3">
-            @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Continue Application", "Resume", "Application", new { applicationId = Model.Application.ApplicationId}, new { @class = "btn btn-primary" })
         </div>
     </div>
 }

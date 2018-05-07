@@ -31,6 +31,10 @@ namespace InternPortal.Data.Models
         /// Child Answers where [Answers].[ApplicationId] point to this entity (FK_dbo.Answers_dbo.Application_ApplicationId)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Application_ApplicationId
+        /// <summary>
+        /// Child UserUploads where [UserUploads].[ApplicationId] point to this entity (FK_dbo.UserUploads_dbo.Application_ApplicationId)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.Application_ApplicationId
 
         // Foreign keys
 
@@ -42,6 +46,7 @@ namespace InternPortal.Data.Models
         public Application()
         {
             Answers = new System.Collections.Generic.List<Answer>();
+            UserUploads = new System.Collections.Generic.List<UserUpload>();
             InitializePartial();
         }
 

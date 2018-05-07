@@ -306,6 +306,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin-lte\bootstrap-slider.js" />
@@ -1134,11 +1135,8 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Views\Application\CreateApplication.cshtml" />
-    <Content Include="Views\Application\_Questions.cshtml" />
-    <Content Include="Views\Application\_Question.cshtml" />
-    <Content Include="Views\Application\_Answer.cshtml" />
-    <Content Include="Views\Application\_Option.cshtml" />
+    <Content Include="Views\Application\Application.cshtml" />
+    <Content Include="Views\Application\Resume.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,7 +20,8 @@ namespace InternPortal.Data.Models
     public partial class UserUpload
     {
         public int UploadId { get; set; } // UploadId (Primary key)
-        public int UserId { get; set; } // UserId
+        public int? UserId { get; set; } // UserId
+        public int? ApplicationId { get; set; } // ApplicationId
         public string UploadLocation { get; set; } // UploadLocation
         public string UploadTitle { get; set; } // UploadTitle
         public string UploadDescription { get; set; } // UploadDescription
@@ -28,9 +29,14 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent User pointed by [UserUploads].([UploadId]) (FK_dbo.UserUploads_dbo.User_UploadId)
+        /// Parent Application pointed by [UserUploads].([ApplicationId]) (FK_dbo.UserUploads_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual User User { get; set; } // FK_dbo.UserUploads_dbo.User_UploadId
+        public virtual Application Application { get; set; } // FK_dbo.UserUploads_dbo.Application_ApplicationId
+
+        /// <summary>
+        /// Parent User pointed by [UserUploads].([UserId]) (FK_dbo.UserUploads_dbo.User_UserId)
+        /// </summary>
+        public virtual User User { get; set; } // FK_dbo.UserUploads_dbo.User_UserId
 
         public UserUpload()
         {
