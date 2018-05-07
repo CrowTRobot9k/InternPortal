@@ -8,119 +8,131 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+  
 <div class="form-horizontal">
     <h4>Please Fill Out Personal Information Below:</h4>
+    <div class="col-md-12">
+        @(Html.Kendo().ProgressBar()
+                      .Name("ApplicationProgress")
+                      .Type(ProgressBarType.Value)
+                      .ChunkCount(3)
+                      .ShowStatus(false) // Don't display the value
+                      .Min(0)
+                      .Max(3) // Number of steps in the form
+                      .Value(1)
+                      .HtmlAttributes(new { style = "width: 100%;" })
+        )
+    </div>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     <div class="form-group">
-        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.FirstName, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.MiddleName, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.LastName, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.PhoneNumber, new { @class = "k-textbox textbox", placeholder = "(###)-###-####", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.Address, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.City, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
             @(Html.Kendo().DropDownListFor(m => m.State)
-                .DataTextField("Text")
-                .DataValueField("Value")
-                .DataSource(s =>
-                    s.Read(read =>
-                    {
-                        read.Url("/api/InternService/GetStates");
-                    })
-                )
-                .HtmlAttributes(new { id = "State" })
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(s =>
+                            s.Read(read =>
+                            {
+                                read.Url("/api/InternService/GetStates");
+                            })
+                        )
+                        .HtmlAttributes(new { id = "State", @style = "width:100%" })
             )
             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.ZipCode, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.ZipCode, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.DateOfBirth, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
             @(Html.Kendo().DatePickerFor(model => model.DateOfBirth)
-                     .HtmlAttributes(new { id = "DateOfBirth" })
+                             .HtmlAttributes(new { id = "DateOfBirth", @style = "width:100%" })
             )
             @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.ZipCode, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Ethnicity, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Ethnicity, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.LabelFor(model => model.Ethnicity, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @(Html.TextBoxFor(model => model.Ethnicity, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
             @Html.ValidationMessageFor(model => model.Ethnicity, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2 text-center">
             @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2 text-center">
             <input type="submit" value="Save" class="btn btn-default" formaction="/User/SaveUser" formmethod="post" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2 text-center">
             @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
         </div>
     </div>
