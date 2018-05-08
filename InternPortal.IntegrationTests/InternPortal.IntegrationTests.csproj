@@ -86,7 +86,6 @@
       <HintPath>..\packages\Moq.4.7.145\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MySql.Data.Entity, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data.Entity.EF6, Version=6.8.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.8.8\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
@@ -176,9 +175,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TemplateProject.UI\TemplateProject.UI.csproj">
-      <Project>{4e0aa087-e775-48aa-b46f-c1c41d06f792}</Project>
-      <Name>TemplateProject.UI</Name>
+    <ProjectReference Include="..\InternPortal.Data\InternPortal.Data.csproj">
+      <Project>{a0358eb5-6ef2-4339-bb80-1d8dc32003f4}</Project>
+      <Name>InternPortal.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InternPortal.UI\InternPortal.UI.csproj">
+      <Project>{71ebccaa-3892-4e05-b55f-ad5c6fb88c86}</Project>
+      <Name>InternPortal.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

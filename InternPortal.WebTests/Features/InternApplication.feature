@@ -3,5 +3,4 @@
 	As an intern
 	I want to be able to complete an application
 
-@mytag
 
