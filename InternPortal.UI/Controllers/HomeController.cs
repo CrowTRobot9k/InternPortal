@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -32,6 +33,16 @@ namespace InternPortal.UI.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [System.Web.Http.HttpGet]
+        public void DownloadFile(int id)
+        {
+            var upload = _unitOfWork.UserUploads.Where(u => u.UploadId == id).FirstOrDefault();
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(upload.UploadLocation, upload.UploadLocation);
+                }  
         }
     }
 }

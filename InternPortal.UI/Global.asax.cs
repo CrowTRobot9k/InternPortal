@@ -56,6 +56,9 @@ namespace InternPortal.UI
 
                 cfg.CreateMap<User,UserNoAppDto>();
                 cfg.CreateMap<UserNoAppDto, User>();
+
+                cfg.CreateMap<ApplicationStatu, ApplicationStatusDto>();
+                cfg.CreateMap<ApplicationStatusDto, ApplicationStatu>();
             });
         }
     }

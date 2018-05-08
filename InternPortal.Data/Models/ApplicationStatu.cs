@@ -22,8 +22,16 @@ namespace InternPortal.Data.Models
         public int ApplicationStatusId { get; set; } // ApplicationStatusId (Primary key)
         public string Status { get; set; } // Status (length: 50)
 
+        // Reverse navigation
+
+        /// <summary>
+        /// Child Applications where [Application].[ApplicationStatus] point to this entity (FK_Application_ApplicationStatus)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_Application_ApplicationStatus
+
         public ApplicationStatu()
         {
+            Applications = new System.Collections.Generic.List<Application>();
             InitializePartial();
         }
 

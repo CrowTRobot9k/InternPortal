@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InternPortal.Data.Models;
 using InternPortal.UI.Dto;
+using InternPortal.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,21 @@ namespace InternPortal.UI.Controllers.API
             var applications = Mapper.Map<IEnumerable<ApplicationChildUserDto>>(_unitOfWork.Applications.GetAll().ToList());
 
             return Ok(applications);
+        }
+
+        public IHttpActionResult GetApplicationAnswers(int id)
+        {
+            var answers = _unitOfWork.Answers.Where(a => a.ApplicationId == id).ToList();
+
+            var QuestionAnswers = new List<QuestionAnswerViewModel>();
+
+            answers.ForEach(a =>
+                QuestionAnswers.Add(
+                    new QuestionAnswerViewModel(a.QuestionId, a.Question.Question_, a)
+                    )
+            );
+
+            return Ok(QuestionAnswers);
         }
     }
 }

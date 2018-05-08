@@ -39,6 +39,11 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
+        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatus]) (FK_Application_ApplicationStatus)
+        /// </summary>
+        public virtual ApplicationStatu ApplicationStatu { get; set; } // FK_Application_ApplicationStatus
+
+        /// <summary>
         /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)
         /// </summary>
         public virtual User User { get; set; } // FK_dbo.Application_dbo.User_UserId

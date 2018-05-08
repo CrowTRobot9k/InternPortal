@@ -135,7 +135,7 @@ namespace InternPortal.UI.Controllers
                     var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
 
                     //Todo: maybe find better way to store files.
-                    var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "/";
+                    var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "\\";
 
                     if (!Directory.Exists(applicationDirectory))
                     {

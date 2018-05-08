@@ -54,18 +54,18 @@
                     <div>
                         <div class='ApplicationProfile col-lg-12 col-md-12'>
                             <ul>
-                                <li><label>Name </label> #: FirstName # #: LastName #</li>
-                                <li><label>Email </label> #: checkNull(Email) #</li>
-                                <li><label>Phone: </label>#: checkNull(PhoneNumber) #</li>
+                                <li><label>Name </label> #: User.FirstName # #: User.LastName #</li>
+                                @*<li><label>Email </label> #: checkNull(User.Email) #</li>*@
+                                <li><label>Phone: </label>#: checkNull(User.PhoneNumber) #</li>
                                 <li>
                                     <label>Address:</label><address>
-                                        #: checkNull(Address) #<br />
-                                        #: checkNull(City) # ,#: checkNull(State) #,#: checkNull(ZipCode) #
+                                        #: checkNull(User.Address) #<br />
+                                        #: checkNull(User.City) # ,#: checkNull(User.State) #,#: checkNull(User.ZipCode) #
                                     </address>
                                 </li>
-                                <li><label>DOB: </label>#: checkNull(DateOfBirth) #</li>
-                                <li><label>Gender: </label>#: checkNull(Gender) #</li>
-                                <li><label>Ethnicity: </label>#: checkNull(Ethnicity) #</li>
+                                <li><label>DOB: </label>#: formatDate(User.DateOfBirth) #</li>
+                                <li><label>Gender: </label>#: checkNull(User.Gender) #</li>
+                                <li><label>Ethnicity: </label>#: checkNull(User.Ethnicity) #</li>
                             </ul>
                         </div>
                     </div>
@@ -73,7 +73,15 @@
                         <div class="ApplicationQuestions"></div>
                     </div>
                     <div>
-                        <div class="ApplicationUploads"></div>
+                        <div class="ApplicationUploads col-lg-12 col-md-12">
+                            <ul>
+                                <li><label>Title </label> #: UserUploads[0].UploadTitle #</li>
+                                <li><label>Description </label> #: UserUploads[0].UploadDescription #</li>
+                            </ul>
+                            <form method="get" action="/Home/Downloadfile/#: UserUploads[0].UploadId #">
+                                <button type="submit">Download</button>
+                            </form>
+                        </div>
                     </div>
 
                 </div>
@@ -83,6 +91,13 @@
 </div>
 
 <script>
+    function formatDate(data) {
+        return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd hh:mm") || "N/A";
+    }
+    function checkNull(data) {
+        return data || "N/A";
+    }
+
     var applicationDs = new kendo.data.DataSource({
         transport: {
             type: "odata",
@@ -114,8 +129,8 @@
             filterable: true
         }
         ,
-        //detailTemplate: kendo.template($("#ApplicationTemplate").html()),
-        //detailInit: detailInit,
+        detailTemplate: kendo.template($("#ApplicationTemplate").html()),
+        detailInit: detailInit,
         columns: [
             {
                 headerAttributes: { "class": "column-header" },
@@ -148,7 +163,82 @@
                         }
                     }
                 }
-            }
+            },
+            {
+                headerAttributes: { "class": "column-header" },
+                title: "Last Name",
+                field: "User.LastName",
+                type: "string",
+                filterable: {
+                    extra: false,
+                    multi: false,
+                    operators: {
+                        number: {
+                            eq: "Equal to",
+                            neq: "Not equal to"
+                        }
+                    }
+                }
+            },
+            {
+                headerAttributes: { "class": "column-header" },
+                title: "Start Date",
+                field: "ApplicationStartDate",
+                template: '#= formatDate(ApplicationStartDate) #',
+                filterable: true
+            },
+            {
+                headerAttributes: { "class": "column-header" },
+                title: "End Date",
+                field: "ApplicationCompleteDate",
+                template: '#= formatDate(ApplicationCompleteDate) #',
+                filterable: true
+            },
+            {
+                headerAttributes: { "class": "column-header" }, field: "ApplicationStatu.Status", title: "Status",
+                attributes: { class: "#= ApplicationStatu.Status #" },
+                filterable: {
+                    extra: false,
+                    multi: true
+                }
+            },
         ]
     });
+
+    function detailInit(e) 
+    {
+        var detailRow = e.detailRow;
+
+        var uri = "/API/InternService/GetApplicationAnswers/" + e.data.ApplicationId;
+
+        detailRow.find(".tabstrip").kendoTabStrip({
+            animation: {
+                open: { effects: "fadeIn" }
+            }
+        });
+
+        window.record = 0;
+        detailRow.find(".ApplicationQuestions").kendoGrid({
+            dataSource: {
+                transport: { read: { url: uri } }
+                //,
+                ///schema: { data: "OrderItem" }
+            },
+            columns: [
+                {
+                    title: "#",
+                    template: "#= ++window.record #",
+                    width: 40
+                },
+                { field: "QuestionId", title: "QuestionId", hidden: true },
+                { field: "Question", title: "Question" },
+                { field:"Answer", title: "Answer" }
+            ],
+            pageable: false,
+            dataBinding: function () {
+                window.record = 0;
+            }
+        });
+
+    }
 </script>

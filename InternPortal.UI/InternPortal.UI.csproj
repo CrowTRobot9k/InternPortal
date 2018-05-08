@@ -289,6 +289,7 @@
     <Compile Include="Dto\AnswerDto.cs" />
     <Compile Include="Dto\ApplicationChildUserDto.cs" />
     <Compile Include="Dto\ApplicationDto.cs" />
+    <Compile Include="Dto\ApplicationStatusDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="Dto\QuestionDto.cs" />
     <Compile Include="Dto\QuestionOptionDto.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\QuestionAnswerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin-lte\bootstrap-slider.js" />
