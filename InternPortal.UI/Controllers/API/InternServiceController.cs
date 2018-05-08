@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InternPortal.Data;
 using InternPortal.Data.Models;
 using InternPortal.UI.Dto;
 using InternPortal.UI.ViewModels;
@@ -41,17 +42,23 @@ namespace InternPortal.UI.Controllers.API
 
         public IHttpActionResult GetApplicationAnswers(int id)
         {
+            var questions = _unitOfWork.Questions.GetAll().ToList();
+
             var answers = _unitOfWork.Answers.Where(a => a.ApplicationId == id).ToList();
 
             var QuestionAnswers = new List<QuestionAnswerViewModel>();
 
-            answers.ForEach(a =>
-                QuestionAnswers.Add(
-                    new QuestionAnswerViewModel(a.QuestionId, a.Question.Question_, a)
-                    )
-            );
+            foreach (var question in questions.Where(i=>i.QuestionType.QuestionTypeId != (int)Constants.QuestionType.Checkbox))
+            {
+                    QuestionAnswers.Add(new QuestionAnswerViewModel(question,answers.Where(a=>a.QuestionId == question.QuestionId).FirstOrDefault()));
+            }
 
-            return Ok(QuestionAnswers);
+            foreach (var question in questions.Where(i => i.QuestionType.QuestionTypeId == (int)Constants.QuestionType.Checkbox))
+            {
+                QuestionAnswers.Add(new QuestionAnswerViewModel(question,answers.Where(i=>i.QuestionId== question.QuestionId)));
+            }
+
+            return Ok(QuestionAnswers.OrderBy(i=>i.QuestionId));
         }
     }
 }

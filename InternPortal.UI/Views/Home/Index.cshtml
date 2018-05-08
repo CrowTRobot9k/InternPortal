@@ -9,6 +9,10 @@
 <div class="container-fluid">
     @if (!User.IsInRole("admin"))
     {
+        <div class="text-center">
+            <h2>Welcome to Intern Portal</h2>
+        </div>
+        <hr>
         if (Model.User == null || Model.User.Applications.FirstOrDefault(i => i.ApplicationCompleteDate == null) == null)
         {
             <div class="row">
@@ -34,8 +38,12 @@
     }
     else
     {
+        <div class="text-center">
+            <h2>Submitted Applications</h2>
+        </div>
+        <hr>
         //Admin Grid
-         <div>
+        <div>
             <div id="ApplicationGrid"></div>
 
             <script type="text/x-kendo-template" id="ApplicationTemplate">
@@ -53,20 +61,20 @@
                     </ul>
                     <div>
                         <div class='ApplicationProfile col-lg-12 col-md-12'>
-                            <ul>
-                                <li><label>Name </label> #: User.FirstName # #: User.LastName #</li>
-                                @*<li><label>Email </label> #: checkNull(User.Email) #</li>*@
-                                <li><label>Phone: </label>#: checkNull(User.PhoneNumber) #</li>
-                                <li>
-                                    <label>Address:</label><address>
-                                        #: checkNull(User.Address) #<br />
-                                        #: checkNull(User.City) # ,#: checkNull(User.State) #,#: checkNull(User.ZipCode) #
-                                    </address>
-                                </li>
-                                <li><label>DOB: </label>#: formatDate(User.DateOfBirth) #</li>
-                                <li><label>Gender: </label>#: checkNull(User.Gender) #</li>
-                                <li><label>Ethnicity: </label>#: checkNull(User.Ethnicity) #</li>
-                            </ul>
+                            <label>Name </label> #: User.FirstName # #: User.LastName #
+                            <br>
+                            <label>Email </label> #: checkNull(User.Email) #
+                            <br>
+                            <label>Phone: </label>#: checkNull(User.PhoneNumber) #
+                            <br>
+                            <label>Address:</label><address>
+                                #: checkNull(User.Address) #<br />
+                                #: checkNull(User.City) #, #: checkNull(User.State) #, #: checkNull(User.ZipCode) #
+                            </address>
+                            <label>DOB: </label> #: formatDate(User.DateOfBirth) #
+                            <br><label>Gender: </label> #: checkNull(User.Gender) #
+                            <br>
+                            <label>Ethnicity: </label> #: checkNull(User.Ethnicity) #
                         </div>
                     </div>
                     <div>
@@ -74,12 +82,11 @@
                     </div>
                     <div>
                         <div class="ApplicationUploads col-lg-12 col-md-12">
-                            <ul>
-                                <li><label>Title </label> #: UserUploads[0].UploadTitle #</li>
-                                <li><label>Description </label> #: UserUploads[0].UploadDescription #</li>
-                            </ul>
+                            <label>Title: </label> #: UserUploads[0].UploadTitle #
+                            <br>
+                            <label>Description: </label> #: UserUploads[0].UploadDescription #
                             <form method="get" action="/Home/Downloadfile/#: UserUploads[0].UploadId #">
-                                <button type="submit">Download</button>
+                                <button type="submit" class="k-button k-primary">Download</button>
                             </form>
                         </div>
                     </div>
@@ -92,9 +99,14 @@
 
 <script>
     function formatDate(data) {
+        return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd") || "N/A";
+    }
+
+    function formatDateTime(data) {
         return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd hh:mm") || "N/A";
     }
-    function checkNull(data) {
+    function checkNull(data)
+    {
         return data || "N/A";
     }
 

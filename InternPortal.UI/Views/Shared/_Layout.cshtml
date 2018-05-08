@@ -333,9 +333,12 @@ desired effect
                                 </li>*@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
+                                    @if (User.IsInRole("intern"))
+                                    {
                                     <div class="pull-left">
-                                        <a href="/User/CreateUser" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="/Application/Application" class="btn btn-default btn-flat">Profile</a>
                                     </div>
+                                    }
                                     <div>
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                                     {

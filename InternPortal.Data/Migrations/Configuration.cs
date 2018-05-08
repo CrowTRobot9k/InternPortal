@@ -66,6 +66,23 @@ namespace InternPortal.Data.Migrations
                 userManager.AddToRole(user.Id, "intern");
             }
 
+            if (!context.AspNetUsers.Any(u => u.Email == "michaelli@arctrade.com"))
+            {
+                var user = new ApplicationUser { UserName = "michaelli@arctrade.com", Email = "michaelli@arctrade.com" };
+
+                userManager.Create(user, "p@ssw0rd");
+                userManager.AddToRole(user.Id, "admin");
+            }
+
+            if (!context.AspNetUsers.Any(u => u.Email == "michaelli@gmail.com"))
+            {
+                var user = new ApplicationUser { UserName = "michaelli@gmail.com", Email = "michaelli@gmail.com" };
+
+                userManager.Create(user, "p@ssw0rd");
+                userManager.AddToRole(user.Id, "intern");
+            }
+
+
         }
 
         private void SeedApplicationStatus(IInternPortalContext context)

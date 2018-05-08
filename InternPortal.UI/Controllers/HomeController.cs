@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -38,11 +39,21 @@ namespace InternPortal.UI.Controllers
         [System.Web.Http.HttpGet]
         public void DownloadFile(int id)
         {
+            var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
+
             var upload = _unitOfWork.UserUploads.Where(u => u.UploadId == id).FirstOrDefault();
-                using (var client = new WebClient())
-                {
-                    client.DownloadFile(upload.UploadLocation, upload.UploadLocation);
-                }  
+
+            string ext = Path.GetExtension(upload.UploadLocation);
+
+            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            response.ClearContent();
+            response.Clear();
+            response.ContentType = "text/plain";
+            response.AddHeader("Content-Disposition",
+                               "attachment; filename=" + upload.UploadTitle + ext+";");
+            response.TransmitFile(Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]+upload.UploadLocation));
+            response.Flush();
+            response.End();
         }
     }
 }

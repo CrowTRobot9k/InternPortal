@@ -12,6 +12,7 @@ namespace InternPortal.UI.Dto
         public string FirstName { get; set; } // FirstName (length: 100)
         public string MiddleName { get; set; } // MiddleName (length: 100)
         public string LastName { get; set; } // LastName (length: 100)
+        public string Email { get; set; }
         public string PhoneNumber { get; set; } // PhoneNumber (length: 50)
         public string Address { get; set; } // Address
         public string City { get; set; } // City (length: 100)

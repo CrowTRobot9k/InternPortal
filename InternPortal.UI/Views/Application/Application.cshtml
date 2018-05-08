@@ -9,7 +9,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm(new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("SaveApplication","Application",FormMethod.Post,new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
 {
     <div class="row">
         <div class="col-md-12">
@@ -56,10 +56,10 @@
             <a href="#" class="k-button k-primary" id="previous"><span class="glyphicon glyphicon-chevron-left"></span>Previous</a>
         </div>
         <div class="col-md-4 text-center">
-            <input type="submit" class="k-button k-primary" value="Save Application" formaction="/Application/SaveApplication" id="SaveApplication" />
+            <input type="submit" class="k-button k-primary" value="Save Application" id="SaveApplication" />
             @if (Model.Application.ApplicationId > 0 && Model.User.UserId > 0 && Model.Application.UserUploads.FirstOrDefault().UploadId > 0)
             {
-                <input type="submit" class="k-button k-primary" value="Submit Application" formaction="/Application/SubmitApplication" id="SubmitApplication" />
+                <a href="\Application\SubmitApplication\@Model.Application.ApplicationId" class="k-button k-primary" id="SubmitApplication" >Submit Application</a>
             }
         </div>
         <div class="col-md-4">

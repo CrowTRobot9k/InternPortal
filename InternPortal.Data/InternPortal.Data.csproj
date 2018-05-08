@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201805071831153_InitialMigration.Designer.cs">
       <DependentUpon>201805071831153_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805081712409_AddEmailToUserTable.cs" />
+    <Compile Include="Migrations\201805081712409_AddEmailToUserTable.Designer.cs">
+      <DependentUpon>201805081712409_AddEmailToUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
@@ -462,6 +466,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805071831153_InitialMigration.resx">
       <DependentUpon>201805071831153_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805081712409_AddEmailToUserTable.resx">
+      <DependentUpon>201805081712409_AddEmailToUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,18 +9,19 @@ namespace InternPortal.UI.ViewModels
 {
     public class QuestionAnswerViewModel
     {
-        public QuestionAnswerViewModel(int questionId, string question, Answer answer)
+        public QuestionAnswerViewModel(Question question, Answer answer)
         {
-            QuestionId = questionId;
-            Question = question;
-            if (answer.Question.QuestionTypeId != (int)Constants.QuestionType.Checkbox)
-            {
-                Answer = answer.AnswerValue;
-            }
-            else
-            {
-                Answer = string.Join(",",answer.QuestionOption.Answers.Where(i => i.OptionValue ?? false).Select(i => i.QuestionOption.OptionValue).ToList());
-            }
+            QuestionId = question.QuestionId;
+            Question = question.Question_;
+            Answer = answer.AnswerValue;
+            
+        }
+
+        public QuestionAnswerViewModel(Question question, IEnumerable<Answer> answers)
+        {
+            QuestionId = question.QuestionId;
+            Question = question.Question_;
+            Answer = string.Join(",", answers.Where(i => i.QuestionId==question.QuestionId && i.OptionValue== true).Select(i=>i.QuestionOption.OptionValue).ToList());
         }
 
        public int QuestionId { get; set; }

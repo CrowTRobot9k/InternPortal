@@ -15,7 +15,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => Model.User.FirstName, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @(Html.TextBoxFor(model => Model.User.FirstName, new { @class = "k-textbox textbox", placeholder = ""}))
+                    @(Html.TextBoxFor(model => Model.User.FirstName, new { @class = "k-textbox textbox", placeholder = "" }))
                     @Html.ValidationMessageFor(model => Model.User.FirstName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -23,7 +23,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => Model.User.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @(Html.TextBoxFor(model => Model.User.MiddleName, new { @class = "k-textbox textbox", placeholder = ""}))
+                    @(Html.TextBoxFor(model => Model.User.MiddleName, new { @class = "k-textbox textbox", placeholder = "" }))
                     @Html.ValidationMessageFor(model => Model.User.MiddleName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -35,11 +35,17 @@
                     @Html.ValidationMessageFor(model => Model.User.LastName, "", new { @class = "text-danger" })
                 </div>
             </div>
-
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.Email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.Email, new { @class = "k-textbox textbox" }))
+                    @Html.ValidationMessageFor(model => Model.User.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => Model.User.PhoneNumber, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @(Html.TextBoxFor(model => Model.User.PhoneNumber, new { @class = "k-textbox textbox", placeholder = "###-###-####"}))
+                    @(Html.TextBoxFor(model => Model.User.PhoneNumber, new { @class = "k-textbox textbox", placeholder = "###-###-####" }))
                     @Html.ValidationMessageFor(model => Model.User.PhoneNumber, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -81,7 +87,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => Model.User.ZipCode, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @(Html.TextBoxFor(model => Model.User.ZipCode, new { @class = "k-textbox textbox", placeholder = ""}))
+                    @(Html.TextBoxFor(model => Model.User.ZipCode, new { @class = "k-textbox textbox", placeholder = "" }))
                     @Html.ValidationMessageFor(model => Model.User.ZipCode, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -99,7 +105,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => Model.User.Gender, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @(Html.TextBoxFor(model => Model.User.ZipCode, new { @class = "k-textbox textbox", placeholder = "" }))
+                    @(Html.TextBoxFor(model => Model.User.Gender, new { @class = "k-textbox textbox", placeholder = "" }))
                     @Html.ValidationMessageFor(model => Model.User.Gender, "", new { @class = "text-danger" })
                 </div>
             </div>

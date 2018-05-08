@@ -28,11 +28,11 @@ namespace InternPortal.UI.Controllers
         public ActionResult Application()
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
-            var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault();
+            var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault()?? new User();
 
             var viewModel = new ApplicationViewModel()
             {
-                User = Mapper.Map<UserDto>(user ?? new User()),
+                User = Mapper.Map<UserDto>(user),
                 //get in progress application or new
                 Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
                                 .Where(i => i.UserId == user.UserId && i.ApplicationCompleteDate == null).FirstOrDefault()
@@ -134,7 +134,7 @@ namespace InternPortal.UI.Controllers
                 {
                     var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
 
-                    //Todo: maybe find better way to store files.
+                    //Todo: maybe find better way to store files. Current format is Uploads\ApplicationId\
                     var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "\\";
 
                     if (!Directory.Exists(applicationDirectory))
@@ -149,6 +149,8 @@ namespace InternPortal.UI.Controllers
                     {
                         oldFile.Delete();
                     }
+
+
 
                     //Save new file
                     var fullFilePath = applicationDirectory + postedFile.FileName;
@@ -168,7 +170,8 @@ namespace InternPortal.UI.Controllers
                     //add to db
                     viewModel.Application.UserUploads.Add(new UserUploadDto()
                     {
-                        UploadLocation = fullFilePath,
+                        //don't store full path on sql server
+                        UploadLocation = viewModel.Application.ApplicationId + "\\"+ postedFile.FileName,
                         UploadTitle = viewModel.Application.UserUploads.FirstOrDefault().UploadTitle,
                         UploadDescription = viewModel.Application.UserUploads.FirstOrDefault().UploadDescription
                     });
@@ -197,7 +200,7 @@ namespace InternPortal.UI.Controllers
             {
                 viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationAnswers(Mapper.Map<Application>(viewModel.Application), Mapper.Map<IEnumerable<Question>>(viewModel.Questions)));
 
-                viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationUploads(applicationToSave, Mapper.Map<IEnumerable<UserUpload>>(viewModel.Application.UserUploads)));
+                viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationUploads(Mapper.Map<Application>(viewModel.Application), Mapper.Map<IEnumerable<UserUpload>>(viewModel.Application.UserUploads)));
             }
             
 
@@ -241,18 +244,21 @@ namespace InternPortal.UI.Controllers
             return RedirectToAction("Application");
         }
 
-        public ActionResult SubmitApplication(ApplicationViewModel viewModel)
+        public ActionResult SubmitApplication(int id)
         {
-            if (viewModel.Application.ApplicationId < 1 || !ModelState.IsValid)
+            var applicationToSubmit = _unitOfWork.Applications.Where(a => a.ApplicationId == id).FirstOrDefault();
+
+            if (applicationToSubmit == null)
             {
+                //Todo: add error messages
                 return RedirectToAction("Application");
             }
+            else
+            {
+                applicationToSubmit.ApplicationCompleteDate = DateTime.Now;
 
-            var applicationToSubmit = _unitOfWork.Applications.Where(a => a.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
-
-            applicationToSubmit.ApplicationCompleteDate = DateTime.Now;
-
-            _unitOfWork.Complete();
+                _unitOfWork.Complete();
+            }
 
             return View();
         }
