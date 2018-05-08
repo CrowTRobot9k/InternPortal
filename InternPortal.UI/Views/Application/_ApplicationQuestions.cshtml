@@ -1,0 +1,134 @@
+﻿@using InternPortal.Data;
+
+@model InternPortal.UI.ViewModels.ApplicationViewModel
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="row text-center">
+            <h4>Application</h4>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            @Html.HiddenFor(model => model.Application.ApplicationId)
+
+            @Html.HiddenFor(model => model.Application.UserId)
+
+            @Html.HiddenFor(model => model.Application.ApplicationStartDate)
+
+            @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
+
+            @Html.HiddenFor(model => model.Application.ApplicationStatus)
+
+            @for (var i = 0; i < Model.Questions.Count(); i++)
+            {
+                @Html.HiddenFor(model => Model.Questions[i].QuestionId)
+
+                @Html.HiddenFor(model => Model.Questions[i].QuestionTypeId)
+
+
+                //form-group
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Questions[i].Question_, Model.Questions[i].Question_, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    <div class="col-md-10">
+                        @switch (Model.Questions[i].QuestionTypeId)
+                        {
+                            case ((int)Constants.QuestionType.RadioButton):
+                                for (var o = 0; o < Model.Questions[i].QuestionOptions.Count(); o++)
+                                {
+                                    @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionId)
+                                    @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
+                                    @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
+
+
+                                    @Html.HiddenFor(model => Model.Questions[i].Answers[0].AnswerId)
+
+                                    @Html.HiddenFor(model => Model.Questions[i].Answers[0].ApplicationId)
+
+                                    @Html.HiddenFor(model => Model.Questions[i].Answers[0].QuestionId)
+
+                                    @Html.HiddenFor(model => Model.Questions[i].Answers[0].OptionId)
+
+                                    @Html.HiddenFor(model => Model.Questions[i].Answers[0].OptionValue)
+
+                                    <label>
+                                        @Html.RadioButtonFor(model => Model.Questions[i].Answers[0].AnswerValue,
+                                                             Model.Questions[i].QuestionOptions[o].OptionValue)@Model.Questions[i].QuestionOptions[o].OptionValue
+                                                        </label>
+
+                                                        <br>
+                                                    }
+
+                                                    break;
+                                                case ((int)Constants.QuestionType.Checkbox):
+                                                    for (var o = 0; o < Model.Questions[i].QuestionOptions.Count(); o++)
+                                                    {
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionId)
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
+
+
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].AnswerId)
+
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].ApplicationId)
+
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].QuestionId)
+
+                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionId)
+
+                                                        <label>
+                                                            @Html.CheckBoxFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionValue)
+                                                            @Model.Questions[i].QuestionOptions[o].OptionValue
+                                                        </label>
+                                                        <br>
+                                                    }
+                                                    break;
+                                                case ((int)Constants.QuestionType.DropDown):
+
+                                                    @Html.Kendo().DropDownListFor(model => Model.Questions[i].Answers[0].AnswerValue).BindTo(Model.Questions[i].QuestionOptions.Select(q => q.OptionValue).ToList())
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                    </div>
+
+                    @for (var a = 0; a < Model.Questions[i].Answers.Count(); a++)
+                    {
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => Model.Questions[i].Answers[a].AnswerId)
+
+                            @Html.HiddenFor(model => Model.Questions[i].Answers[a].ApplicationId)
+
+                            @Html.HiddenFor(model => Model.Questions[i].Answers[a].QuestionId)
+
+                            @Html.HiddenFor(model => Model.Questions[i].Answers[a].OptionId)
+
+                            @switch (Model.Questions[i].QuestionTypeId)
+                            {
+                                case ((int)Constants.QuestionType.TextBox):
+                                    @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
+                                    break;
+                                case ((int)Constants.QuestionType.TextArea):
+                                    @Html.TextAreaFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "form-control", rows = "5", @style = "width:100%" })
+                                    break;
+                                case ((int)Constants.QuestionType.Date):
+                                    @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox datepicker" }))
+                                    break;
+                                case ((int)Constants.QuestionType.Numeric):
+                                    @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { @class = "k-textbox integer", id = Model.Questions[i].QuestionId.ToString(), @type = "number", step = "1" }))
+                                    break;
+                                default:
+                                    break;
+
+                            }
+                        </div>
+                    }
+                </div>
+                //form-group
+                <br>
+
+            }
+        </div>
+        </div>
+    </div>

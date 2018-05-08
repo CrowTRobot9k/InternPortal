@@ -9,5 +9,7 @@ namespace InternPortal.Data.Models
 	{
         //Add any additional repository methods other than the generic ones (GetAll, GetById, Delete, Add)
         Application UpdateApplicationAnswers(Application application, IEnumerable<Question> questions);
+
+        Application UpdateApplicationUploads(Application application, IEnumerable<UserUpload> uploads);
     }
 }

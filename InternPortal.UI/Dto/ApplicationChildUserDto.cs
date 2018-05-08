@@ -5,7 +5,7 @@ using System.Web;
 
 namespace InternPortal.UI.Dto
 {
-    public class ApplicationDto
+    public class ApplicationChildUserDto
     {
         public int ApplicationId { get; set; } // ApplicationId (Primary key)
         public int UserId { get; set; } // UserId
@@ -15,6 +15,6 @@ namespace InternPortal.UI.Dto
 
         public List<AnswerDto> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Application_ApplicationId
         public List<UserUploadDto> UserUploads { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.Application_ApplicationId
-        public UserDto User { get; set; } // FK_dbo.Application_dbo.User_UserId
+        public UserNoAppDto User { get; set; } // FK_dbo.Application_dbo.User_UserId
     }
 }

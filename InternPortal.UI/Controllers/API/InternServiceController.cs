@@ -1,4 +1,6 @@
-﻿using InternPortal.Data.Models;
+﻿using AutoMapper;
+using InternPortal.Data.Models;
+using InternPortal.UI.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +31,11 @@ namespace InternPortal.UI.Controllers.API
             }).ToList());
         }
 
-        //public class State
-        //{
-        //    public State(string name)
-        //    {
-        //        this.stateName = name;
-        //    }
-        //    string stateName { get; set; }
-        //}
+        public IHttpActionResult GetApplications()
+        {
+            var applications = Mapper.Map<IEnumerable<ApplicationChildUserDto>>(_unitOfWork.Applications.GetAll().ToList());
+
+            return Ok(applications);
+        }
     }
 }

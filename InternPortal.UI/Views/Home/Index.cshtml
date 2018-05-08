@@ -9,38 +9,146 @@
 <div class="container-fluid">
     @if (!User.IsInRole("admin"))
     {
-        if (Model.User == null)
-        {
-            <div class="row">
-                <div class="text-center">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Start Profile:</label>
-                        @Html.ActionLink("Start", "CreateUser", "User", null, new { @class = "btn btn-primary" })
-                    </div>
-                </div>
-            </div>
-        }
-        else if (Model.User.Applications.FirstOrDefault() == null)
+        if (Model.User == null || Model.User.Applications.FirstOrDefault(i => i.ApplicationCompleteDate == null) == null)
         {
             <div class="row">
                 <div class="text-center">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Start Application:</label>
-                        @Html.ActionLink("Continue", "Application", "Aplication", null, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Start", "Application", "Application", null, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>
         }
-        if (Model.User!=null && Model.User.Applications.FirstOrDefault() != null)
+        else
         {
             <div class="row">
                 <div class="text-center">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Continue Application:</label>
-                        @Html.ActionLink("Continue", "Resume", "Application", new { applicationId = Model.User.Applications.Where(i=>i.ApplicationCompleteDate == null).OrderBy(i=>i.ApplicationStartDate).FirstOrDefault().ApplicationId}, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Continue", "Application", "Application", null, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>
         }
     }
+    else
+    {
+        //Admin Grid
+         <div>
+            <div id="ApplicationGrid"></div>
+
+            <script type="text/x-kendo-template" id="ApplicationTemplate">
+                <div class="tabstrip">
+                    <ul>
+                        <li id="ApplicationProfileTab" class="k-state-active">
+                            Profile
+                        </li>
+                        <li id="ApplicationQuestionsTab">
+                            Questions
+                        </li>
+                        <li id="ApplicationUploadsTab">
+                            Uploads
+                        </li>
+                    </ul>
+                    <div>
+                        <div class='ApplicationProfile col-lg-12 col-md-12'>
+                            <ul>
+                                <li><label>Name </label> #: FirstName # #: LastName #</li>
+                                <li><label>Email </label> #: checkNull(Email) #</li>
+                                <li><label>Phone: </label>#: checkNull(PhoneNumber) #</li>
+                                <li>
+                                    <label>Address:</label><address>
+                                        #: checkNull(Address) #<br />
+                                        #: checkNull(City) # ,#: checkNull(State) #,#: checkNull(ZipCode) #
+                                    </address>
+                                </li>
+                                <li><label>DOB: </label>#: checkNull(DateOfBirth) #</li>
+                                <li><label>Gender: </label>#: checkNull(Gender) #</li>
+                                <li><label>Ethnicity: </label>#: checkNull(Ethnicity) #</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="ApplicationQuestions"></div>
+                    </div>
+                    <div>
+                        <div class="ApplicationUploads"></div>
+                    </div>
+
+                </div>
+            </script>
+        </div>
+    }
 </div>
+
+<script>
+    var applicationDs = new kendo.data.DataSource({
+        transport: {
+            type: "odata",
+            read: "/API/InternService/GetApplications",
+            schema:
+                {
+                    model:
+                        {
+                            fields:
+                                {
+                                    ApplicationId: { type: "number" }
+                                }
+                        }
+                }
+
+        },
+        pageSize: 10
+    });
+
+    $('#ApplicationGrid').kendoGrid({
+        dataSource: applicationDs,
+        pageable: true,
+        sortable: true,
+        filterable: true,
+        toolbar: ["excel"],
+        excel: {
+            fileName: "Applications.xlsx",
+            allPages: true,
+            filterable: true
+        }
+        ,
+        //detailTemplate: kendo.template($("#ApplicationTemplate").html()),
+        //detailInit: detailInit,
+        columns: [
+            {
+                headerAttributes: { "class": "column-header" },
+                title: "Application Id",
+                field: "ApplicationId",
+                type: "number",
+                filterable: {
+                    extra: false,
+                    multi: false,
+                    operators: {
+                        number: {
+                            eq: "Equal to",
+                            neq: "Not equal to"
+                        }
+                    }
+                }
+            },
+            {
+                headerAttributes: { "class": "column-header" },
+                title: "First Name",
+                field: "User.FirstName",
+                type: "string",
+                filterable: {
+                    extra: false,
+                    multi: false,
+                    operators: {
+                        number: {
+                            eq: "Equal to",
+                            neq: "Not equal to"
+                        }
+                    }
+                }
+            }
+        ]
+    });
+</script>

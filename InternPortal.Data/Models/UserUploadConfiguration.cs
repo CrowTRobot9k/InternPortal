@@ -29,7 +29,7 @@ namespace InternPortal.Data.Models
             ToTable("UserUploads", schema);
             HasKey(x => x.UploadId);
 
-            Property(x => x.UploadId).HasColumnName(@"UploadId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.UploadId).HasColumnName(@"UploadId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsOptional();
             Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsOptional();
             Property(x => x.UploadLocation).HasColumnName(@"UploadLocation").HasColumnType("nvarchar(max)").IsOptional();

@@ -1,4 +1,4 @@
-﻿@model InternPortal.Data.Models.User
+﻿@model InternPortal.Data.Models.UserDto
 
 @{
     ViewBag.Title = "Create User";
@@ -10,19 +10,20 @@
     @Html.AntiForgeryToken()
   
 <div class="form-horizontal">
-    <h4>Please Fill Out Personal Information Below:</h4>
+    <h4>Profile:</h4>
     <div class="col-md-12">
         @(Html.Kendo().ProgressBar()
-                      .Name("ApplicationProgress")
-                      .Type(ProgressBarType.Value)
-                      .ChunkCount(3)
-                      .ShowStatus(false) // Don't display the value
-                      .Min(0)
-                      .Max(3) // Number of steps in the form
-                      .Value(1)
-                      .HtmlAttributes(new { style = "width: 100%;" })
+                              .Name("ApplicationProgress")
+                              .Type(ProgressBarType.Value)
+                              .ChunkCount(3)
+                              .ShowStatus(false) // Don't display the value
+                              .Min(0)
+                              .Max(3) // Number of steps in the form
+                              .Value(1)
+                              .HtmlAttributes(new { style = "width: 100%;" })
         )
     </div>
+    <br>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
@@ -78,15 +79,15 @@
         @Html.LabelFor(model => model.State, new { @class = "control-label col-md-2" })
         <div class="col-md-3">
             @(Html.Kendo().DropDownListFor(m => m.State)
-                        .DataTextField("Text")
-                        .DataValueField("Value")
-                        .DataSource(s =>
-                            s.Read(read =>
-                            {
-                                read.Url("/api/InternService/GetStates");
-                            })
-                        )
-                        .HtmlAttributes(new { id = "State", @style = "width:100%" })
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(s =>
+                                    s.Read(read =>
+                                    {
+                                        read.Url("/api/InternService/GetStates");
+                                    })
+                                )
+                                .HtmlAttributes(new { id = "State", @style = "width:100%" })
             )
             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
         </div>
@@ -104,7 +105,7 @@
         @Html.LabelFor(model => model.DateOfBirth, new { @class = "control-label col-md-2" })
         <div class="col-md-3">
             @(Html.Kendo().DatePickerFor(model => model.DateOfBirth)
-                             .HtmlAttributes(new { id = "DateOfBirth", @style = "width:100%" })
+                                     .HtmlAttributes(new { id = "DateOfBirth", @style = "width:100%" })
             )
             @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
         </div>
@@ -126,19 +127,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2 text-center">
-            @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
+        <div class="col-md-4">
+            <a href="/Home/Index" class="k-button k-primary" id="previous"><span class="glyphicon glyphicon-chevron-left"></span>Home</a>
         </div>
-        <div class="col-md-2 text-center">
-            <input type="submit" value="Save" class="btn btn-default" formaction="/User/SaveUser" formmethod="post" />
+        <div class="col-md-4 text-center">
+            <input type="submit" value="Save" class="k-button k-primary" formaction="/User/SaveUser" formmethod="post" />
         </div>
-        <div class="col-md-2 text-center">
-            @Html.ActionLink("Continue Application", "CreateApplication", "Application", null, new { @class = "btn btn-primary" })
+        <div class="col-md-4">
+            <a href="/Application/Application" class="k-button k-primary pull-right" id="next">Next<span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
 </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

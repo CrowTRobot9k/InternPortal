@@ -50,6 +50,12 @@ namespace InternPortal.UI
 
                 cfg.CreateMap<UserUpload, UserUploadDto>();
                 cfg.CreateMap<UserUploadDto, UserUpload>();
+
+                cfg.CreateMap<Application, ApplicationChildUserDto>();
+                cfg.CreateMap<ApplicationChildUserDto, Application>();
+
+                cfg.CreateMap<User,UserNoAppDto>();
+                cfg.CreateMap<UserNoAppDto, User>();
             });
         }
     }

@@ -9,6 +9,8 @@ namespace InternPortal.UI.ViewModels
 {
     public class ApplicationViewModel
     {
+        public UserDto User { get; set; }
+
         public ApplicationDto Application { get; set; }
 
         public List<QuestionDto> Questions { get; set; }

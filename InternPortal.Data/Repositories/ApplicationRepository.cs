@@ -62,5 +62,15 @@ namespace InternPortal.Data.Models
             }
             return application;
         }
-	}
+
+        public Application UpdateApplicationUploads(Application application, IEnumerable<UserUpload> uploads)
+        {
+            application.UserUploads.Clear();
+
+            uploads.ToList().ForEach(u=> application.UserUploads.Add(u));
+
+            return application;
+        }
+
+    }
 }

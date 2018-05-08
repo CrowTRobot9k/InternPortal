@@ -5,6 +5,7 @@ using InternPortal.UI.Dto;
 using InternPortal.UI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,13 +30,9 @@ namespace InternPortal.UI.Controllers
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault();
 
-            if (user == null)
-            {
-                return RedirectToAction("CreateUser", "User");
-            }
-
             var viewModel = new ApplicationViewModel()
             {
+                User = Mapper.Map<UserDto>(user ?? new User()),
                 //get in progress application or new
                 Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
                                 .Where(i => i.UserId == user.UserId && i.ApplicationCompleteDate == null).FirstOrDefault()
@@ -87,6 +84,13 @@ namespace InternPortal.UI.Controllers
                     }
                 }
             }
+
+            //get upload
+            if (!viewModel.Application.UserUploads.Any())
+            {
+                viewModel.Application.UserUploads.Add( new UserUploadDto());
+            }
+           
            
             return View(viewModel);
         }
@@ -99,18 +103,103 @@ namespace InternPortal.UI.Controllers
                 return View("Application", viewModel);
             }
 
+            //save user
+            //add or update user
+            //Todo?:Maybe change to "Profile" with 1 to 1 relationship with Application.
+            var userToSave = _unitOfWork.Users.Where(i => i.UserId == viewModel.User.UserId).FirstOrDefault();
+
+            if (userToSave != null)
+            {
+                _unitOfWork.Context().Entry(userToSave).CurrentValues.SetValues(viewModel.User);
+            }
+            else
+            {
+                var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
+
+                viewModel.User.Id = aspUser.Id;
+
+                _unitOfWork.Users.Add(Mapper.Map<User>(viewModel.User));
+            }
+            //_unitOfWork.Complete();
+            //save user
+
+            
+            //delete old upload and save new one.
+            //Todo?: allow for multiple file uploads and delete upload function. For now Appplication only has one upload.
+            foreach (string file in Request.Files)
+            {
+                var postedFile = Request.Files[file];
+
+                try
+                {
+                    var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
+
+                    //Todo: maybe find better way to store files.
+                    var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "/";
+
+                    if (!Directory.Exists(applicationDirectory))
+                    {
+                        Directory.CreateDirectory(applicationDirectory);
+                    }
+
+                    //delete old files
+                    var di = new DirectoryInfo(applicationDirectory);
+
+                    foreach (var oldFile in di.GetFiles())
+                    {
+                        oldFile.Delete();
+                    }
+
+                    //Save new file
+                    var fullFilePath = applicationDirectory + postedFile.FileName;
+
+                    if (!System.IO.File.Exists(fullFilePath))
+                    {
+                        try
+                        {
+                            postedFile.SaveAs(fullFilePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            //Todo: add logger.
+                        }
+                    }
+
+                    //add to db
+                    viewModel.Application.UserUploads.Add(new UserUploadDto()
+                    {
+                        UploadLocation = fullFilePath,
+                        UploadTitle = viewModel.Application.UserUploads.FirstOrDefault().UploadTitle,
+                        UploadDescription = viewModel.Application.UserUploads.FirstOrDefault().UploadDescription
+                    });
+
+                }
+                catch (Exception ex)
+                {
+                    //Todo: add logger.
+                }
+            }
+
+            
             var applicationToSave = _unitOfWork.Applications.Where(i => i.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
 
             if (applicationToSave != null)
             {
                 viewModel.Application.Answers = Mapper.Map<IEnumerable<AnswerDto>>(_unitOfWork.Answers.Where(a => a.ApplicationId == viewModel.Application.ApplicationId).ToList() ?? new List<Answer>()).ToList();
 
+                //save answers
                 applicationToSave = _unitOfWork.Applications.UpdateApplicationAnswers(applicationToSave, Mapper.Map<IEnumerable<Question>>(viewModel.Questions));
+
+                //save uploads
+                applicationToSave = _unitOfWork.Applications.UpdateApplicationUploads(applicationToSave, Mapper.Map<IEnumerable<UserUpload>>(viewModel.Application.UserUploads));
             }
             else
             {
                 viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationAnswers(Mapper.Map<Application>(viewModel.Application), Mapper.Map<IEnumerable<Question>>(viewModel.Questions)));
+
+                viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationUploads(applicationToSave, Mapper.Map<IEnumerable<UserUpload>>(viewModel.Application.UserUploads)));
             }
+            
 
             //add or update application
             if (applicationToSave != null)
@@ -128,8 +217,16 @@ namespace InternPortal.UI.Controllers
                     {
                         _unitOfWork.Answers.Add(Mapper.Map<Answer>(answer));
                     }
-                        
+
                 }
+
+                //Todo: Allow update of uploads.
+                var uploadsToUpdate = _unitOfWork.UserUploads.Where(a => a.ApplicationId == applicationToSave.ApplicationId);
+
+                uploadsToUpdate.ToList().ForEach(i => _unitOfWork.UserUploads.Delete(i));
+
+                applicationToSave.UserUploads.ToList().ForEach(u =>
+                      applicationToSave.UserUploads.Add(u));
 
                 _unitOfWork.Context().Entry(applicationToSave).CurrentValues.SetValues(Mapper.Map<Application>(viewModel.Application));
             }
@@ -140,24 +237,23 @@ namespace InternPortal.UI.Controllers
 
             _unitOfWork.Complete();
 
+            //TODO: return the viewModel instead.
             return RedirectToAction("Application");
         }
 
-        public ActionResult Resume(int applicationId)
+        public ActionResult SubmitApplication(ApplicationViewModel viewModel)
         {
-            if (!_unitOfWork.Applications.GetAll().Any(a => a.ApplicationId == applicationId))
+            if (viewModel.Application.ApplicationId < 1 || !ModelState.IsValid)
             {
-                return View("Application");
+                return RedirectToAction("Application");
             }
 
-            var userUpload = Mapper.Map<UserUploadDto>(_unitOfWork.UserUploads.Where(u => u.ApplicationId == applicationId).FirstOrDefault() ?? new UserUpload() { ApplicationId = applicationId });
+            var applicationToSubmit = _unitOfWork.Applications.Where(a => a.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
 
-            return View(userUpload);       
-        }
+            applicationToSubmit.ApplicationCompleteDate = DateTime.Now;
 
+            _unitOfWork.Complete();
 
-        public ActionResult SaveResume()
-        {
             return View();
         }
 

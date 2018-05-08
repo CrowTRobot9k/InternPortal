@@ -20,7 +20,7 @@ namespace InternPortal.UI.Controllers
         }
 
         //interns create and view in edit mode.
-        public ActionResult CreateUser()
+        public ActionResult ApplicationUser()
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault() ?? new User();
@@ -33,7 +33,7 @@ namespace InternPortal.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateUser", model);
+                return View("ApplicationUser", model);
             }
 
             //add or update user
@@ -53,7 +53,7 @@ namespace InternPortal.UI.Controllers
             }
             _unitOfWork.Complete();
 
-            return View("CreateUser", model);
+            return View("ApplicationUser", model);
         }
 
 

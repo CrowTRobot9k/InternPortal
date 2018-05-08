@@ -3,160 +3,161 @@
 @model InternPortal.UI.ViewModels.ApplicationViewModel
 
 @{
-    ViewBag.Title = "CreateApplication";
+    /**/
+
+    ViewBag.Title = "Application";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
 {
-<div class="form-horizontal">
-    <h4>Application</h4>
-    <div class="col-md-12">
-        @(Html.Kendo().ProgressBar()
-                              .Name("ApplicationProgress")
-                              .Type(ProgressBarType.Value)
-                              .ChunkCount(3)
-                              .ShowStatus(false) // Don't display the value
-                              .Min(0)
-                              .Max(3) // Number of steps in the form
-                              .Value(2)
-                              .HtmlAttributes(new { style = "width: 100%;" })
-        )
-    </div>
-    <hr />
-    @Html.HiddenFor(model => model.Application.ApplicationId)
-
-    @Html.HiddenFor(model => model.Application.UserId)
-
-    @Html.HiddenFor(model => model.Application.ApplicationStartDate)
-
-    @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
-
-    @Html.HiddenFor(model => model.Application.ApplicationStatus)
-
-    @for (var i = 0; i < Model.Questions.Count(); i++)
-    {
-        @Html.HiddenFor(model => Model.Questions[i].QuestionId)
-
-        @Html.HiddenFor(model => Model.Questions[i].QuestionTypeId)
-
-
-        //form-group
-        <div class="form-group">
-            @Html.LabelFor(model => Model.Questions[i].Question_, Model.Questions[i].Question_, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <div class="col-md-10">
-                @switch (Model.Questions[i].QuestionTypeId)
-                {
-                    case ((int)Constants.QuestionType.RadioButton):
-                        for (var o = 0; o < Model.Questions[i].QuestionOptions.Count(); o++)
-                        {
-                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionId)
-                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
-                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
-
-
-                            @Html.HiddenFor(model => Model.Questions[i].Answers[0].AnswerId)
-
-                            @Html.HiddenFor(model => Model.Questions[i].Answers[0].ApplicationId)
-
-                            @Html.HiddenFor(model => Model.Questions[i].Answers[0].QuestionId)
-
-                            @Html.HiddenFor(model => Model.Questions[i].Answers[0].OptionId)
-
-                            @Html.HiddenFor(model => Model.Questions[i].Answers[0].OptionValue)
-
-                            <label>
-                                @Html.RadioButtonFor(model => Model.Questions[i].Answers[0].AnswerValue,
-                            Model.Questions[i].QuestionOptions[o].OptionValue)@Model.Questions[i].QuestionOptions[o].OptionValue
-                        </label>
-
-                        <br>
-                    }
-
-                    break;
-                case ((int)Constants.QuestionType.Checkbox):
-                    for (var o = 0; o < Model.Questions[i].QuestionOptions.Count(); o++)
-                    {
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionId)
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
-
-
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].AnswerId)
-
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].ApplicationId)
-
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].QuestionId)
-
-                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionId)
-
-                        <label>
-                            @Html.CheckBoxFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionValue)
-                            @Model.Questions[i].QuestionOptions[o].OptionValue
-                        </label>
-                        <br>
-                    }
-                    break;
-                case ((int)Constants.QuestionType.DropDown):
-
-                    @Html.Kendo().DropDownListFor(model => Model.Questions[i].Answers[0].AnswerValue).BindTo(Model.Questions[i].QuestionOptions.Select(q => q.OptionValue).ToList())
-                    break;
-                default:
-                    break;
-            }
-            </div>
-
-            @for (var a = 0; a < Model.Questions[i].Answers.Count(); a++)
-            {
-                <div class="col-md-10">
-                    @Html.HiddenFor(model => Model.Questions[i].Answers[a].AnswerId)
-
-                    @Html.HiddenFor(model => Model.Questions[i].Answers[a].ApplicationId)
-
-                    @Html.HiddenFor(model => Model.Questions[i].Answers[a].QuestionId)
-
-                      @Html.HiddenFor(model => Model.Questions[i].Answers[a].OptionId)
-           
-                      @switch (Model.Questions[i].QuestionTypeId)
-                      {
-                          case ((int)Constants.QuestionType.TextBox):
-                              @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
-                          break;
-                          case ((int)Constants.QuestionType.TextArea):
-                                      @Html.TextAreaFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "form-control", rows = "5", @style = "width:100%" })
-                          break;
-                          case ((int)Constants.QuestionType.Date):
-                                      @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { id = Model.Questions[i].QuestionId.ToString(), @class = "k-textbox datepicker" }))
-                          break;
-                          case ((int)Constants.QuestionType.Numeric):
-                                      @(Html.TextBoxFor(model => Model.Questions[i].Answers[a].AnswerValue, new { @class = "k-textbox integer", id = Model.Questions[i].QuestionId.ToString(), @type = "number", step = "1" }))
-                          break;
-                          default:
-                          break;
-
-                    }
-                </div>
-            }
-        </div>
-        //form-group
-        <br>
-
-    }
-</div>
-    @*@Html.Partial("_Questions", Model.QuestionAnswers)*@
-     }
-    </div>
-
     <div class="row">
-        <div class="col-md-3">
-            @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-default" })
+        <div class="col-md-12">
+            @(Html.Kendo().ProgressBar()
+                                      .Name("ApplicationProgress")
+                                      .Type(ProgressBarType.Value)
+                                      .ChunkCount(3)
+                                      .ShowStatus(false) // Don't display the value, we'll let the tab strip do that.
+                                      .Min(0)
+                                      .Max(3) // Number of steps in the form
+                                      .Value(1)
+                                      .HtmlAttributes(new { style = "width: 100%;" })
+            )
         </div>
-        <div class="col-md-3">
-            <input type="submit" value="Save" class="btn btn-default" formaction="/Application/SaveApplication" formmethod="post" />
+    </div>
+    <br>
+    @(Html.Kendo().TabStrip()
+                                  .Name("ApplicationProgressStrip")
+                                  .Items(tabstrip =>
+                                  {
+                                      tabstrip.Add().Text("Profile")
+                                          .Selected(true)
+                                          .Content(m => Html.Partial("_ApplicationProfile", m));
+
+                                      tabstrip.Add().Text("Questions")
+                                          //.Enabled(false)
+                                          .Content(m => Html.Partial("_ApplicationQuestions", m));
+
+                                      tabstrip.Add().Text("Resume")
+                                          //.Enabled(false)
+                                          .Content(m => Html.Partial("_ApplicationResume", m));
+
+                                  })
+                                .Events(ev =>
+                                {
+                                    ev.Select("onSelect");
+                                    ev.Show("onShow");
+                                })
+
+    )
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="#" class="k-button k-primary" id="previous"><span class="glyphicon glyphicon-chevron-left"></span>Previous</a>
         </div>
-        <div class="col-md-3">
-            @Html.ActionLink("Continue Application", "Resume", "Application", new { applicationId = Model.Application.ApplicationId}, new { @class = "btn btn-primary" })
+        <div class="col-md-4 text-center">
+            <input type="submit" class="k-button k-primary" value="Save Application" formaction="/Application/SaveApplication" id="SaveApplication" />
+            @if (Model.Application.ApplicationId > 0 && Model.User.UserId > 0 && Model.Application.UserUploads.FirstOrDefault().UploadId > 0)
+            {
+                <input type="submit" class="k-button k-primary" value="Submit Application" formaction="/Application/SubmitApplication" id="SubmitApplication" />
+            }
+        </div>
+        <div class="col-md-4">
+            <a href="#" class="k-button k-primary pull-right" id="next">Next<span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
 }
+
+<script>
+
+    //prevent save on press enter
+    $('#FormSaveApplication').on('keyup keypress', function (e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    $('#SaveApplication').click(function (e) {
+        $('#FormSaveApplication').submit();
+    });
+
+
+    //progress bar
+     var progress,
+        tabs,
+        currentIndex = 0;
+
+    $(document).ready(function () {
+        progress = $("#ApplicationProgress").data("kendoProgressBar");
+        tabs = $("#ApplicationProgressStrip").data("kendoTabStrip");
+
+        //if () {
+        //    currentIndex = 3;
+        //    tabs.select(currentIndex);
+        //    progress.value(currentIndex + 1);
+        //}
+    });
+
+    function onSelect(e) {
+
+        var selectedIndex = tabIndexOfElement(e.item),
+
+            isMovingBack = selectedIndex < currentIndex;
+
+        if (isMovingBack || isTabValidAt(currentIndex)) {
+            console.log("tab passed validation");
+            currentIndex = selectedIndex;
+            tabs.enable(getTabAtIndex(currentIndex), true);
+        }
+        else {
+            e.preventDefault();
+        }
+    }
+
+    function onPreviousClick(e) {
+        e.preventDefault();
+        tabs.select(tabs.select().prev());
+    }
+
+    function onNextClick(e) {
+        e.preventDefault();
+
+        tabs.select(getTabAtIndex(currentIndex + 1));
+    }
+
+    function getTabAtIndex(index) {
+        return tabs.tabGroup.children().eq(index);
+    }
+
+    function tabIndexOfElement(element) {
+        return tabs.element.find(element).index();
+    }
+
+    function isTabValidAt(tabIndex) {
+        var el = tabs.contentElement(tabIndex),
+            val = $(el).kendoValidator().data("kendoValidator");
+        return val.validate();
+    }
+
+    function onShow(e) {
+        progress.value(currentIndex + 1);
+    }
+
+    $('#previous').click(function () {
+        if (currentIndex > 0) {
+            tabs.select(getTabAtIndex(currentIndex - 1));
+        }
+    });
+
+    $('#next').click(function () {
+        if (currentIndex < 3)
+        {
+
+                tabs.select(getTabAtIndex(currentIndex + 1));
+            
+        }
+    });
+    //progress bar
+ </script>

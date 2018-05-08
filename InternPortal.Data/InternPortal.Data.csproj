@@ -88,29 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Migrations\201804261807445_InitialMigration.cs" />
-    <Compile Include="Migrations\201804261807445_InitialMigration.Designer.cs">
-      <DependentUpon>201804261807445_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804262336339_AddOptionValueToAnswerForCheckBoxes.cs" />
-    <Compile Include="Migrations\201804262336339_AddOptionValueToAnswerForCheckBoxes.Designer.cs">
-      <DependentUpon>201804262336339_AddOptionValueToAnswerForCheckBoxes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804271605569_MakeAnswerOptionNotNullable.cs" />
-    <Compile Include="Migrations\201804271605569_MakeAnswerOptionNotNullable.Designer.cs">
-      <DependentUpon>201804271605569_MakeAnswerOptionNotNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805040446549_MadeAnswerValueAndOptionValueOptional.cs" />
-    <Compile Include="Migrations\201805040446549_MadeAnswerValueAndOptionValueOptional.Designer.cs">
-      <DependentUpon>201805040446549_MadeAnswerValueAndOptionValueOptional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805040524422_MadeAnswerIdIdentityColumn.cs" />
-    <Compile Include="Migrations\201805040524422_MadeAnswerIdIdentityColumn.Designer.cs">
-      <DependentUpon>201805040524422_MadeAnswerIdIdentityColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805041836533_FixIdentityColumnAnswer.cs" />
-    <Compile Include="Migrations\201805041836533_FixIdentityColumnAnswer.Designer.cs">
-      <DependentUpon>201805041836533_FixIdentityColumnAnswer.cs</DependentUpon>
+    <Compile Include="Migrations\201805071831153_InitialMigration.cs" />
+    <Compile Include="Migrations\201805071831153_InitialMigration.Designer.cs">
+      <DependentUpon>201805071831153_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
@@ -480,23 +460,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804261807445_InitialMigration.resx">
-      <DependentUpon>201804261807445_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804262336339_AddOptionValueToAnswerForCheckBoxes.resx">
-      <DependentUpon>201804262336339_AddOptionValueToAnswerForCheckBoxes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804271605569_MakeAnswerOptionNotNullable.resx">
-      <DependentUpon>201804271605569_MakeAnswerOptionNotNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805040446549_MadeAnswerValueAndOptionValueOptional.resx">
-      <DependentUpon>201805040446549_MadeAnswerValueAndOptionValueOptional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805040524422_MadeAnswerIdIdentityColumn.resx">
-      <DependentUpon>201805040524422_MadeAnswerIdIdentityColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805041836533_FixIdentityColumnAnswer.resx">
-      <DependentUpon>201805041836533_FixIdentityColumnAnswer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805071831153_InitialMigration.resx">
+      <DependentUpon>201805071831153_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,11 +11,12 @@ namespace InternPortal.Data.Migrations
                 "dbo.Answers",
                 c => new
                     {
-                        AnswerId = c.Int(nullable: false),
+                        AnswerId = c.Int(nullable: false, identity: true),
                         ApplicationId = c.Int(nullable: false),
                         QuestionId = c.Int(nullable: false),
                         OptionId = c.Int(),
-                        AnswerValue = c.String(nullable: false, unicode: false),
+                        AnswerValue = c.String(unicode: false),
+                        OptionValue = c.Boolean(),
                     })
                 .PrimaryKey(t => t.AnswerId)
                 .ForeignKey("dbo.Application", t => t.ApplicationId)
@@ -136,14 +137,17 @@ namespace InternPortal.Data.Migrations
                 c => new
                     {
                         UploadId = c.Int(nullable: false),
-                        UserId = c.Int(nullable: false),
+                        UserId = c.Int(),
+                        ApplicationId = c.Int(),
                         UploadLocation = c.String(),
                         UploadTitle = c.String(),
                         UploadDescription = c.String(),
                     })
                 .PrimaryKey(t => t.UploadId)
-                .ForeignKey("dbo.User", t => t.UploadId)
-                .Index(t => t.UploadId);
+                .ForeignKey("dbo.Application", t => t.ApplicationId)
+                .ForeignKey("dbo.User", t => t.UserId)
+                .Index(t => t.UserId)
+                .Index(t => t.ApplicationId);
             
             CreateTable(
                 "dbo.Question",
@@ -210,7 +214,8 @@ namespace InternPortal.Data.Migrations
             DropForeignKey("dbo.QuestionOptions", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Answers", "ApplicationId", "dbo.Application");
             DropForeignKey("dbo.Application", "UserId", "dbo.User");
-            DropForeignKey("dbo.UserUploads", "UploadId", "dbo.User");
+            DropForeignKey("dbo.UserUploads", "UserId", "dbo.User");
+            DropForeignKey("dbo.UserUploads", "ApplicationId", "dbo.Application");
             DropForeignKey("dbo.Messages", "UserIdTo", "dbo.User");
             DropForeignKey("dbo.Messages", "UserIdFrom", "dbo.User");
             DropForeignKey("dbo.User", "Id", "dbo.AspNetUsers");
@@ -222,7 +227,8 @@ namespace InternPortal.Data.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.QuestionOptions", new[] { "QuestionId" });
             DropIndex("dbo.Question", new[] { "QuestionTypeId" });
-            DropIndex("dbo.UserUploads", new[] { "UploadId" });
+            DropIndex("dbo.UserUploads", new[] { "ApplicationId" });
+            DropIndex("dbo.UserUploads", new[] { "UserId" });
             DropIndex("dbo.Messages", new[] { "UserIdTo" });
             DropIndex("dbo.Messages", new[] { "UserIdFrom" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });

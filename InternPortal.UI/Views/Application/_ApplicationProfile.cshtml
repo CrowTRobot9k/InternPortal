@@ -1,0 +1,116 @@
+﻿@model InternPortal.UI.ViewModels.ApplicationViewModel
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="row text-center">
+            <h4>Profile:</h4>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.User.UserId)
+            @Html.HiddenFor(model => Model.User.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.FirstName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.FirstName, new { @class = "k-textbox textbox", placeholder = ""}))
+                    @Html.ValidationMessageFor(model => Model.User.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.MiddleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.MiddleName, new { @class = "k-textbox textbox", placeholder = ""}))
+                    @Html.ValidationMessageFor(model => Model.User.MiddleName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.LastName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.LastName, new { @class = "k-textbox textbox", placeholder = "" }))
+                    @Html.ValidationMessageFor(model => Model.User.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.PhoneNumber, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.PhoneNumber, new { @class = "k-textbox textbox", placeholder = "###-###-####"}))
+                    @Html.ValidationMessageFor(model => Model.User.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.Address, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.Address, new { @class = "k-textbox textbox", placeholder = "" }))
+                    @Html.ValidationMessageFor(model => Model.User.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.City, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.City, new { @class = "k-textbox textbox", placeholder = "" }))
+                    @Html.ValidationMessageFor(model => Model.User.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.State, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.Kendo().DropDownListFor(m => m.User.State)
+                                                                        .DataTextField("Text")
+                                                                        .DataValueField("Value")
+                                                                        .DataSource(s =>
+                                                                            s.Read(read =>
+                                                                            {
+                                                                                read.Url("/api/InternService/GetStates");
+                                                                            })
+                                                                        )
+                                                                        .HtmlAttributes(new { id = "State" })
+                    )
+                    @Html.ValidationMessageFor(model => Model.User.State, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.ZipCode, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.ZipCode, new { @class = "k-textbox textbox", placeholder = ""}))
+                    @Html.ValidationMessageFor(model => Model.User.ZipCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.DateOfBirth, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.Kendo().DatePickerFor(model => Model.User.DateOfBirth)
+                                                                             .HtmlAttributes(new { id = "DateOfBirth" })
+                    )
+                    @Html.ValidationMessageFor(model => Model.User.DateOfBirth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.Gender, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.ZipCode, new { @class = "k-textbox textbox", placeholder = "" }))
+                    @Html.ValidationMessageFor(model => Model.User.Gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => Model.User.Ethnicity, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.TextBoxFor(model => Model.User.Ethnicity, new { @class = "k-textbox textbox", placeholder = "" }))
+                    @Html.ValidationMessageFor(model => Model.User.Ethnicity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

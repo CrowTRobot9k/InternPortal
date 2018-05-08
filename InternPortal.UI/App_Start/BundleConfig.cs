@@ -26,7 +26,7 @@ namespace InternPortal.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/admin-lte/css/AdminLTE.css",
-                      "~/admin-lte/css/skins/skin-blue.css",
+                      "~/admin-lte/css/skins/skin-green.css",
                       "~/Content/site.css"
                       ));
 
