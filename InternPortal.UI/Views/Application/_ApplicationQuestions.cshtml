@@ -26,7 +26,6 @@
 
                 @Html.HiddenFor(model => Model.Questions[i].QuestionTypeId)
 
-
                 //form-group
                 <div class="form-group">
                     @Html.LabelFor(model => Model.Questions[i].Question_, Model.Questions[i].Question_, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,7 +40,6 @@
                                     @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
                                     @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
 
-
                                     @Html.HiddenFor(model => Model.Questions[i].Answers[0].AnswerId)
 
                                     @Html.HiddenFor(model => Model.Questions[i].Answers[0].ApplicationId)
@@ -54,43 +52,42 @@
 
                                     <label>
                                         @Html.RadioButtonFor(model => Model.Questions[i].Answers[0].AnswerValue,
-                                                             Model.Questions[i].QuestionOptions[o].OptionValue)@Model.Questions[i].QuestionOptions[o].OptionValue
-                                                        </label>
+                                                                  Model.Questions[i].QuestionOptions[o].OptionValue)@Model.Questions[i].QuestionOptions[o].OptionValue
+                                                            </label>
 
-                                                        <br>
-                                                    }
+                                                            <br>
+                                                        }
 
-                                                    break;
-                                                case ((int)Constants.QuestionType.Checkbox):
-                                                    for (var o = 0; o < Model.Questions[i].QuestionOptions.Count(); o++)
-                                                    {
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionId)
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
+                                                        break;
+                                                    case ((int)Constants.QuestionType.Checkbox):
+                                                        for (var o = 0; o < Model.Questions[i].QuestionOptions.Count(); o++)
+                                                        {
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionId)
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].QuestionId)
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].OptionValue)
 
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].AnswerId)
 
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].AnswerId)
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].ApplicationId)
 
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].ApplicationId)
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].QuestionId)
 
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].QuestionId)
+                                                            @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionId)
 
-                                                        @Html.HiddenFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionId)
+                                                            <label>
+                                                                @Html.CheckBoxFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionValue)
+                                                                @Model.Questions[i].QuestionOptions[o].OptionValue
+                                                            </label>
+                                                            <br>
+                                                        }
+                                                        break;
+                                                    case ((int)Constants.QuestionType.DropDown):
 
-                                                        <label>
-                                                            @Html.CheckBoxFor(model => Model.Questions[i].QuestionOptions[o].Answers[0].OptionValue)
-                                                            @Model.Questions[i].QuestionOptions[o].OptionValue
-                                                        </label>
-                                                        <br>
-                                                    }
-                                                    break;
-                                                case ((int)Constants.QuestionType.DropDown):
-
-                                                    @Html.Kendo().DropDownListFor(model => Model.Questions[i].Answers[0].AnswerValue).BindTo(Model.Questions[i].QuestionOptions.Select(q => q.OptionValue).ToList())
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
+                                                        @Html.Kendo().DropDownListFor(model => Model.Questions[i].Answers[0].AnswerValue).BindTo(Model.Questions[i].QuestionOptions.Select(q => q.OptionValue).ToList())
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
                     </div>
 
                     @for (var a = 0; a < Model.Questions[i].Answers.Count(); a++)
@@ -130,5 +127,5 @@
 
             }
         </div>
-        </div>
     </div>
+</div>

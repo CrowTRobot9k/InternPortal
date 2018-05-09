@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace InternPortal.UI.Controllers
@@ -15,7 +14,7 @@ namespace InternPortal.UI.Controllers
     [Authorize]
     public class ApplicationController : BaseController
     {
-        public ApplicationController(IInternUnitOfWork unitOfWork):base(unitOfWork)
+        public ApplicationController(IInternUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
@@ -28,7 +27,7 @@ namespace InternPortal.UI.Controllers
         public ActionResult Application()
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
-            var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault()?? new User();
+            var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault() ?? new User();
 
             var viewModel = new ApplicationViewModel()
             {
@@ -45,8 +44,7 @@ namespace InternPortal.UI.Controllers
                 viewModel.Application.UserId = user.UserId;
                 viewModel.Application.ApplicationStartDate = DateTime.Now;
                 viewModel.Application.ApplicationStatus = (int)Constants.ApplicationStatus.Pending;
-                
-           }
+            }
 
             //get all questions
             viewModel.Questions = Mapper.Map<IEnumerable<QuestionDto>>(_unitOfWork.Questions.GetAll().ToList()).ToList();
@@ -88,10 +86,9 @@ namespace InternPortal.UI.Controllers
             //get upload
             if (!viewModel.Application.UserUploads.Any())
             {
-                viewModel.Application.UserUploads.Add( new UserUploadDto());
+                viewModel.Application.UserUploads.Add(new UserUploadDto());
             }
-           
-           
+
             return View(viewModel);
         }
 
@@ -123,7 +120,6 @@ namespace InternPortal.UI.Controllers
             //_unitOfWork.Complete();
             //save user
 
-            
             //delete old upload and save new one.
             //Todo?: allow for multiple file uploads and delete upload function. For now Appplication only has one upload.
             foreach (string file in Request.Files)
@@ -150,8 +146,6 @@ namespace InternPortal.UI.Controllers
                         oldFile.Delete();
                     }
 
-
-
                     //Save new file
                     var fullFilePath = applicationDirectory + postedFile.FileName;
 
@@ -171,11 +165,10 @@ namespace InternPortal.UI.Controllers
                     viewModel.Application.UserUploads.Add(new UserUploadDto()
                     {
                         //don't store full path on sql server
-                        UploadLocation = viewModel.Application.ApplicationId + "\\"+ postedFile.FileName,
+                        UploadLocation = viewModel.Application.ApplicationId + "\\" + postedFile.FileName,
                         UploadTitle = viewModel.Application.UserUploads.FirstOrDefault().UploadTitle,
                         UploadDescription = viewModel.Application.UserUploads.FirstOrDefault().UploadDescription
                     });
-
                 }
                 catch (Exception ex)
                 {
@@ -183,7 +176,6 @@ namespace InternPortal.UI.Controllers
                 }
             }
 
-            
             var applicationToSave = _unitOfWork.Applications.Where(i => i.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
 
             if (applicationToSave != null)
@@ -202,7 +194,6 @@ namespace InternPortal.UI.Controllers
 
                 viewModel.Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.UpdateApplicationUploads(Mapper.Map<Application>(viewModel.Application), Mapper.Map<IEnumerable<UserUpload>>(viewModel.Application.UserUploads)));
             }
-            
 
             //add or update application
             if (applicationToSave != null)
@@ -220,10 +211,9 @@ namespace InternPortal.UI.Controllers
                     {
                         _unitOfWork.Answers.Add(Mapper.Map<Answer>(answer));
                     }
-
                 }
 
-                //Todo: Allow update of uploads.
+                //TODO: Allow update of uploads.
                 var uploadsToUpdate = _unitOfWork.UserUploads.Where(a => a.ApplicationId == applicationToSave.ApplicationId);
 
                 uploadsToUpdate.ToList().ForEach(i => _unitOfWork.UserUploads.Delete(i));
@@ -262,8 +252,5 @@ namespace InternPortal.UI.Controllers
 
             return View();
         }
-
-
-
     }
 }

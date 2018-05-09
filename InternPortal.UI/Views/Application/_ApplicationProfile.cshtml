@@ -70,15 +70,15 @@
                 @Html.LabelFor(model => Model.User.State, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @(Html.Kendo().DropDownListFor(m => m.User.State)
-                                                                        .DataTextField("Text")
-                                                                        .DataValueField("Value")
-                                                                        .DataSource(s =>
-                                                                            s.Read(read =>
-                                                                            {
-                                                                                read.Url("/api/InternService/GetStates");
-                                                                            })
-                                                                        )
-                                                                        .HtmlAttributes(new { id = "State" })
+                                                                                .DataTextField("Text")
+                                                                                .DataValueField("Value")
+                                                                                .DataSource(s =>
+                                                                                    s.Read(read =>
+                                                                                    {
+                                                                                        read.Url("/api/InternService/GetStates");
+                                                                                    })
+                                                                                )
+                                                                                .HtmlAttributes(new { id = "State" })
                     )
                     @Html.ValidationMessageFor(model => Model.User.State, "", new { @class = "text-danger" })
                 </div>
@@ -96,7 +96,7 @@
                 @Html.LabelFor(model => Model.User.DateOfBirth, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @(Html.Kendo().DatePickerFor(model => Model.User.DateOfBirth)
-                                                                             .HtmlAttributes(new { id = "DateOfBirth" })
+                                                                                     .HtmlAttributes(new { id = "DateOfBirth" })
                     )
                     @Html.ValidationMessageFor(model => Model.User.DateOfBirth, "", new { @class = "text-danger" })
                 </div>

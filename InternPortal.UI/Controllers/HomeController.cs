@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InternPortal.Data.Models;
+using InternPortal.UI.ViewModels;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
-using InternPortal.Data.Models;
-using InternPortal.UI.ViewModels;
 
 namespace InternPortal.UI.Controllers
 {
     [System.Web.Mvc.Authorize]
     public class HomeController : BaseController
     {
-
         public HomeController(IInternUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
-
         }
 
         public ActionResult Index()
@@ -29,8 +21,8 @@ namespace InternPortal.UI.Controllers
 
             var viewModel = new HomePageViewModel()
             {
-               DomainUser = aspUser,
-               User = user        
+                DomainUser = aspUser,
+                User = user
             };
 
             return View(viewModel);
@@ -43,15 +35,15 @@ namespace InternPortal.UI.Controllers
 
             var upload = _unitOfWork.UserUploads.Where(u => u.UploadId == id).FirstOrDefault();
 
-            string ext = Path.GetExtension(upload.UploadLocation);
+            var ext = Path.GetExtension(upload.UploadLocation);
 
-            System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
+            var response = System.Web.HttpContext.Current.Response;
             response.ClearContent();
             response.Clear();
             response.ContentType = "text/plain";
             response.AddHeader("Content-Disposition",
-                               "attachment; filename=" + upload.UploadTitle + ext+";");
-            response.TransmitFile(Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]+upload.UploadLocation));
+                               "attachment; filename=" + upload.UploadTitle + ext + ";");
+            response.TransmitFile(Server.MapPath(uploadLocation + upload.UploadLocation));
             response.Flush();
             response.End();
         }

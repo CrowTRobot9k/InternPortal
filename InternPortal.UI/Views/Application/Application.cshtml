@@ -9,45 +9,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("SaveApplication","Application",FormMethod.Post,new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("SaveApplication", "Application", FormMethod.Post, new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
 {
     <div class="row">
         <div class="col-md-12">
             @(Html.Kendo().ProgressBar()
-                                      .Name("ApplicationProgress")
-                                      .Type(ProgressBarType.Value)
-                                      .ChunkCount(3)
-                                      .ShowStatus(false) // Don't display the value, we'll let the tab strip do that.
-                                      .Min(0)
-                                      .Max(3) // Number of steps in the form
-                                      .Value(1)
-                                      .HtmlAttributes(new { style = "width: 100%;" })
+                                              .Name("ApplicationProgress")
+                                              .Type(ProgressBarType.Value)
+                                              .ChunkCount(3)
+                                              .ShowStatus(false) // Don't display the value, we'll let the tab strip do that.
+                                              .Min(0)
+                                              .Max(3) // Number of steps in the form
+                                              .Value(1)
+                                              .HtmlAttributes(new { style = "width: 100%;" })
             )
         </div>
     </div>
     <br>
     @(Html.Kendo().TabStrip()
-                                  .Name("ApplicationProgressStrip")
-                                  .Items(tabstrip =>
-                                  {
-                                      tabstrip.Add().Text("Profile")
-                                          .Selected(true)
-                                          .Content(m => Html.Partial("_ApplicationProfile", m));
+                                          .Name("ApplicationProgressStrip")
+                                          .Items(tabstrip =>
+                                          {
+                                              tabstrip.Add().Text("Profile")
+                                                  .Selected(true)
+                                                  .Content(m => Html.Partial("_ApplicationProfile", m));
 
-                                      tabstrip.Add().Text("Questions")
-                                          //.Enabled(false)
-                                          .Content(m => Html.Partial("_ApplicationQuestions", m));
+                                              tabstrip.Add().Text("Questions")
+                                                  //.Enabled(false)
+                                                  .Content(m => Html.Partial("_ApplicationQuestions", m));
 
-                                      tabstrip.Add().Text("Resume")
-                                          //.Enabled(false)
-                                          .Content(m => Html.Partial("_ApplicationResume", m));
+                                              tabstrip.Add().Text("Resume")
+                                                  //.Enabled(false)
+                                                  .Content(m => Html.Partial("_ApplicationResume", m));
 
-                                  })
-                                .Events(ev =>
-                                {
-                                    ev.Select("onSelect");
-                                    ev.Show("onShow");
-                                })
+                                          })
+                                        .Events(ev =>
+                                        {
+                                            ev.Select("onSelect");
+                                            ev.Show("onShow");
+                                        })
 
     )
     <br>
@@ -59,7 +59,7 @@
             <input type="submit" class="k-button k-primary" value="Save Application" id="SaveApplication" />
             @if (Model.Application.ApplicationId > 0 && Model.User.UserId > 0 && Model.Application.UserUploads.FirstOrDefault().UploadId > 0)
             {
-                <a href="\Application\SubmitApplication\@Model.Application.ApplicationId" class="k-button k-primary" id="SubmitApplication" >Submit Application</a>
+                <a href="\Application\SubmitApplication\@Model.Application.ApplicationId" class="k-button k-primary" id="SubmitApplication">Submit Application</a>
             }
         </div>
         <div class="col-md-4">
@@ -83,9 +83,8 @@
         $('#FormSaveApplication').submit();
     });
 
-
     //progress bar
-     var progress,
+    var progress,
         tabs,
         currentIndex = 0;
 
@@ -152,12 +151,11 @@
     });
 
     $('#next').click(function () {
-        if (currentIndex < 3)
-        {
+        if (currentIndex < 3) {
 
-                tabs.select(getTabAtIndex(currentIndex + 1));
-            
+            tabs.select(getTabAtIndex(currentIndex + 1));
+
         }
     });
     //progress bar
- </script>
+</script>

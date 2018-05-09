@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using InternPortal.UI.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using InternPortal.UI.Models;
 
 namespace InternPortal.UI.Controllers
 {
@@ -335,6 +333,7 @@ namespace InternPortal.UI.Controllers
         }
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -385,6 +384,6 @@ namespace InternPortal.UI.Controllers
             Error
         }
 
-        #endregion
+        #endregion Helpers
     }
 }

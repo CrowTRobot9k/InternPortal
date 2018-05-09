@@ -5,7 +5,6 @@
     ViewBag.Decription = "";
 }
 
-
 <div class="container-fluid">
     @if (!User.IsInRole("admin"))
     {
@@ -90,7 +89,6 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
             </script>
         </div>
@@ -105,8 +103,7 @@
     function formatDateTime(data) {
         return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd hh:mm") || "N/A";
     }
-    function checkNull(data)
-    {
+    function checkNull(data) {
         return data || "N/A";
     }
 
@@ -217,8 +214,7 @@
         ]
     });
 
-    function detailInit(e) 
-    {
+    function detailInit(e) {
         var detailRow = e.detailRow;
 
         var uri = "/API/InternService/GetApplicationAnswers/" + e.data.ApplicationId;
@@ -244,7 +240,7 @@
                 },
                 { field: "QuestionId", title: "QuestionId", hidden: true },
                 { field: "Question", title: "Question" },
-                { field:"Answer", title: "Answer" }
+                { field: "Answer", title: "Answer" }
             ],
             pageable: false,
             dataBinding: function () {
