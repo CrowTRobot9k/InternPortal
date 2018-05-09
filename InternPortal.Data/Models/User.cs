@@ -24,7 +24,6 @@ namespace InternPortal.Data.Models
         public string FirstName { get; set; } // FirstName (length: 100)
         public string MiddleName { get; set; } // MiddleName (length: 100)
         public string LastName { get; set; } // LastName (length: 100)
-        public string Email { get; set; }
         public string PhoneNumber { get; set; } // PhoneNumber (length: 50)
         public string Address { get; set; } // Address
         public string City { get; set; } // City (length: 100)
@@ -33,6 +32,7 @@ namespace InternPortal.Data.Models
         public System.DateTime? DateOfBirth { get; set; } // DateOfBirth
         public string Gender { get; set; } // Gender (length: 50)
         public string Ethnicity { get; set; } // Ethnicity (length: 50)
+        public string Email { get; set; } // Email (length: 100)
 
         // Reverse navigation
 
@@ -41,17 +41,17 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_dbo.Application_dbo.User_UserId
         /// <summary>
-        /// Child Messages where [Messages].[UserIdFrom] point to this entity (FK_dbo.Messages_dbo.User_UserIdFrom)
+        /// Child Messages where [Message].[UserIdFrom] point to this entity (FK_dbo.Messages_dbo.User_UserIdFrom)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Messages.FK_dbo.Messages_dbo.User_UserIdFrom
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdFrom
         /// <summary>
-        /// Child Messages where [Messages].[UserIdTo] point to this entity (FK_dbo.Messages_dbo.User_UserIdTo)
+        /// Child Messages where [Message].[UserIdTo] point to this entity (FK_dbo.Messages_dbo.User_UserIdTo)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Messages.FK_dbo.Messages_dbo.User_UserIdTo
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdTo
         /// <summary>
-        /// Child UserUploads where [UserUploads].[UserId] point to this entity (FK_dbo.UserUploads_dbo.User_UserId)
+        /// Child UserUploads where [UserUpload].[UserId] point to this entity (FK_dbo.UserUploads_dbo.User_UserId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.User_UserId
+        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUploads_dbo.User_UserId
 
         // Foreign keys
 

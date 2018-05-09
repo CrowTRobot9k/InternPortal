@@ -17,19 +17,20 @@ namespace InternPortal.Data.Models
 
     public partial interface IInternPortalContext : IDbContext
     {
-        System.Data.Entity.DbSet<Answer> Answers { get; set; } // Answers
+        System.Data.Entity.DbSet<Answer> Answers { get; set; } // Answer
         System.Data.Entity.DbSet<Application> Applications { get; set; } // Application
         System.Data.Entity.DbSet<ApplicationStatu> ApplicationStatus { get; set; } // ApplicationStatus
         System.Data.Entity.DbSet<AspNetRole> AspNetRoles { get; set; } // AspNetRoles
         System.Data.Entity.DbSet<AspNetUser> AspNetUsers { get; set; } // AspNetUsers
         System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } // AspNetUserClaims
         System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
-        System.Data.Entity.DbSet<Message> Messages { get; set; } // Messages
+        System.Data.Entity.DbSet<Message> Messages { get; set; } // Message
+        System.Data.Entity.DbSet<Note> Notes { get; set; } // Note
         System.Data.Entity.DbSet<Question> Questions { get; set; } // Question
-        System.Data.Entity.DbSet<QuestionOption> QuestionOptions { get; set; } // QuestionOptions
-        System.Data.Entity.DbSet<QuestionType> QuestionTypes { get; set; } // QuestionTypes
+        System.Data.Entity.DbSet<QuestionOption> QuestionOptions { get; set; } // QuestionOption
+        System.Data.Entity.DbSet<QuestionType> QuestionTypes { get; set; } // QuestionType
         System.Data.Entity.DbSet<User> Users { get; set; } // User
-        System.Data.Entity.DbSet<UserUpload> UserUploads { get; set; } // UserUploads
+        System.Data.Entity.DbSet<UserUpload> UserUploads { get; set; } // UserUpload
 
         int SaveChanges();
         System.Threading.Tasks.Task<int> SaveChangesAsync();

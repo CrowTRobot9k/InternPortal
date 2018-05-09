@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // QuestionTypes
+    // QuestionType
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class QuestionType
     {

@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // UserUploads
+    // UserUpload
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class UserUpload
     {
@@ -29,12 +29,12 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent Application pointed by [UserUploads].([ApplicationId]) (FK_dbo.UserUploads_dbo.Application_ApplicationId)
+        /// Parent Application pointed by [UserUpload].([ApplicationId]) (FK_dbo.UserUploads_dbo.Application_ApplicationId)
         /// </summary>
         public virtual Application Application { get; set; } // FK_dbo.UserUploads_dbo.Application_ApplicationId
 
         /// <summary>
-        /// Parent User pointed by [UserUploads].([UserId]) (FK_dbo.UserUploads_dbo.User_UserId)
+        /// Parent User pointed by [UserUpload].([UserId]) (FK_dbo.UserUploads_dbo.User_UserId)
         /// </summary>
         public virtual User User { get; set; } // FK_dbo.UserUploads_dbo.User_UserId
 

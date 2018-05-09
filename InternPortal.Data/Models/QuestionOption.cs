@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // QuestionOptions
+    // QuestionOption
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class QuestionOption
     {
@@ -26,14 +26,14 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answers].[OptionId] point to this entity (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
+        /// Child Answers where [Answer].[OptionId] point to this entity (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.QuestionOptions_OptionId
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answers_dbo.QuestionOptions_OptionId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Question pointed by [QuestionOptions].([QuestionId]) (FK_dbo.QuestionOptions_dbo.Question_QuestionId)
+        /// Parent Question pointed by [QuestionOption].([QuestionId]) (FK_dbo.QuestionOptions_dbo.Question_QuestionId)
         /// </summary>
         public virtual Question Question { get; set; } // FK_dbo.QuestionOptions_dbo.Question_QuestionId
 

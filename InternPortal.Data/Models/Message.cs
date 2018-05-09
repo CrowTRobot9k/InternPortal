@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // Messages
+    // Message
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class Message
     {
@@ -29,12 +29,12 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent User pointed by [Messages].([UserIdFrom]) (FK_dbo.Messages_dbo.User_UserIdFrom)
+        /// Parent User pointed by [Message].([UserIdFrom]) (FK_dbo.Messages_dbo.User_UserIdFrom)
         /// </summary>
         public virtual User User_UserIdFrom { get; set; } // FK_dbo.Messages_dbo.User_UserIdFrom
 
         /// <summary>
-        /// Parent User pointed by [Messages].([UserIdTo]) (FK_dbo.Messages_dbo.User_UserIdTo)
+        /// Parent User pointed by [Message].([UserIdTo]) (FK_dbo.Messages_dbo.User_UserIdTo)
         /// </summary>
         public virtual User User_UserIdTo { get; set; } // FK_dbo.Messages_dbo.User_UserIdTo
 

@@ -19,19 +19,20 @@ namespace InternPortal.Data.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class InternPortalContext : System.Data.Entity.DbContext, IInternPortalContext
     {
-        public System.Data.Entity.DbSet<Answer> Answers { get; set; } // Answers
+        public System.Data.Entity.DbSet<Answer> Answers { get; set; } // Answer
         public System.Data.Entity.DbSet<Application> Applications { get; set; } // Application
         public System.Data.Entity.DbSet<ApplicationStatu> ApplicationStatus { get; set; } // ApplicationStatus
         public System.Data.Entity.DbSet<AspNetRole> AspNetRoles { get; set; } // AspNetRoles
         public System.Data.Entity.DbSet<AspNetUser> AspNetUsers { get; set; } // AspNetUsers
         public System.Data.Entity.DbSet<AspNetUserClaim> AspNetUserClaims { get; set; } // AspNetUserClaims
         public System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
-        public System.Data.Entity.DbSet<Message> Messages { get; set; } // Messages
+        public System.Data.Entity.DbSet<Message> Messages { get; set; } // Message
+        public System.Data.Entity.DbSet<Note> Notes { get; set; } // Note
         public System.Data.Entity.DbSet<Question> Questions { get; set; } // Question
-        public System.Data.Entity.DbSet<QuestionOption> QuestionOptions { get; set; } // QuestionOptions
-        public System.Data.Entity.DbSet<QuestionType> QuestionTypes { get; set; } // QuestionTypes
+        public System.Data.Entity.DbSet<QuestionOption> QuestionOptions { get; set; } // QuestionOption
+        public System.Data.Entity.DbSet<QuestionType> QuestionTypes { get; set; } // QuestionType
         public System.Data.Entity.DbSet<User> Users { get; set; } // User
-        public System.Data.Entity.DbSet<UserUpload> UserUploads { get; set; } // UserUploads
+        public System.Data.Entity.DbSet<UserUpload> UserUploads { get; set; } // UserUpload
 
         static InternPortalContext()
         {
@@ -94,6 +95,7 @@ namespace InternPortal.Data.Models
             modelBuilder.Configurations.Add(new AspNetUserClaimConfiguration());
             modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration());
             modelBuilder.Configurations.Add(new MessageConfiguration());
+            modelBuilder.Configurations.Add(new NoteConfiguration());
             modelBuilder.Configurations.Add(new QuestionConfiguration());
             modelBuilder.Configurations.Add(new QuestionOptionConfiguration());
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration());
@@ -113,6 +115,7 @@ namespace InternPortal.Data.Models
             modelBuilder.Configurations.Add(new AspNetUserClaimConfiguration(schema));
             modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration(schema));
             modelBuilder.Configurations.Add(new MessageConfiguration(schema));
+            modelBuilder.Configurations.Add(new NoteConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionOptionConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration(schema));

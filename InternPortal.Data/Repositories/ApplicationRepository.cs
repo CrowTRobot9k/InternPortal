@@ -1,21 +1,22 @@
              
 using InternPortal.Data;		   
 using InternPortal.Data.Models;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace InternPortal.Data.Models
-{
-    public class ApplicationRepository : Repository<Application>, IApplicationRepository
-    {
+{          
+	public class ApplicationRepository : Repository<Application>, IApplicationRepository
+	{
 
-        public ApplicationRepository(IInternPortalContext context) : base(context)
-        {
+		public ApplicationRepository(IInternPortalContext context) : base(context)
+		{
 
-        }
+		}
 
         //Override any generic method for your own custom implemention, add new repository methods to the IApplicationRepository.cs file
-        public Application UpdateApplicationAnswers(Application application,IEnumerable<Question> questions)
+        public Application UpdateApplicationAnswers(Application application, IEnumerable<Question> questions)
         {
             //update or add answer to question
             foreach (var question in questions)
@@ -67,10 +68,9 @@ namespace InternPortal.Data.Models
         {
             application.UserUploads.Clear();
 
-            uploads.ToList().ForEach(u=> application.UserUploads.Add(u));
+            uploads.ToList().ForEach(u => application.UserUploads.Add(u));
 
             return application;
         }
-
     }
 }

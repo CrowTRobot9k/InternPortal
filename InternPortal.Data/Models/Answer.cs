@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // Answers
+    // Answer
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class Answer
     {
@@ -29,17 +29,17 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent Application pointed by [Answers].([ApplicationId]) (FK_dbo.Answers_dbo.Application_ApplicationId)
+        /// Parent Application pointed by [Answer].([ApplicationId]) (FK_dbo.Answers_dbo.Application_ApplicationId)
         /// </summary>
         public virtual Application Application { get; set; } // FK_dbo.Answers_dbo.Application_ApplicationId
 
         /// <summary>
-        /// Parent Question pointed by [Answers].([QuestionId]) (FK_dbo.Answers_dbo.Question_QuestionId)
+        /// Parent Question pointed by [Answer].([QuestionId]) (FK_dbo.Answers_dbo.Question_QuestionId)
         /// </summary>
         public virtual Question Question { get; set; } // FK_dbo.Answers_dbo.Question_QuestionId
 
         /// <summary>
-        /// Parent QuestionOption pointed by [Answers].([OptionId]) (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
+        /// Parent QuestionOption pointed by [Answer].([OptionId]) (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
         /// </summary>
         public virtual QuestionOption QuestionOption { get; set; } // FK_dbo.Answers_dbo.QuestionOptions_OptionId
 

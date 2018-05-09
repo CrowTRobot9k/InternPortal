@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // QuestionTypes
+    // QuestionType
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class QuestionTypeConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<QuestionType>
     {
@@ -26,7 +26,7 @@ namespace InternPortal.Data.Models
 
         public QuestionTypeConfiguration(string schema)
         {
-            ToTable("QuestionTypes", schema);
+            ToTable("QuestionType", schema);
             HasKey(x => x.QuestionTypeId);
 
             Property(x => x.QuestionTypeId).HasColumnName(@"QuestionTypeId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);

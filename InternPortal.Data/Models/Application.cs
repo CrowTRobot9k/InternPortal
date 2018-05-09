@@ -28,20 +28,25 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answers].[ApplicationId] point to this entity (FK_dbo.Answers_dbo.Application_ApplicationId)
+        /// Child Answers where [Answer].[ApplicationId] point to this entity (FK_dbo.Answers_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Application_ApplicationId
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answers_dbo.Application_ApplicationId
         /// <summary>
-        /// Child UserUploads where [UserUploads].[ApplicationId] point to this entity (FK_dbo.UserUploads_dbo.Application_ApplicationId)
+        /// Child UserUploads where [UserUpload].[ApplicationId] point to this entity (FK_dbo.UserUploads_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.Application_ApplicationId
+        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUploads_dbo.Application_ApplicationId
 
         // Foreign keys
 
         /// <summary>
         /// Parent ApplicationStatu pointed by [Application].([ApplicationStatus]) (FK_Application_ApplicationStatus)
         /// </summary>
-        public virtual ApplicationStatu ApplicationStatu { get; set; } // FK_Application_ApplicationStatus
+        public virtual ApplicationStatu ApplicationStatu_ApplicationStatus { get; set; } // FK_Application_ApplicationStatus
+
+        /// <summary>
+        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatus]) (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
+        /// </summary>
+        public virtual ApplicationStatu ApplicationStatu1 { get; set; } // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
 
         /// <summary>
         /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)

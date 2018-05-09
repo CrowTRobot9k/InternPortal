@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // UserUploads
+    // UserUpload
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class UserUploadConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<UserUpload>
     {
@@ -26,7 +26,7 @@ namespace InternPortal.Data.Models
 
         public UserUploadConfiguration(string schema)
         {
-            ToTable("UserUploads", schema);
+            ToTable("UserUpload", schema);
             HasKey(x => x.UploadId);
 
             Property(x => x.UploadId).HasColumnName(@"UploadId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);

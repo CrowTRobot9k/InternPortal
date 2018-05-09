@@ -15,7 +15,7 @@
 namespace InternPortal.Data.Models
 {
 
-    // Messages
+    // Message
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class MessageConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<Message>
     {
@@ -26,7 +26,7 @@ namespace InternPortal.Data.Models
 
         public MessageConfiguration(string schema)
         {
-            ToTable("Messages", schema);
+            ToTable("Message", schema);
             HasKey(x => x.MessageId);
 
             Property(x => x.MessageId).HasColumnName(@"MessageId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);

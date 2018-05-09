@@ -27,11 +27,16 @@ namespace InternPortal.Data.Models
         /// <summary>
         /// Child Applications where [Application].[ApplicationStatus] point to this entity (FK_Application_ApplicationStatus)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_Application_ApplicationStatus
+        public virtual System.Collections.Generic.ICollection<Application> Applications_ApplicationStatus { get; set; } // Application.FK_Application_ApplicationStatus
+        /// <summary>
+        /// Child Applications where [Application].[ApplicationStatus] point to this entity (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Application> Applications1 { get; set; } // Application.FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
 
         public ApplicationStatu()
         {
-            Applications = new System.Collections.Generic.List<Application>();
+            Applications_ApplicationStatus = new System.Collections.Generic.List<Application>();
+            Applications1 = new System.Collections.Generic.List<Application>();
             InitializePartial();
         }
 
