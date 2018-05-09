@@ -21,8 +21,15 @@ namespace InternPortal.Data.Models
     {
         public int NoteId { get; set; } // NoteId (Primary key)
         public int ApplicationId { get; set; } // ApplicationId
-        public int UserId { get; set; } // UserId
+        public string UserId { get; set; } // UserId (length: 128)
         public string Note_ { get; set; } // Note
+
+        // Foreign keys
+
+        /// <summary>
+        /// Parent Application pointed by [Note].([ApplicationId]) (FK_Note_Application)
+        /// </summary>
+        public virtual Application Application { get; set; } // FK_Note_Application
 
         public Note()
         {

@@ -59,7 +59,14 @@ namespace InternPortal.UI
 
                 cfg.CreateMap<ApplicationStatu, ApplicationStatusDto>();
                 cfg.CreateMap<ApplicationStatusDto, ApplicationStatu>();
+
+                cfg.CreateMap<Note,NoteDto>();
+                cfg.CreateMap<NoteDto, Note>();
+
+                cfg.CreateMap<AspNetUser, AspNetUserDto>();
+                cfg.CreateMap<AspNetUserDto, AspNetUser>();
             });
+
         }
     }
 }

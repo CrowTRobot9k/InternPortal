@@ -43,7 +43,7 @@ namespace InternPortal.UI.Controllers
             {
                 viewModel.Application.UserId = user.UserId;
                 viewModel.Application.ApplicationStartDate = DateTime.Now;
-                viewModel.Application.ApplicationStatus = (int)Constants.ApplicationStatus.Pending;
+                viewModel.Application.ApplicationStatusId = (int)Constants.ApplicationStatus.Pending;
             }
 
             //get all questions
@@ -125,54 +125,55 @@ namespace InternPortal.UI.Controllers
             foreach (string file in Request.Files)
             {
                 var postedFile = Request.Files[file];
-
-                try
+                if (!string.IsNullOrEmpty(postedFile.FileName))
                 {
-                    var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
-
-                    //Todo: maybe find better way to store files. Current format is Uploads\ApplicationId\
-                    var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "\\";
-
-                    if (!Directory.Exists(applicationDirectory))
+                    try
                     {
-                        Directory.CreateDirectory(applicationDirectory);
-                    }
+                        var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
 
-                    //delete old files
-                    var di = new DirectoryInfo(applicationDirectory);
+                        //Todo: maybe find better way to store files. Current format is Uploads\ApplicationId\
+                        var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "\\";
 
-                    foreach (var oldFile in di.GetFiles())
-                    {
-                        oldFile.Delete();
-                    }
-
-                    //Save new file
-                    var fullFilePath = applicationDirectory + postedFile.FileName;
-
-                    if (!System.IO.File.Exists(fullFilePath))
-                    {
-                        try
+                        if (!Directory.Exists(applicationDirectory))
                         {
-                            postedFile.SaveAs(fullFilePath);
+                            Directory.CreateDirectory(applicationDirectory);
                         }
-                        catch (Exception ex)
-                        {
-                            //Todo: add logger.
-                        }
-                    }
 
-                    //add to db
-                    viewModel.Application.UserUploads.Add(new UserUploadDto()
+                        //delete old files
+                        var di = new DirectoryInfo(applicationDirectory);
+
+                        foreach (var oldFile in di.GetFiles())
+                        {
+                            oldFile.Delete();
+                        }
+
+                        //Save new file
+                        var fullFilePath = applicationDirectory + postedFile.FileName;
+
+                        if (!System.IO.File.Exists(fullFilePath))
+                        {
+                            try
+                            {
+                                postedFile.SaveAs(fullFilePath);
+                            }
+                            catch (Exception ex)
+                            {
+                                //Todo: add logger.
+                            }
+                        }
+
+                        var userUpload = viewModel.Application.UserUploads.FirstOrDefault();
+
+                        userUpload.UploadLocation = viewModel.Application.ApplicationId + "\\" + postedFile.FileName;
+                    }
+                    catch (Exception ex)
                     {
-                        //don't store full path on sql server
-                        UploadLocation = viewModel.Application.ApplicationId + "\\" + postedFile.FileName,
-                        UploadTitle = viewModel.Application.UserUploads.FirstOrDefault().UploadTitle,
-                        UploadDescription = viewModel.Application.UserUploads.FirstOrDefault().UploadDescription
-                    });
+                        //Todo: add logger.
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    //Todo: add logger.
+                    viewModel.Application.UserUploads.Clear();
                 }
             }
 

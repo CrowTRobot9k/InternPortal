@@ -60,5 +60,19 @@ namespace InternPortal.UI.Controllers.API
 
             return Ok(QuestionAnswers.OrderBy(i=>i.QuestionId));
         }
+
+        public IHttpActionResult GetApplicationNotes(int id)
+        {
+            var notes = _unitOfWork.Notes.Where(n => n.ApplicationId == id).ToList();
+
+            return Ok(Mapper.Map<IEnumerable<NoteDto>>(notes));
+        }
+
+        public IHttpActionResult GetApplicationStatuses()
+        {
+            var applicationStatuses = Mapper.Map<IEnumerable<ApplicationStatusDto>>(_unitOfWork.ApplicationStatus.GetAll().ToList());
+
+            return Ok(applicationStatuses);
+        }
     }
 }

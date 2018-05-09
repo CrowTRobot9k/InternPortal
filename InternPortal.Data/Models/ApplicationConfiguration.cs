@@ -33,11 +33,10 @@ namespace InternPortal.Data.Models
             Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
             Property(x => x.ApplicationStartDate).HasColumnName(@"ApplicationStartDate").HasColumnType("datetime").IsOptional();
             Property(x => x.ApplicationCompleteDate).HasColumnName(@"ApplicationCompleteDate").HasColumnType("datetime").IsOptional();
-            Property(x => x.ApplicationStatus).HasColumnName(@"ApplicationStatus").HasColumnType("int").IsOptional();
+            Property(x => x.ApplicationStatusId).HasColumnName(@"ApplicationStatusId").HasColumnType("int").IsOptional();
 
             // Foreign keys
-            HasOptional(a => a.ApplicationStatu_ApplicationStatus).WithMany(b => b.Applications_ApplicationStatus).HasForeignKey(c => c.ApplicationStatus).WillCascadeOnDelete(false); // FK_Application_ApplicationStatus
-            HasOptional(a => a.ApplicationStatu1).WithMany(b => b.Applications1).HasForeignKey(c => c.ApplicationStatus).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
+            HasOptional(a => a.ApplicationStatu).WithMany(b => b.Applications).HasForeignKey(c => c.ApplicationStatusId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
             HasRequired(a => a.User).WithMany(b => b.Applications).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.User_UserId
             InitializePartial();
         }

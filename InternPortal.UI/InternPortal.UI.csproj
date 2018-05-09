@@ -289,7 +289,9 @@
     <Compile Include="Dto\ApplicationChildUserDto.cs" />
     <Compile Include="Dto\ApplicationDto.cs" />
     <Compile Include="Dto\ApplicationStatusDto.cs" />
+    <Compile Include="Dto\AspNetUserDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
+    <Compile Include="Dto\NoteDto.cs" />
     <Compile Include="Dto\QuestionDto.cs" />
     <Compile Include="Dto\QuestionOptionDto.cs" />
     <Compile Include="Dto\QuestionTypeDto.cs" />

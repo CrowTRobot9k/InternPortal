@@ -23,7 +23,7 @@ namespace InternPortal.Data.Models
         public int UserId { get; set; } // UserId
         public System.DateTime? ApplicationStartDate { get; set; } // ApplicationStartDate
         public System.DateTime? ApplicationCompleteDate { get; set; } // ApplicationCompleteDate
-        public int? ApplicationStatus { get; set; } // ApplicationStatus
+        public int? ApplicationStatusId { get; set; } // ApplicationStatusId
 
         // Reverse navigation
 
@@ -32,6 +32,10 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answers_dbo.Application_ApplicationId
         /// <summary>
+        /// Child Notes where [Note].[ApplicationId] point to this entity (FK_Note_Application)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Note> Notes { get; set; } // Note.FK_Note_Application
+        /// <summary>
         /// Child UserUploads where [UserUpload].[ApplicationId] point to this entity (FK_dbo.UserUploads_dbo.Application_ApplicationId)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUploads_dbo.Application_ApplicationId
@@ -39,14 +43,9 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatus]) (FK_Application_ApplicationStatus)
+        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatusId]) (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
         /// </summary>
-        public virtual ApplicationStatu ApplicationStatu_ApplicationStatus { get; set; } // FK_Application_ApplicationStatus
-
-        /// <summary>
-        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatus]) (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
-        /// </summary>
-        public virtual ApplicationStatu ApplicationStatu1 { get; set; } // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
+        public virtual ApplicationStatu ApplicationStatu { get; set; } // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
 
         /// <summary>
         /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)
@@ -56,6 +55,7 @@ namespace InternPortal.Data.Models
         public Application()
         {
             Answers = new System.Collections.Generic.List<Answer>();
+            Notes = new System.Collections.Generic.List<Note>();
             UserUploads = new System.Collections.Generic.List<UserUpload>();
             InitializePartial();
         }

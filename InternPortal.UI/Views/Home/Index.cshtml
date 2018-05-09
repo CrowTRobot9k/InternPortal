@@ -57,6 +57,9 @@
                         <li id="ApplicationUploadsTab">
                             Uploads
                         </li>
+                        <li id="ApplicationNotesTab">
+                            Notes
+                        </li>
                     </ul>
                     <div>
                         <div class='ApplicationProfile col-lg-12 col-md-12'>
@@ -89,6 +92,9 @@
                             </form>
                         </div>
                     </div>
+                    <div>
+                        <div class="ApplicationNotes"></div>
+                    </div>
                 </div>
             </script>
         </div>
@@ -96,6 +102,24 @@
 </div>
 
 <script>
+
+    
+
+
+    //template to set columns to readonly on edit.
+    function readOnly(container, options) {
+        container.removeClass("k-edit-cell");
+
+        var d = $.type(options.model.get(options.field));
+
+        if ($.type(options.model.get(options.field)) === "date") {
+            container.text(formatDate(options.model.get(options.field)));
+        }
+        else {
+            container.text(checkNull(options.model.get(options.field)));
+        }
+    }
+
     function formatDate(data) {
         return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd") || "N/A";
     }
@@ -107,146 +131,252 @@
         return data || "N/A";
     }
 
-    var applicationDs = new kendo.data.DataSource({
-        transport: {
-            type: "odata",
-            read: "/API/InternService/GetApplications",
-            schema:
-                {
-                    model:
-                        {
-                            fields:
-                                {
-                                    ApplicationId: { type: "number" }
-                                }
-                        }
-                }
+    var applicationStatuses = [];
 
-        },
-        pageSize: 10
+     var applictaionStatusesUrl = "/API/InternService/GetApplicationStatuses";
+    callService(applictaionStatusesUrl, function (response)
+    {
+            applicationStatuses = response;
+    },
+    function (error)
+    {
+            alert("Failed to get application statuses");
     });
 
-    $('#ApplicationGrid').kendoGrid({
-        dataSource: applicationDs,
-        pageable: true,
-        sortable: true,
-        filterable: true,
-        toolbar: ["excel"],
-        excel: {
-            fileName: "Applications.xlsx",
-            allPages: true,
-            filterable: true
-        }
-        ,
-        detailTemplate: kendo.template($("#ApplicationTemplate").html()),
-        detailInit: detailInit,
-        columns: [
+    
+    function getApplicationStatus(statusId)
+    {
+        var status= "";
+        $.each(applicationStatuses, function (index, value) {
+            if (statusId === value.ApplicationStatusId)
             {
-                headerAttributes: { "class": "column-header" },
-                title: "Application Id",
-                field: "ApplicationId",
-                type: "number",
-                filterable: {
-                    extra: false,
-                    multi: false,
-                    operators: {
-                        number: {
-                            eq: "Equal to",
-                            neq: "Not equal to"
-                        }
-                    }
-                }
-            },
-            {
-                headerAttributes: { "class": "column-header" },
-                title: "First Name",
-                field: "User.FirstName",
-                type: "string",
-                filterable: {
-                    extra: false,
-                    multi: false,
-                    operators: {
-                        number: {
-                            eq: "Equal to",
-                            neq: "Not equal to"
-                        }
-                    }
-                }
-            },
-            {
-                headerAttributes: { "class": "column-header" },
-                title: "Last Name",
-                field: "User.LastName",
-                type: "string",
-                filterable: {
-                    extra: false,
-                    multi: false,
-                    operators: {
-                        number: {
-                            eq: "Equal to",
-                            neq: "Not equal to"
-                        }
-                    }
-                }
-            },
-            {
-                headerAttributes: { "class": "column-header" },
-                title: "Start Date",
-                field: "ApplicationStartDate",
-                template: '#= formatDate(ApplicationStartDate) #',
-                filterable: true
-            },
-            {
-                headerAttributes: { "class": "column-header" },
-                title: "End Date",
-                field: "ApplicationCompleteDate",
-                template: '#= formatDate(ApplicationCompleteDate) #',
-                filterable: true
-            },
-            {
-                headerAttributes: { "class": "column-header" }, field: "ApplicationStatu.Status", title: "Status",
-                attributes: { class: "#= ApplicationStatu.Status #" },
-                filterable: {
-                    extra: false,
-                    multi: true
-                }
-            },
-        ]
-    });
-
-    function detailInit(e) {
-        var detailRow = e.detailRow;
-
-        var uri = "/API/InternService/GetApplicationAnswers/" + e.data.ApplicationId;
-
-        detailRow.find(".tabstrip").kendoTabStrip({
-            animation: {
-                open: { effects: "fadeIn" }
+                status = value.Status;
             }
         });
 
-        window.record = 0;
-        detailRow.find(".ApplicationQuestions").kendoGrid({
-            dataSource: {
-                transport: { read: { url: uri } }
-                //,
-                ///schema: { data: "OrderItem" }
+        return status;
+    }
+
+    function applicationStatusEditor(container, options) {
+        $('<input data-bind="value:' + options.field + "'/>")
+            .appendTo(container).kendoDropDownList({
+                dataTextField: "Status",
+                dataValueField: "ApplicationStatusId",
+                DataSource: applicationStatuses
+            });
+    }
+        
+
+    $(document).ready(function ()
+    {
+        
+
+       
+
+
+        var applicationDs = new kendo.data.DataSource({
+            transport: {
+                type: "odata",
+                read: "/API/InternService/GetApplications",
+                update:
+                    {
+                        url: "/API/InternService/UpdateApplication",
+                        dataType: "jsonp"
+                    },
+                schema:
+                    {
+                        model:
+                            {
+                                id: "ApplicationId"
+                            }
+                    }
+
             },
+            pageSize: 10
+        });
+
+        $('#ApplicationGrid').kendoGrid({
+            dataSource: applicationDs,
+            pageable: true,
+            sortable: true,
+            filterable: true,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "Applications.xlsx",
+                allPages: true,
+                filterable: true
+            }
+            ,
+            editable: "inline"
+            ,
+            detailTemplate: kendo.template($("#ApplicationTemplate").html()),
+            detailInit: detailInit,
+           // edit: onApplicationEdit,
             columns: [
                 {
-                    title: "#",
-                    template: "#= ++window.record #",
-                    width: 40
+                    headerAttributes: { "class": "column-header" },
+                    title: "Application Id",
+                    field: "ApplicationId",
+                    editor: readOnly,
+                    type: "number",
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
                 },
-                { field: "QuestionId", title: "QuestionId", hidden: true },
-                { field: "Question", title: "Question" },
-                { field: "Answer", title: "Answer" }
-            ],
-            pageable: false,
-            dataBinding: function () {
-                window.record = 0;
-            }
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "First Name",
+                    field: "User.FirstName",
+                    type: "string",
+                    editor: readOnly,
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Last Name",
+                    field: "User.LastName",
+                    type: "string",
+                    editor: readOnly,
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Start Date",
+                    field: "ApplicationStartDate",
+                    template: '#= formatDate(ApplicationStartDate) #',
+                    filterable: true,
+                    editable: false,
+                    editor: readOnly,
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "End Date",
+                    field: "ApplicationCompleteDate",
+                    template: '#= formatDate(ApplicationCompleteDate) #',
+                    filterable: true,
+                    editor: readOnly,
+                },
+                {
+                    headerAttributes: { "class": "column-header" }, field: "ApplicationStatusId", title: "Status",
+                    template: '#= getApplicationStatus(ApplicationStatusId) #',
+                    editor:applicationStatusEditor,
+                    filterable: {
+                        extra: false,
+                        multi: true
+                    }
+                },
+                { command: ["edit"], title: "&nbsp;" }
+            ]
         });
 
-    }
+     
+
+        function detailInit(e) {
+            var detailRow = e.detailRow;
+
+            var qaUri = "/API/InternService/GetApplicationAnswers/" + e.data.ApplicationId;
+
+            detailRow.find(".tabstrip").kendoTabStrip({
+                animation: {
+                    open: { effects: "fadeIn" }
+                }
+            });
+
+            window.record = 0;
+            detailRow.find(".ApplicationQuestions").kendoGrid({
+                dataSource: {
+                    transport: { read: { url: qaUri } }
+                },
+                columns: [
+                    {
+                        title: "#",
+                        template: "#= ++window.record #",
+                        width: 40
+                    },
+                    { field: "QuestionId", title: "QuestionId", hidden: true },
+                    { field: "Question", title: "Question" },
+                    { field: "Answer", title: "Answer" }
+                ],
+                pageable: false,
+                dataBinding: function () {
+                    window.record = 0;
+                }
+            });
+
+            var notesUri = "/API/InternService/GetApplicationNotes/" + e.data.ApplicationId;
+
+            window.record = 0;
+            detailRow.find(".ApplicationNotes").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: { url: notesUri },
+                        update: {
+                            url: "/API/InternService/UpdateNote",
+                            dataType: "jsonp"
+                        },
+                        destroy: {
+                            url: "/API/InternService/DeleteNote",
+                            dataType: "jsonp"
+                        },
+                        create: {
+                            url: "/API/InternServiceCreateNote",
+                            dataType: "jsonp"
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    }
+                },
+                columns: [
+                    {
+                        title: "#",
+                        template: "#= ++window.record #",
+                        width: 40
+                    },
+                    { field: "NoteId", title: "NoteId", hidden: true },
+                    { field: "AspNetUser.UserName", title: "Author" },
+                    { field: "Note_", title: "Note" },
+                    { command: ["edit", "destroy"], title: "&nbsp;" }
+                ],
+                toolbar: ["create"],
+                pageable: false,
+                dataBinding: function () {
+                    window.record = 0;
+                }
+            });
+
+        }
+    });
+
+    //function onApplicationEdit()
+    //{
+
+    //}
 </script>

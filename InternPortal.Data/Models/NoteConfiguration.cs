@@ -31,8 +31,11 @@ namespace InternPortal.Data.Models
 
             Property(x => x.NoteId).HasColumnName(@"NoteId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsRequired();
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
+            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("nvarchar").IsRequired().HasMaxLength(128);
             Property(x => x.Note_).HasColumnName(@"Note").HasColumnType("varchar(max)").IsOptional().IsUnicode(false);
+
+            // Foreign keys
+            HasRequired(a => a.Application).WithMany(b => b.Notes).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_Note_Application
             InitializePartial();
         }
         partial void InitializePartial();
