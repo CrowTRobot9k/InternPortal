@@ -90,9 +90,9 @@ namespace InternPortal.Data.Migrations
             context.ApplicationStatus.AddOrUpdate(a => a.Status,
                 new ApplicationStatu { ApplicationStatusId = 1, Status = "Pending" },
                 new ApplicationStatu { ApplicationStatusId = 2, Status = "Reviewed" },
-                new ApplicationStatu { ApplicationStatusId = 3, Status = "PhoneInterviewed" },
-                new ApplicationStatu { ApplicationStatusId = 4, Status = "InPersonInterviewed" },
-                new ApplicationStatu { ApplicationStatusId = 5, Status = "OfferExtended" },
+                new ApplicationStatu { ApplicationStatusId = 3, Status = "Phone Interviewed" },
+                new ApplicationStatu { ApplicationStatusId = 4, Status = "In Person Interviewed" },
+                new ApplicationStatu { ApplicationStatusId = 5, Status = "Offer Extended" },
                 new ApplicationStatu { ApplicationStatusId = 6, Status = "Hired" },
                 new ApplicationStatu { ApplicationStatusId = 7, Status = "Rejected" });
         }

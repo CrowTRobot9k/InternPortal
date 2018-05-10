@@ -1,5 +1,7 @@
 ﻿using InternPortal.Data.Models;
+using InternPortal.UI.Dto;
 using InternPortal.UI.ViewModels;
+using Kendo.Mvc.Extensions;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
@@ -46,6 +48,25 @@ namespace InternPortal.UI.Controllers
             response.TransmitFile(Server.MapPath(uploadLocation + upload.UploadLocation));
             response.Flush();
             response.End();
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ApplicationUpdate(ApplicationChildUserDto application)
+        {
+            if (ModelState.IsValid)
+            {
+                var applicationToUpdate = _unitOfWork.Applications.Where(i => i.ApplicationId == application.ApplicationId).FirstOrDefault();
+
+                applicationToUpdate.ApplicationStatusId = application.ApplicationStatusId;
+
+                _unitOfWork.Complete();
+
+                var routeValues = this.GridRouteValues();
+
+                return RedirectToAction("Index", routeValues);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

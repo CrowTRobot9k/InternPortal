@@ -74,5 +74,60 @@ namespace InternPortal.UI.Controllers.API
 
             return Ok(applicationStatuses);
         }
+
+        public IHttpActionResult UpdateApplication(ApplicationChildUserDto application)
+        {
+            var applicationToUpdate = _unitOfWork.Applications.Where(i => i.ApplicationId == application.ApplicationId).FirstOrDefault();
+
+            applicationToUpdate.ApplicationStatusId = application.ApplicationStatusId;
+
+            _unitOfWork.Complete();
+
+            return Ok();
+
+        }
+
+        public IHttpActionResult CreateNote(NoteDto note)
+        {
+            note.UserId = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault()?.Id;
+
+            _unitOfWork.Notes.Add(Mapper.Map<Note>(note));
+
+            _unitOfWork.Complete();
+
+            return Ok(note);
+        }
+
+        public IHttpActionResult UpdateNote(NoteDto note)
+        {
+            var updateNote = _unitOfWork.Notes.Where(n => n.NoteId == note.NoteId).FirstOrDefault();
+
+            if (updateNote != null)
+            {
+
+                updateNote.UserId = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault()?.Id;
+
+                updateNote.Note_ = note.Note_;
+
+                _unitOfWork.Complete();
+            }
+
+            return Ok(note);
+        }
+
+        public IHttpActionResult DeleteNote(NoteDto note)
+        {
+            var deleteNote = _unitOfWork.Notes.Where(n => n.NoteId == note.NoteId).FirstOrDefault();
+
+            if (deleteNote != null)
+            {
+
+                _unitOfWork.Notes.Delete(deleteNote);
+
+                _unitOfWork.Complete();
+            }
+
+            return Ok();
+        }
     }
 }

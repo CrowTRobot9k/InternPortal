@@ -84,12 +84,18 @@
                     </div>
                     <div>
                         <div class="ApplicationUploads col-lg-12 col-md-12">
-                            <label>Title: </label> #: UserUploads[0].UploadTitle #
+                            # if (UserUploads[0]!=null){ #
+                            <label>Title: </label> #=UserUploads[0].UploadTitle #
                             <br>
-                            <label>Description: </label> #: UserUploads[0].UploadDescription #
-                            <form method="get" action="/Home/Downloadfile/#: UserUploads[0].UploadId #">
+                            <label>Description: </label> #= UserUploads[0].UploadDescription#
+                            <form method="get" action="/Home/Downloadfile/#=UserUploads[0].UploadId#">
                                 <button type="submit" class="k-button k-primary">Download</button>
                             </form>
+                            #}
+                            else
+                            {#
+                            <label>No Uploads Submitted</label>
+                            #}#
                         </div>
                     </div>
                     <div>
@@ -102,28 +108,25 @@
 </div>
 
 <script>
-
-    
-
-
+    function formatDate(data) {
+        var date = kendo.toString(kendo.parseDate(data), "yyyy-MM-dd") || "N/A";
+        return date;
+    }
     //template to set columns to readonly on edit.
     function readOnly(container, options) {
         container.removeClass("k-edit-cell");
 
-        var d = $.type(options.model.get(options.field));
-
-        if ($.type(options.model.get(options.field)) === "date") {
+        if (options.field.toLowerCase().indexOf("date")>=0)
+        {
             container.text(formatDate(options.model.get(options.field)));
         }
-        else {
+        else
+        {
             container.text(checkNull(options.model.get(options.field)));
         }
     }
 
-    function formatDate(data) {
-        return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd") || "N/A";
-    }
-
+   
     function formatDateTime(data) {
         return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd hh:mm") || "N/A";
     }
@@ -157,42 +160,44 @@
         return status;
     }
 
-    function applicationStatusEditor(container, options) {
-        $('<input data-bind="value:' + options.field + "'/>")
-            .appendTo(container).kendoDropDownList({
-                dataTextField: "Status",
-                dataValueField: "ApplicationStatusId",
-                DataSource: applicationStatuses
-            });
-    }
-        
+
+   
 
     $(document).ready(function ()
     {
-        
-
-       
-
 
         var applicationDs = new kendo.data.DataSource({
-            transport: {
-                type: "odata",
-                read: "/API/InternService/GetApplications",
+            transport:
+            {
+                read:
+                    {
+                        url: "/API/InternService/GetApplications"
+                    },
                 update:
                     {
                         url: "/API/InternService/UpdateApplication",
-                        dataType: "jsonp"
-                    },
-                schema:
-                    {
-                        model:
-                            {
-                                id: "ApplicationId"
-                            }
-                    }
+                        type: "POST"
 
+                    }
             },
-            pageSize: 10
+            schema:
+                {
+                    model:
+                        {
+                            id: "ApplicationId",
+                            fields:
+                                {
+                                    ApplicationId: { type: "number" },
+                                    UserID: { type: "number" },
+                                    ApplicationStartDate: { type: "date" },
+                                    ApplicationCompleteDate: { type: "date" },
+                                    ApplicationStatusId: { type: "number" }
+                                }
+
+
+                        }
+                },
+        pageSize: 10
         });
 
         $('#ApplicationGrid').kendoGrid({
@@ -207,11 +212,10 @@
                 filterable: true
             }
             ,
-            editable: "inline"
+           editable: "inline" 
             ,
             detailTemplate: kendo.template($("#ApplicationTemplate").html()),
             detailInit: detailInit,
-           // edit: onApplicationEdit,
             columns: [
                 {
                     headerAttributes: { "class": "column-header" },
@@ -275,7 +279,7 @@
                 },
                 {
                     headerAttributes: { "class": "column-header" },
-                    title: "End Date",
+                    title: "Completed Date",
                     field: "ApplicationCompleteDate",
                     template: '#= formatDate(ApplicationCompleteDate) #',
                     filterable: true,
@@ -294,7 +298,16 @@
             ]
         });
 
-     
+
+        function applicationStatusEditor(container, options) {
+            $('<input required name="' + options.field + '"/>')
+                .appendTo(container[0])
+                .kendoDropDownList({
+                    dataTextField: "Status",
+                    dataValueField: "ApplicationStatusId",
+                    dataSource: applicationStatuses
+                });
+        }
 
         function detailInit(e) {
             var detailRow = e.detailRow;
@@ -335,24 +348,50 @@
                 dataSource: {
                     transport: {
                         read: { url: notesUri },
+                        create: {
+                            url: "/API/InternService/CreateNote",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        },
                         update: {
                             url: "/API/InternService/UpdateNote",
-                            dataType: "jsonp"
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
                         },
                         destroy: {
                             url: "/API/InternService/DeleteNote",
-                            dataType: "jsonp"
+                            type: "DELETE",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
                         },
-                        create: {
-                            url: "/API/InternServiceCreateNote",
-                            dataType: "jsonp"
-                        },
-                        parameterMap: function (options, operation) {
-                            if (operation !== "read" && options.models) {
-                                return { models: kendo.stringify(options.models) };
+                        
+                        parameterMap: function (model, operation) {
+                            if (operation !== "read" && model) {
+                                return kendo.stringify(model);
                             }
                         }
-                    }
+                    },
+                    schema:
+                        {
+                            model:
+                                {
+                                    id: "NoteId",
+                                    fields:
+                                        {
+                                            NoteId: { type: "number" },
+                                            ApplicationId: { type: "number", defaultValue: e.data.ApplicationId },
+                                            UserId: { type: "string" },
+                                            Note: { type: "string" }
+                                        }
+                                }
+                        }
+                },
+                toolbar: ["create"],
+                editable:
+                {
+                        mode: "inline"
                 },
                 columns: [
                     {
@@ -361,11 +400,11 @@
                         width: 40
                     },
                     { field: "NoteId", title: "NoteId", hidden: true },
-                    { field: "AspNetUser.UserName", title: "Author" },
+                    { field: "ApplicationId", title: "ApplicationId", hidden: true },
+                    { field: "UserId", title: "UserId", hidden: true },
                     { field: "Note_", title: "Note" },
                     { command: ["edit", "destroy"], title: "&nbsp;" }
                 ],
-                toolbar: ["create"],
                 pageable: false,
                 dataBinding: function () {
                     window.record = 0;
@@ -375,8 +414,5 @@
         }
     });
 
-    //function onApplicationEdit()
-    //{
-
-    //}
+    
 </script>
