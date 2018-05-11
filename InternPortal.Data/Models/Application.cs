@@ -20,10 +20,11 @@ namespace InternPortal.Data.Models
     public partial class Application
     {
         public int ApplicationId { get; set; } // ApplicationId (Primary key)
-        public int UserId { get; set; } // UserId
+        public string UserId { get; set; } // UserId (length: 128)
         public System.DateTime? ApplicationStartDate { get; set; } // ApplicationStartDate
         public System.DateTime? ApplicationCompleteDate { get; set; } // ApplicationCompleteDate
         public int? ApplicationStatusId { get; set; } // ApplicationStatusId
+        public int? ApplicationStatus { get; set; } // ApplicationStatus
 
         // Reverse navigation
 

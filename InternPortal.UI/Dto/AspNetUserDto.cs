@@ -19,5 +19,11 @@ namespace InternPortal.UI.Dto
         public bool LockoutEnabled { get; set; } // LockoutEnabled
         public int AccessFailedCount { get; set; } // AccessFailedCount
         public string UserName { get; set; } // UserName (length: 256)
+
+        public List<MessageDto> Messages_UserIdFrom { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdFrom
+  
+        public List<MessageDto> Messages_UserIdTo { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdTo
+
+        public List<UserDto> Users { get; set; } // User.FK_dbo.User_dbo.AspNetUsers_Id
     }
 }

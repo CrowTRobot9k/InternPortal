@@ -311,6 +311,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\QuestionAnswerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

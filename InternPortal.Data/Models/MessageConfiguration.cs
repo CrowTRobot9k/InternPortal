@@ -30,15 +30,15 @@ namespace InternPortal.Data.Models
             HasKey(x => x.MessageId);
 
             Property(x => x.MessageId).HasColumnName(@"MessageId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.UserIdFrom).HasColumnName(@"UserIdFrom").HasColumnType("int").IsRequired();
-            Property(x => x.UserIdTo).HasColumnName(@"UserIdTo").HasColumnType("int").IsRequired();
+            Property(x => x.UserIdFrom).HasColumnName(@"UserIdFrom").HasColumnType("nvarchar").IsRequired().HasMaxLength(128);
+            Property(x => x.UserIdTo).HasColumnName(@"UserIdTo").HasColumnType("nvarchar").IsRequired().HasMaxLength(128);
             Property(x => x.MessageSubject).HasColumnName(@"MessageSubject").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.MessageBody).HasColumnName(@"MessageBody").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.DateTimeSent).HasColumnName(@"DateTimeSent").HasColumnType("datetime").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.User_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdFrom
-            HasRequired(a => a.User_UserIdTo).WithMany(b => b.Messages_UserIdTo).HasForeignKey(c => c.UserIdTo).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdTo
+            HasRequired(a => a.AspNetUser_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdFrom
+            HasRequired(a => a.AspNetUser_UserIdTo).WithMany(b => b.Messages_UserIdTo).HasForeignKey(c => c.UserIdTo).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdTo
             InitializePartial();
         }
         partial void InitializePartial();

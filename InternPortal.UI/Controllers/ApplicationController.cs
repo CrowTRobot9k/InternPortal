@@ -24,17 +24,17 @@ namespace InternPortal.UI.Controllers
             return View();
         }
 
-        public ActionResult Application()
+        public ActionResult Application(int applicationId=0)
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault() ?? new User();
 
             var viewModel = new ApplicationViewModel()
-            {
+            { 
                 User = Mapper.Map<UserDto>(user),
                 //get in progress application or new
                 Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
-                                .Where(i => i.UserId == user.UserId && i.ApplicationCompleteDate == null).FirstOrDefault()
+                                .Where(i => i.UserId == user.UserId && i.ApplicationId == applicationId).FirstOrDefault()
                                 ?? new Application())
             };
 

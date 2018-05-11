@@ -47,6 +47,14 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins.FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId
         /// <summary>
+        /// Child Messages where [Message].[UserIdFrom] point to this entity (FK_dbo.Messages_dbo.User_UserIdFrom)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdFrom
+        /// <summary>
+        /// Child Messages where [Message].[UserIdTo] point to this entity (FK_dbo.Messages_dbo.User_UserIdTo)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdTo
+        /// <summary>
         /// Child Users where [User].[Id] point to this entity (FK_dbo.User_dbo.AspNetUsers_Id)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<User> Users { get; set; } // User.FK_dbo.User_dbo.AspNetUsers_Id
@@ -55,6 +63,8 @@ namespace InternPortal.Data.Models
         {
             AspNetUserClaims = new System.Collections.Generic.List<AspNetUserClaim>();
             AspNetUserLogins = new System.Collections.Generic.List<AspNetUserLogin>();
+            Messages_UserIdFrom = new System.Collections.Generic.List<Message>();
+            Messages_UserIdTo = new System.Collections.Generic.List<Message>();
             Users = new System.Collections.Generic.List<User>();
             AspNetRoles = new System.Collections.Generic.List<AspNetRole>();
             InitializePartial();

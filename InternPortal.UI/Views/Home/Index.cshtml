@@ -34,6 +34,14 @@
                 </div>
             </div>
         }
+
+        <div class="text-center">
+            <h3>Your Submitted Applications</h3>
+        </div>
+        <div>
+            <div id="UserApplicationGrid"></div>
+        </div>
+
     }
     else
     {
@@ -160,11 +168,138 @@
         return status;
     }
 
-
+    function editApplication(e)
+    {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var uri = '/Application/Application?applicationId=' + dataItem.ApplicationId;
+        location.href = uri;
+    }
    
 
     $(document).ready(function ()
     {
+
+        var userAppDs = new kendo.data.DataSource({
+            transport:
+                {
+                    read:
+                        {
+                            url: "/API/InternService/GetUserApplications"
+                        }
+                },
+            schema:
+                {
+                    model:
+                        {
+                            id: "ApplicationId",
+                            fields:
+                                {
+                                    ApplicationId: { type: "number" },
+                                    UserID: { type: "number" },
+                                    ApplicationStartDate: { type: "date" },
+                                    ApplicationCompleteDate: { type: "date" },
+                                    ApplicationStatusId: { type: "number" }
+                                }
+
+
+                        }
+                },
+            pageSize: 10
+        }); 
+
+        $('#UserApplicationGrid').kendoGrid({
+            dataSource: userAppDs,
+            pageable: true,
+            sortable: true,
+            filterable: true,
+            columns: [
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Application Id",
+                    field: "ApplicationId",
+                    editor: readOnly,
+                    type: "number",
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "First Name",
+                    field: "User.FirstName",
+                    type: "string",
+                    editor: readOnly,
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Last Name",
+                    field: "User.LastName",
+                    type: "string",
+                    editor: readOnly,
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Start Date",
+                    field: "ApplicationStartDate",
+                    template: '#= formatDate(ApplicationStartDate) #',
+                    filterable: true,
+                    editable: false,
+                    editor: readOnly,
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Completed Date",
+                    field: "ApplicationCompleteDate",
+                    template: '#= formatDate(ApplicationCompleteDate) #',
+                    filterable: true,
+                    editor: readOnly,
+                },
+                {
+                    headerAttributes: { "class": "column-header" }, field: "ApplicationStatusId", title: "Status",
+                    template: '#= getApplicationStatus(ApplicationStatusId) #',
+                    editor: applicationStatusEditor,
+                    filterable: {
+                        extra: false,
+                        multi: true
+                    }
+                },
+                {
+                    command:
+                    [
+                            { text: "Edit", click: editApplication}
+                    ],
+                    title: " "
+                }
+            ]
+        });
 
         var applicationDs = new kendo.data.DataSource({
             transport:

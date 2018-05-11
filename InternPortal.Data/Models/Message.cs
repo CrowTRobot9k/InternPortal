@@ -20,8 +20,8 @@ namespace InternPortal.Data.Models
     public partial class Message
     {
         public int MessageId { get; set; } // MessageId (Primary key)
-        public int UserIdFrom { get; set; } // UserIdFrom
-        public int UserIdTo { get; set; } // UserIdTo
+        public string UserIdFrom { get; set; } // UserIdFrom (length: 128)
+        public string UserIdTo { get; set; } // UserIdTo (length: 128)
         public string MessageSubject { get; set; } // MessageSubject
         public string MessageBody { get; set; } // MessageBody
         public System.DateTime? DateTimeSent { get; set; } // DateTimeSent
@@ -29,14 +29,14 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent User pointed by [Message].([UserIdFrom]) (FK_dbo.Messages_dbo.User_UserIdFrom)
+        /// Parent AspNetUser pointed by [Message].([UserIdFrom]) (FK_dbo.Messages_dbo.User_UserIdFrom)
         /// </summary>
-        public virtual User User_UserIdFrom { get; set; } // FK_dbo.Messages_dbo.User_UserIdFrom
+        public virtual AspNetUser AspNetUser_UserIdFrom { get; set; } // FK_dbo.Messages_dbo.User_UserIdFrom
 
         /// <summary>
-        /// Parent User pointed by [Message].([UserIdTo]) (FK_dbo.Messages_dbo.User_UserIdTo)
+        /// Parent AspNetUser pointed by [Message].([UserIdTo]) (FK_dbo.Messages_dbo.User_UserIdTo)
         /// </summary>
-        public virtual User User_UserIdTo { get; set; } // FK_dbo.Messages_dbo.User_UserIdTo
+        public virtual AspNetUser AspNetUser_UserIdTo { get; set; } // FK_dbo.Messages_dbo.User_UserIdTo
 
         public Message()
         {

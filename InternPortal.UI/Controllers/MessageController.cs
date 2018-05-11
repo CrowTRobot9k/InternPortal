@@ -1,4 +1,7 @@
-﻿using InternPortal.Data.Models;
+﻿using AutoMapper;
+using InternPortal.Data.Models;
+using InternPortal.UI.Dto;
+using InternPortal.UI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +21,26 @@ namespace InternPortal.UI.Controllers
             return View();
         }
 
-        public ActionResult CreateMessage()
+        public ActionResult Messages(string userId)
         {
-            return View();
+            //current user logged in is messenger.
+            var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
+
+
+            //get conversations containing both users.
+            var messages = _unitOfWork.Messages.Where(m => (m.UserIdFrom == aspUser.Id && m.UserIdTo == userId) ||
+            m.UserIdTo == aspUser.Id && m.UserIdFrom == userId);
+
+            var viewModel = new MessageViewModel()
+            {
+                Messages = Mapper.Map<IEnumerable<MessageDto>>(messages).ToList(),
+                Message = new MessageDto()
+            };
+
+            return View(viewModel);
         }
 
-        public ActionResult ViewMessage()
+        public ActionResult Message()
         {
             return View();
         }

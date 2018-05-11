@@ -33,9 +33,20 @@ namespace InternPortal.UI.Controllers.API
             }).ToList());
         }
 
+        //get all completed apps of user.
+        public IHttpActionResult GetUserApplications()
+        {
+            var UserId = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault()?.Id;
+
+            var applications = Mapper.Map<IEnumerable<ApplicationChildUserDto>>(_unitOfWork.Applications.Where(i=>i.User.Id == UserId &&  i.ApplicationCompleteDate !=null).ToList());
+
+            return Ok(applications);
+        }
+
+        //get all completed apps
         public IHttpActionResult GetApplications()
         {
-            var applications = Mapper.Map<IEnumerable<ApplicationChildUserDto>>(_unitOfWork.Applications.GetAll().ToList());
+            var applications = Mapper.Map<IEnumerable<ApplicationChildUserDto>>(_unitOfWork.Applications.Where(i=> i.ApplicationCompleteDate != null).ToList());
 
             return Ok(applications);
         }

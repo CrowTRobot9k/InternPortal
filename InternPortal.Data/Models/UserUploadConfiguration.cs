@@ -30,7 +30,7 @@ namespace InternPortal.Data.Models
             HasKey(x => x.UploadId);
 
             Property(x => x.UploadId).HasColumnName(@"UploadId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsOptional();
+            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("nvarchar").IsOptional().HasMaxLength(128);
             Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsOptional();
             Property(x => x.UploadLocation).HasColumnName(@"UploadLocation").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.UploadTitle).HasColumnName(@"UploadTitle").HasColumnType("nvarchar(max)").IsOptional();
