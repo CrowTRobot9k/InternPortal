@@ -30,7 +30,7 @@ namespace InternPortal.Data.Models
             HasKey(x => x.ApplicationId);
 
             Property(x => x.ApplicationId).HasColumnName(@"ApplicationId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("nvarchar").IsRequired().HasMaxLength(128);
+            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
             Property(x => x.ApplicationStartDate).HasColumnName(@"ApplicationStartDate").HasColumnType("datetime").IsOptional();
             Property(x => x.ApplicationCompleteDate).HasColumnName(@"ApplicationCompleteDate").HasColumnType("datetime").IsOptional();
             Property(x => x.ApplicationStatusId).HasColumnName(@"ApplicationStatusId").HasColumnType("int").IsOptional();

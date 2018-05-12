@@ -1144,12 +1144,12 @@
     <Content Include="Views\Application\_ApplicationResume.cshtml" />
     <Content Include="Views\Application\_ApplicationQuestions.cshtml" />
     <Content Include="Views\Application\SubmitApplication.cshtml" />
+    <Content Include="Views\Message\Messages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\InternService\" />
-    <Folder Include="Views\Message\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

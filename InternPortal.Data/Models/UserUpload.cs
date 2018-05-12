@@ -20,7 +20,7 @@ namespace InternPortal.Data.Models
     public partial class UserUpload
     {
         public int UploadId { get; set; } // UploadId (Primary key)
-        public string UserId { get; set; } // UserId (length: 128)
+        public int? UserId { get; set; } // UserId
         public int? ApplicationId { get; set; } // ApplicationId
         public string UploadLocation { get; set; } // UploadLocation
         public string UploadTitle { get; set; } // UploadTitle

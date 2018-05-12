@@ -19,7 +19,7 @@ namespace InternPortal.Data.Models
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class User
     {
-        public string UserId { get; set; } // UserId (Primary key) (length: 128)
+        public int UserId { get; set; } // UserId (Primary key)
         public string Id { get; set; } // Id (length: 128)
         public string FirstName { get; set; } // FirstName (length: 100)
         public string MiddleName { get; set; } // MiddleName (length: 100)

@@ -175,7 +175,15 @@
         var uri = '/Application/Application?applicationId=' + dataItem.ApplicationId;
         location.href = uri;
     }
-   
+
+    function sendMessage(e)
+    {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var uri = '/Message/Messages?userId=' + dataItem.UserId;
+        location.href = uri;
+    }
+
 
     $(document).ready(function ()
     {
@@ -196,7 +204,7 @@
                             fields:
                                 {
                                     ApplicationId: { type: "number" },
-                                    UserID: { type: "number" },
+                                    UserId: { type: "number" },
                                     ApplicationStartDate: { type: "date" },
                                     ApplicationCompleteDate: { type: "date" },
                                     ApplicationStatusId: { type: "number" }
@@ -231,6 +239,7 @@
                         }
                     }
                 },
+                { field: "UserId", title: "UserId", hidden: true },
                 {
                     headerAttributes: { "class": "column-header" },
                     title: "First Name",
@@ -429,7 +438,13 @@
                         multi: true
                     }
                 },
-                { command: ["edit"], title: "&nbsp;" }
+                {
+                    command:
+                    [ "edit",
+                     { text: "Message", click: sendMessage }
+                    ],
+                    title: "&nbsp;"
+                }
             ]
         });
 

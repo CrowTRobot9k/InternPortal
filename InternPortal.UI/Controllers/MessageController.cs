@@ -21,28 +21,48 @@ namespace InternPortal.UI.Controllers
             return View();
         }
 
-        public ActionResult Messages(string userId)
+        public ActionResult Messages(int userId)
         {
             //current user logged in is messenger.
-            var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
-
+            var aspUserFrom  = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
+            var aspUserTo = _unitOfWork.Users.Where(i => i.UserId == userId).FirstOrDefault().AspNetUser;
 
             //get conversations containing both users.
-            var messages = _unitOfWork.Messages.Where(m => (m.UserIdFrom == aspUser.Id && m.UserIdTo == userId) ||
-            m.UserIdTo == aspUser.Id && m.UserIdFrom == userId);
+            var messages = _unitOfWork.Messages.Where(m => (m.UserIdFrom == aspUserFrom.Id && m.UserIdTo == aspUserTo.Id) ||
+            m.UserIdTo == aspUserFrom.Id && m.UserIdFrom == aspUserTo.Id);
 
+           
             var viewModel = new MessageViewModel()
             {
+                User = Mapper.Map<AspNetUserDto>(aspUserFrom),
                 Messages = Mapper.Map<IEnumerable<MessageDto>>(messages).ToList(),
-                Message = new MessageDto()
+                //initialize new message to send.
+                Message = new MessageDto
+                {
+                    UserIdFrom = aspUserFrom.Id,
+                    UserIdTo = aspUserTo.Id
+                }
             };
 
             return View(viewModel);
         }
 
-        public ActionResult Message()
+        [HttpPost]
+        public ActionResult SendMessage(MessageDto message)
         {
-            return View();
+            if (!ModelState.IsValid && !string.IsNullOrEmpty(message.MessageBody))
+            {
+                //TODO: add full model binding and error
+                return RedirectToAction("Messages");
+            }
+
+            message.DateTimeSent = DateTime.Now;
+
+            _unitOfWork.Messages.Add(Mapper.Map<Message>(message));
+
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Messages");
         }
 
         public ActionResult UpdateMessage()

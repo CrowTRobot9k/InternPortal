@@ -1,0 +1,68 @@
+﻿@model InternPortal.UI.ViewModels.MessageViewModel
+
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Messages</h2>
+@foreach (var message in Model.Messages)
+{
+    <div class="row" @(message.UserIdFrom != Model.User.Id ? "pull-left" : "pull-right")>
+        <div class="col-md-6">
+            <label>
+                @message.MessageSubject
+            </label>
+            <label>
+                Sent: @message.DateTimeSent.Value.ToShortDateString()
+            </label>
+            <div class="alert alert-success" role="alert">@message.MessageBody</div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="row text-center">
+                <h4>New Message</h4>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            @Html.HiddenFor(m => m.Message.MessageId)
+            @Html.HiddenFor(m => m.Message.UserIdFrom)
+            @Html.HiddenFor(m => m.Message.UserIdTo)
+            @Html.HiddenFor(m => m.Message.DateTimeSent)
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Message Subject
+                    </label>
+                    <div class="col-md-10">
+                        @(Html.TextBoxFor(model => Model.Message.MessageSubject, new { @class = "k-textbox textbox", placeholder = "", Style = "Width:100%" }))
+                    </div>
+                </div>
+            </div>
+            <br>
+              <div class="row">
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Message Body
+                    </label>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => Model.Message.MessageBody, new { @class = "form-control", rows = "5", @style = "width:100%" })
+                    </div>
+                </div>
+                  <br>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" class="k-button k-primary" value="Send Message" id="btnSendMessage" />
+                    </div>
+                </div>
+                    </div>
+                </div>
+        </div>
+}
+
