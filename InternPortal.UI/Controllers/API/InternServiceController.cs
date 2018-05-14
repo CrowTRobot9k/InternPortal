@@ -21,7 +21,7 @@ namespace InternPortal.UI.Controllers.API
 
         public IHttpActionResult GetStates()
         {
-            List<string> states = new List<string>()
+            var states = new List<string>
             {
                 "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
             };
@@ -132,13 +132,21 @@ namespace InternPortal.UI.Controllers.API
 
             if (deleteNote != null)
             {
-
                 _unitOfWork.Notes.Delete(deleteNote);
 
                 _unitOfWork.Complete();
             }
 
             return Ok();
+        }
+
+        public IHttpActionResult GetUnreadMessages()
+        {
+            var userId = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault()?.Id;
+
+            var messages = _unitOfWork.Messages.Where(i => i.UserIdTo == userId && i.DateTimeRead == null).ToList();
+
+            return Ok(Mapper.Map<IEnumerable<MessageDto>>(messages));
         }
     }
 }

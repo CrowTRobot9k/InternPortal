@@ -34,7 +34,6 @@ namespace InternPortal.Data.Models
             Property(x => x.ApplicationStartDate).HasColumnName(@"ApplicationStartDate").HasColumnType("datetime").IsOptional();
             Property(x => x.ApplicationCompleteDate).HasColumnName(@"ApplicationCompleteDate").HasColumnType("datetime").IsOptional();
             Property(x => x.ApplicationStatusId).HasColumnName(@"ApplicationStatusId").HasColumnType("int").IsOptional();
-            Property(x => x.ApplicationStatus).HasColumnName(@"ApplicationStatus").HasColumnType("int").IsOptional();
 
             // Foreign keys
             HasOptional(a => a.ApplicationStatu).WithMany(b => b.Applications).HasForeignKey(c => c.ApplicationStatusId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus

@@ -24,7 +24,6 @@ namespace InternPortal.Data.Models
         public System.DateTime? ApplicationStartDate { get; set; } // ApplicationStartDate
         public System.DateTime? ApplicationCompleteDate { get; set; } // ApplicationCompleteDate
         public int? ApplicationStatusId { get; set; } // ApplicationStatusId
-        public int? ApplicationStatus { get; set; } // ApplicationStatus
 
         // Reverse navigation
 

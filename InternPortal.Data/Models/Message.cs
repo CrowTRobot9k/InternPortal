@@ -25,6 +25,7 @@ namespace InternPortal.Data.Models
         public string MessageSubject { get; set; } // MessageSubject
         public string MessageBody { get; set; } // MessageBody
         public System.DateTime? DateTimeSent { get; set; } // DateTimeSent
+        public System.DateTime? DateTimeRead { get; set; } // DateTimeRead
 
         // Foreign keys
 

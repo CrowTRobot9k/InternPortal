@@ -180,7 +180,7 @@
     {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        var uri = '/Message/Messages?userId=' + dataItem.UserId;
+        var uri = '/Message/AdminMessage?userId=' + dataItem.UserId;
         location.href = uri;
     }
 

@@ -207,14 +207,14 @@ desired effect
                             <!-- Menu toggle button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">1</span>
+                                <span class="label label-success" id="unreadMessagesBadge"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li class="header">You have 1 message</li>
+                                <li class="header" id="unreadMessageNotification"></li>
                                 <li>
                                     <!-- inner menu: contains the messages -->
-                                    <ul class="menu">
-                                        <li>
+                                    <ul class="menu" id="unreadMessageList">
+                                        @*<li>
                                             <!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
@@ -229,12 +229,12 @@ desired effect
                                                 <!-- The message -->
                                                 <p>Put Messages Here</p>
                                             </a>
-                                        </li>
+                                        </li>*@
                                         <!-- end message -->
                                     </ul>
                                     <!-- /.menu -->
                                 </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
+                                <li class="footer"><a href="/Message/Conversations">View All Messages</a></li>
                             </ul>
                         </li>
                         <!-- /.messages-menu -->
@@ -472,5 +472,32 @@ Both of these plugins are recommended to enhance the
 user experience. Slimscroll is required when using the
 fixed layout. -->
     @RenderSection("Scripts", required: false)
+    <script>
+
+        var unreadMessagesUrl = "/API/InternService/GetUnreadMessages";
+        callService(unreadMessagesUrl,
+        function (success)
+        {
+            var messages = success;
+
+            if (messages.length > 0) {
+
+                $('#unreadMessagesBadge').text(messages.length);
+
+                $('#unreadMessageNotification').text("You have " + messages.length + " unread messages.");
+
+                $.each(messages, function (index, value)
+                {
+                    var messageElement = '<li><a href="/Message/UserMessage?userId=' + value.UserIdFrom + '"><h4>' + value.MessageSubject + '<small><i class="fa fa-clock-o"></i>' + kendo.toString(kendo.parseDate(value.DateTimeSent), "yyyy-MM-dd HH:mm")+'</small></h4></a></li>';
+
+                    $("#unreadMessageList").append(messageElement);
+                });
+            }
+        },
+        function (fail)
+        {
+            //alert("failed to get messages");
+        });
+    </script>
 </body>
 </html>

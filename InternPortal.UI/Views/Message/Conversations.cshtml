@@ -1,0 +1,28 @@
+﻿@model IEnumerable<InternPortal.UI.Dto.AspNetUserDto>
+
+@{
+    ViewBag.Title = "Conversations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="row text-center">
+            <h4>Conversations:</h4>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            @foreach (var user in Model)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => user.UserName, "Conversation with " + user.UserName, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        @Html.ActionLink("View", "UserMessage", "Message", new { userId = user.Id }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+                <br>
+            }
+            </div>
+        </div>
+    </div>

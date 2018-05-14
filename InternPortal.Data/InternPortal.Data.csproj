@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201805092006391_FixApplicationStatus.Designer.cs">
       <DependentUpon>201805092006391_FixApplicationStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805141826584_AddDateTimeReadToMessages.cs" />
+    <Compile Include="Migrations\201805141826584_AddDateTimeReadToMessages.Designer.cs">
+      <DependentUpon>201805141826584_AddDateTimeReadToMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
@@ -681,6 +685,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805092006391_FixApplicationStatus.resx">
       <DependentUpon>201805092006391_FixApplicationStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141826584_AddDateTimeReadToMessages.resx">
+      <DependentUpon>201805141826584_AddDateTimeReadToMessages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

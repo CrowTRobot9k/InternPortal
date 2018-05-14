@@ -1145,6 +1145,7 @@
     <Content Include="Views\Application\_ApplicationQuestions.cshtml" />
     <Content Include="Views\Application\SubmitApplication.cshtml" />
     <Content Include="Views\Message\Messages.cshtml" />
+    <Content Include="Views\Message\Conversations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
