@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Positions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Positions</h2>
+<div>
+<div id="PositionsGrid"></div>
+</div>
+<script id="popup-editor" type="text/x-kendo-template">
+            <hidden data-bind="value:PositionId" />
+            <div class="text-center">
+                <div class="col-md-12">
+                <label>Position Name: </label><input data-bind="value:PositionName" class="k-textbox textbox" style="width:100%" />
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="col-md-12">
+                    <label>Position Description: </label><textarea data-bind="value:PositionDescription" rows="15" class="form-control" style="width:100%" />
+                </div>
+            </div>
+</script>
+<script>
+    function formatDateTime(data) {
+        return kendo.toString(kendo.parseDate(data), "yyyy-MM-dd hh:mm") || "N/A";
+    }
+    function checkNull(data) {
+        return data || "N/A";
+    }
+
+    $(document).ready(function () {
+
+       
+        var positionsUri = "/API/InternService/GetPositions"
+        window.record = 0;
+        $('#PositionsGrid').kendoGrid({
+            dataSource: {
+                transport: {
+                    read: { url: positionsUri },
+                    create: {
+                        url: "/API/InternService/CreatePosition",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: "/API/InternService/UpdatePosition",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    },
+                    destroy: {
+                        url: "/API/InternService/DeletePosition",
+                        type: "DELETE",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    },
+
+                    parameterMap: function (model, operation) {
+                        if (operation !== "read" && model) {
+                            return kendo.stringify(model);
+                        }
+                    }
+                },
+                schema:
+                    {
+                        model:
+                            {
+                                id: "PositionId",
+                                fields:
+                                    {
+                                        PositionId: { type: "number"},
+                                        PositionName: { type: "string" },
+                                        PositionDescription: { type: "string" }
+                                    }
+                            }
+                    }
+            },
+            toolbar: ["create"],
+            editable:
+                {
+                    mode: "popup",
+                    template: kendo.template($("#popup-editor").html()),
+                    window:
+                    {
+                        title: "Add/Edit Position",
+                        width: "500px",
+                            height: "500px",
+                            modal: true
+                    }
+                },
+            columns: [
+                {
+                    title: "#",
+                    template: "#= ++window.record #",
+                    width: 40
+                },
+                { field: "PositionId", title: "PositionId", hidden: true },
+                { field: "PositionName", title: "Position Name" },
+                { field: "PositionDescription", title: "Position Description" },
+                { command: ["edit", "destroy"], title: "&nbsp;" }
+            ],
+            pageable: false,
+            dataBinding: function () {
+                window.record = 0;
+            }
+        }); 
+    }); 
+</script>
+

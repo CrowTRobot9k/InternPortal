@@ -67,3 +67,7 @@ tr.k-state-selected td {
         background-color: #00a65a !important;
         border-color: #00a65a !important;
     }
+
+.k-edit-form-container {
+    width:90% !important;
+}

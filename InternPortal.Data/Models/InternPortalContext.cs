@@ -28,6 +28,7 @@ namespace InternPortal.Data.Models
         public System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
         public System.Data.Entity.DbSet<Message> Messages { get; set; } // Message
         public System.Data.Entity.DbSet<Note> Notes { get; set; } // Note
+        public System.Data.Entity.DbSet<Position> Positions { get; set; } // Position
         public System.Data.Entity.DbSet<Question> Questions { get; set; } // Question
         public System.Data.Entity.DbSet<QuestionOption> QuestionOptions { get; set; } // QuestionOption
         public System.Data.Entity.DbSet<QuestionType> QuestionTypes { get; set; } // QuestionType
@@ -96,6 +97,7 @@ namespace InternPortal.Data.Models
             modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration());
             modelBuilder.Configurations.Add(new MessageConfiguration());
             modelBuilder.Configurations.Add(new NoteConfiguration());
+            modelBuilder.Configurations.Add(new PositionConfiguration());
             modelBuilder.Configurations.Add(new QuestionConfiguration());
             modelBuilder.Configurations.Add(new QuestionOptionConfiguration());
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration());
@@ -116,6 +118,7 @@ namespace InternPortal.Data.Models
             modelBuilder.Configurations.Add(new AspNetUserLoginConfiguration(schema));
             modelBuilder.Configurations.Add(new MessageConfiguration(schema));
             modelBuilder.Configurations.Add(new NoteConfiguration(schema));
+            modelBuilder.Configurations.Add(new PositionConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionOptionConfiguration(schema));
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration(schema));
