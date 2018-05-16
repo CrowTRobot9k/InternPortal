@@ -26,6 +26,7 @@ namespace InternPortal.Data.Models
         System.Data.Entity.DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins
         System.Data.Entity.DbSet<Message> Messages { get; set; } // Message
         System.Data.Entity.DbSet<Note> Notes { get; set; } // Note
+        System.Data.Entity.DbSet<Position> Positions { get; set; } // Position
         System.Data.Entity.DbSet<Question> Questions { get; set; } // Question
         System.Data.Entity.DbSet<QuestionOption> QuestionOptions { get; set; } // QuestionOption
         System.Data.Entity.DbSet<QuestionType> QuestionTypes { get; set; } // QuestionType

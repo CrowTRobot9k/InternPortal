@@ -1,0 +1,337 @@
+﻿
+<div class="text-center">
+    <h2>Submitted Applications</h2>
+</div>
+<hr>
+<div>
+    <div id="ApplicationGrid"></div>
+
+    <script type="text/x-kendo-template" id="ApplicationTemplate">
+        <div class="tabstrip">
+            <ul>
+                <li id="ApplicationProfileTab" class="k-state-active">
+                    Profile
+                </li>
+                <li id="ApplicationQuestionsTab">
+                    Questions
+                </li>
+                <li id="ApplicationUploadsTab">
+                    Uploads
+                </li>
+                <li id="ApplicationNotesTab">
+                    Notes
+                </li>
+            </ul>
+            <div>
+                <div class='ApplicationProfile col-lg-12 col-md-12'>
+                    <label>Name </label> #: User.FirstName # #: User.LastName #
+                    <br>
+                    <label>Email </label> #: checkNull(User.Email) #
+                    <br>
+                    <label>Phone: </label>#: checkNull(User.PhoneNumber) #
+                    <br>
+                    <label>Address:</label><address>
+                        #: checkNull(User.Address) #<br />
+                        #: checkNull(User.City) #, #: checkNull(User.State) #, #: checkNull(User.ZipCode) #
+                    </address>
+                    <label>DOB: </label> #: formatDate(User.DateOfBirth) #
+                    <br><label>Gender: </label> #: checkNull(User.Gender) #
+                    <br>
+                    <label>Ethnicity: </label> #: checkNull(User.Ethnicity) #
+                </div>
+            </div>
+            <div>
+                <div class="ApplicationQuestions"></div>
+            </div>
+            <div>
+                <div class="ApplicationUploads col-lg-12 col-md-12">
+                    # if (UserUploads[0]!=null){ #
+                    <label>Title: </label> #=UserUploads[0].UploadTitle #
+                    <br>
+                    <label>Description: </label> #= UserUploads[0].UploadDescription#
+                    <form method="get" action="/Home/Downloadfile/#=UserUploads[0].UploadId#">
+                        <button type="submit" class="k-button k-primary">Download</button>
+                    </form>
+                    #}
+                    else
+                    {#
+                    <label>No Uploads Submitted</label>
+                    #}#
+                </div>
+            </div>
+            <div>
+                <div class="ApplicationNotes"></div>
+            </div>
+        </div>
+    </script>
+</div>
+
+<script>
+   
+    function sendMessage(e)
+    {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var uri = '/Message/AdminMessage?userId=' + dataItem.UserId;
+        location.href = uri;
+    }
+
+
+    $(document).ready(function ()
+    {
+        var applicationDs = new kendo.data.DataSource({
+            transport:
+            {
+                read:
+                    {
+                        url: "/API/InternService/GetApplications"
+                    },
+                update:
+                    {
+                        url: "/API/InternService/UpdateApplication",
+                        type: "POST"
+
+                    }
+            },
+            schema:
+                {
+                    model:
+                        {
+                            id: "ApplicationId",
+                            fields:
+                                {
+                                    ApplicationId: { type: "number" },
+                                    UserID: { type: "number" },
+                                    ApplicationStartDate: { type: "date" },
+                                    ApplicationCompleteDate: { type: "date" },
+                                    ApplicationStatusId: { type: "number" }
+                                }
+
+
+                        }
+                },
+        pageSize: 10
+        });
+
+        $('#ApplicationGrid').kendoGrid({
+            dataSource: applicationDs,
+            pageable: true,
+            sortable: true,
+            filterable: true,
+            toolbar: ["excel"],
+            excel: {
+                fileName: "Applications.xlsx",
+                allPages: true,
+                filterable: true
+            }
+            ,
+           editable: "inline"
+            ,
+            detailTemplate: kendo.template($("#ApplicationTemplate").html()),
+            detailInit: detailInit,
+            columns: [
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Application Id",
+                    field: "ApplicationId",
+                    editor: readOnly,
+                    type: "number",
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "First Name",
+                    field: "User.FirstName",
+                    type: "string",
+                    editor: readOnly,
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Last Name",
+                    field: "User.LastName",
+                    type: "string",
+                    editor: readOnly,
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Start Date",
+                    field: "ApplicationStartDate",
+                    template: '#= formatDate(ApplicationStartDate) #',
+                    filterable: true,
+                    editable: false,
+                    editor: readOnly,
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Completed Date",
+                    field: "ApplicationCompleteDate",
+                    template: '#= formatDate(ApplicationCompleteDate) #',
+                    filterable: true,
+                    editor: readOnly,
+                },
+                {
+                    headerAttributes: { "class": "column-header" }, field: "ApplicationStatusId", title: "Status",
+                    template: '#= getApplicationStatus(ApplicationStatusId) #',
+                    editor:applicationStatusEditor,
+                    filterable: {
+                        extra: false,
+                        multi: true
+                    }
+                },
+                {
+                    command:
+                    [ "edit",
+                     { text: "Message", click: sendMessage }
+                    ],
+                    title: "&nbsp;"
+                }
+            ]
+        });
+
+
+        function applicationStatusEditor(container, options) {
+            $('<input required name="' + options.field + '"/>')
+                .appendTo(container[0])
+                .kendoDropDownList({
+                    dataTextField: "Status",
+                    dataValueField: "ApplicationStatusId",
+                    dataSource: applicationStatuses
+                });
+        }
+
+        function detailInit(e) {
+            var detailRow = e.detailRow;
+
+            var qaUri = "/API/InternService/GetApplicationAnswers/" + e.data.ApplicationId;
+
+            detailRow.find(".tabstrip").kendoTabStrip({
+                animation: {
+                    open: { effects: "fadeIn" }
+                }
+            });
+
+            window.record = 0;
+            detailRow.find(".ApplicationQuestions").kendoGrid({
+                dataSource: {
+                    transport: { read: { url: qaUri } }
+                },
+                columns: [
+                    {
+                        title: "#",
+                        template: "#= ++window.record #",
+                        width: 40
+                    },
+                    { field: "QuestionId", title: "QuestionId", hidden: true },
+                    { field: "Question", title: "Question" },
+                    { field: "Answer", title: "Answer" }
+                ],
+                pageable: false,
+                dataBinding: function () {
+                    window.record = 0;
+                }
+            });
+
+            var notesUri = "/API/InternService/GetApplicationNotes/" + e.data.ApplicationId;
+
+            window.record = 0;
+            detailRow.find(".ApplicationNotes").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: { url: notesUri },
+                        create: {
+                            url: "/API/InternService/CreateNote",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        },
+                        update: {
+                            url: "/API/InternService/UpdateNote",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        },
+                        destroy: {
+                            url: "/API/InternService/DeleteNote",
+                            type: "DELETE",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        },
+
+                        parameterMap: function (model, operation) {
+                            if (operation !== "read" && model) {
+                                return kendo.stringify(model);
+                            }
+                        }
+                    },
+                    schema:
+                        {
+                            model:
+                                {
+                                    id: "NoteId",
+                                    fields:
+                                        {
+                                            NoteId: { type: "number" },
+                                            ApplicationId: { type: "number", defaultValue: e.data.ApplicationId },
+                                            UserId: { type: "string" },
+                                            Note: { type: "string" }
+                                        }
+                                }
+                        }
+                },
+                toolbar: ["create"],
+                editable:
+                {
+                        mode: "inline"
+                },
+                columns: [
+                    {
+                        title: "#",
+                        template: "#= ++window.record #",
+                        width: 40
+                    },
+                    { field: "NoteId", title: "NoteId", hidden: true },
+                    { field: "ApplicationId", title: "ApplicationId", hidden: true },
+                    { field: "UserId", title: "UserId", hidden: true },
+                    { field: "Note_", title: "Note" },
+                    { command: ["edit", "destroy"], title: "&nbsp;" }
+                ],
+                pageable: false,
+                dataBinding: function () {
+                    window.record = 0;
+                }
+            });
+
+        }
+    });
+
+
+</script>

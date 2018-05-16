@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201805120143065_InitialMigration.Designer.cs">
       <DependentUpon>201805120143065_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805141826584_AddDateTimeReadToMessages.cs" />
+    <Compile Include="Migrations\201805141826584_AddDateTimeReadToMessages.Designer.cs">
+      <DependentUpon>201805141826584_AddDateTimeReadToMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
@@ -163,6 +167,12 @@
     <Compile Include="Models\NoteConfiguration.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Position.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PositionConfiguration.cs">
+      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Question.cs">
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
     </Compile>
@@ -199,10 +209,16 @@
     <Compile Include="Repositories\AnswerconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AnswerconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AnswerRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AnswerrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AnswerrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ApplicationconfigurationRepository.cs">
@@ -211,7 +227,13 @@
     <Compile Include="Repositories\ApplicationconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\ApplicationconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\ApplicationdbcontextRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationdbcontextrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ApplicationRepository.cs">
@@ -220,10 +242,16 @@
     <Compile Include="Repositories\ApplicationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\ApplicationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\ApplicationstatuconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ApplicationstatuconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationstatuconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ApplicationstatuRepository.cs">
@@ -232,7 +260,13 @@
     <Compile Include="Repositories\ApplicationstaturepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\ApplicationstaturepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\ApplicationuserRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationuserrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetroleconfigurationRepository.cs">
@@ -244,6 +278,9 @@
     <Compile Include="Repositories\AspnetroleconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AspnetroleconfigurationrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AspnetroleRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -251,6 +288,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetrolerepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetrolerepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetuserclaimconfigurationRepository.cs">
@@ -262,6 +302,9 @@
     <Compile Include="Repositories\AspnetuserclaimconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AspnetuserclaimconfigurationrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AspnetuserclaimRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -269,6 +312,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetuserclaimrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserclaimrepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetuserconfigurationRepository.cs">
@@ -280,6 +326,9 @@
     <Compile Include="Repositories\AspnetuserconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AspnetuserconfigurationrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AspnetuserloginconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -287,6 +336,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetuserloginconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AspnetuserloginconfigurationrepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\AspnetuserloginRepository.cs">
@@ -298,6 +350,9 @@
     <Compile Include="Repositories\AspnetuserloginrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AspnetuserloginrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AspnetuserRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -307,10 +362,16 @@
     <Compile Include="Repositories\AspnetuserrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AspnetuserrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IAnswerconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAnswerconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAnswerconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAnswerRepository.cs">
@@ -319,13 +380,22 @@
     <Compile Include="Repositories\IAnswerrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IAnswerrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IApplicationconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IApplicationconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IApplicationconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IApplicationdbcontextRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationdbcontextrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IApplicationRepository.cs">
@@ -334,10 +404,16 @@
     <Compile Include="Repositories\IApplicationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IApplicationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IApplicationstatuconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IApplicationstatuconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationstatuconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IApplicationstatuRepository.cs">
@@ -346,7 +422,13 @@
     <Compile Include="Repositories\IApplicationstaturepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IApplicationstaturepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IApplicationuserRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IApplicationuserrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetroleconfigurationRepository.cs">
@@ -358,6 +440,9 @@
     <Compile Include="Repositories\IAspnetroleconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IAspnetroleconfigurationrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IAspnetroleRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -365,6 +450,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetrolerepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetrolerepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetuserclaimconfigurationRepository.cs">
@@ -376,6 +464,9 @@
     <Compile Include="Repositories\IAspnetuserclaimconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IAspnetuserclaimconfigurationrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IAspnetuserclaimRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -383,6 +474,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetuserclaimrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserclaimrepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetuserconfigurationRepository.cs">
@@ -394,6 +488,9 @@
     <Compile Include="Repositories\IAspnetuserconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IAspnetuserconfigurationrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IAspnetuserloginconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -401,6 +498,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetuserloginconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserloginconfigurationrepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetuserloginRepository.cs">
@@ -412,6 +512,9 @@
     <Compile Include="Repositories\IAspnetuserloginrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IAspnetuserloginrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IAspnetuserRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -419,6 +522,9 @@
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IAspnetuserrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IAspnetuserrepositoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IInternportalcontextfactoryRepository.cs">
@@ -430,6 +536,9 @@
     <Compile Include="Repositories\IInternportalcontextfactoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IInternportalcontextfactoryrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IInternUnitofWork.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -439,10 +548,16 @@
     <Compile Include="Repositories\IInternunitofworkrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IInternunitofworkrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IMessageconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IMessageconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IMessageconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IMessageRepository.cs">
@@ -451,10 +566,19 @@
     <Compile Include="Repositories\IMessagerepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IMessagerepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\INoteconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\INoteconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\INoteRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\INoterepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\InternportalcontextfactoryRepository.cs">
@@ -466,6 +590,9 @@
     <Compile Include="Repositories\InternportalcontextfactoryrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\InternportalcontextfactoryrepositoryrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\InternUnitofWork.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
@@ -475,10 +602,22 @@
     <Compile Include="Repositories\InternunitofworkrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\InternunitofworkrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IPositionconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IPositionRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IQuestionconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IQuestionconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestionconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IQuestionoptionconfigurationRepository.cs">
@@ -487,10 +626,16 @@
     <Compile Include="Repositories\IQuestionoptionconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IQuestionoptionconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IQuestionoptionRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IQuestionoptionrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestionoptionrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IQuestionRepository.cs">
@@ -499,10 +644,16 @@
     <Compile Include="Repositories\IQuestionrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IQuestionrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IQuestiontypeconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IQuestiontypeconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IQuestiontypeconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IQuestiontypeRepository.cs">
@@ -511,10 +662,16 @@
     <Compile Include="Repositories\IQuestiontyperepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IQuestiontyperepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IUserconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IUserconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUserconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IUserRepository.cs">
@@ -523,10 +680,16 @@
     <Compile Include="Repositories\IUserrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IUserrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\IUseruploadconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IUseruploadconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IUseruploadconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\IUseruploadRepository.cs">
@@ -535,10 +698,16 @@
     <Compile Include="Repositories\IUseruploadrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\IUseruploadrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\MessageconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\MessageconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MessageconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\MessageRepository.cs">
@@ -547,10 +716,25 @@
     <Compile Include="Repositories\MessagerepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\MessagerepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\NoteconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\NoteconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\NoteRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NoterepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PositionconfigurationRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PositionRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\QuestionconfigurationRepository.cs">
@@ -559,10 +743,16 @@
     <Compile Include="Repositories\QuestionconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\QuestionconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\QuestionoptionconfigurationRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\QuestionoptionconfigurationrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionoptionconfigurationrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\QuestionoptionRepository.cs">
@@ -571,10 +761,16 @@
     <Compile Include="Repositories\QuestionoptionrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\QuestionoptionrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\QuestionRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\QuestionrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\QuestiontypeconfigurationRepository.cs">
@@ -583,10 +779,16 @@
     <Compile Include="Repositories\QuestiontypeconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\QuestiontypeconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\QuestiontypeRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\QuestiontyperepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestiontyperepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\RepositoryGenerator.cs">
@@ -600,10 +802,16 @@
     <Compile Include="Repositories\UserconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\UserconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\UserRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\UserrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\UseruploadconfigurationRepository.cs">
@@ -612,10 +820,16 @@
     <Compile Include="Repositories\UseruploadconfigurationrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\UseruploadconfigurationrepositoryrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\UseruploadRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\UseruploadrepositoryRepository.cs">
+      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UseruploadrepositoryrepositoryRepository.cs">
       <DependentUpon>RepositoryGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository.cs" />
@@ -662,6 +876,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805120143065_InitialMigration.resx">
       <DependentUpon>201805120143065_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141826584_AddDateTimeReadToMessages.resx">
+      <DependentUpon>201805141826584_AddDateTimeReadToMessages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

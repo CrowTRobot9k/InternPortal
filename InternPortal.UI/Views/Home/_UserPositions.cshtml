@@ -1,0 +1,71 @@
+﻿<div class="text-center">
+    <h2>Positions</h2>
+</div>
+<hr>
+<div>
+    <div id="UserPositionsGrid"></div>
+</div>
+<script type="text/x-kendo-template" id="UserPositionTemplate">
+    <div>
+        <div class='PositionDescription col-lg-12 col-md-12'>
+            <label>Application Description: </label><pre> #:PositionDescription # </pre>
+        </div>
+    </div>
+</script>
+<script>
+    function applyPosition(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var uri = '/Application/Application?positionId=' + dataItem.PositionId;
+        location.href = uri;
+    }
+
+    $(document).ready(function ()
+    {
+        var positionsUri = "/API/InternService/GetPositions"
+        window.record = 0;
+        $('#UserPositionsGrid').kendoGrid({
+            dataSource: {
+                transport: {
+                    read: { url: positionsUri }
+                },
+                schema:
+                    {
+                        model:
+                            {
+                                id: "PositionId",
+                                fields:
+                                    {
+                                        PositionId: { type: "number" },
+                                        PositionName: { type: "string" },
+                                        PositionDescription: { type: "string" }
+                                    }
+                            }
+                    }
+            },
+            detailTemplate: kendo.template($("#UserPositionTemplate").html()),
+            //detailInit: detailInit,
+            columns: [
+                {
+                    title: "#",
+                    template: "#= ++window.record #",
+                    width: 40
+                },
+                { field: "PositionId", title: "PositionId", hidden: true },
+                { field: "PositionName", title: "Position Name" },
+                //{ field: "PositionDescription", title: "Position Description" },
+                {
+                    command:
+                        [
+                            { text: "Apply", click: applyPosition }
+                        ],
+                    title: "&nbsp;"
+                }
+            ],
+            pageable: false,
+            dataBinding: function () {
+                window.record = 0;
+            }
+        });
+    });
+</script>

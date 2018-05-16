@@ -285,6 +285,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Dto\AnswerDto.cs" />
     <Compile Include="Dto\ApplicationChildUserDto.cs" />
     <Compile Include="Dto\ApplicationDto.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Dto\AspNetUserDto.cs" />
     <Compile Include="Dto\MessageDto.cs" />
     <Compile Include="Dto\NoteDto.cs" />
+    <Compile Include="Dto\PositionDto.cs" />
     <Compile Include="Dto\QuestionDto.cs" />
     <Compile Include="Dto\QuestionOptionDto.cs" />
     <Compile Include="Dto\QuestionTypeDto.cs" />
@@ -312,6 +314,7 @@
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\PositionViewModel.cs" />
     <Compile Include="ViewModels\QuestionAnswerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1145,6 +1148,12 @@
     <Content Include="Views\Application\_ApplicationQuestions.cshtml" />
     <Content Include="Views\Application\SubmitApplication.cshtml" />
     <Content Include="Views\Message\Messages.cshtml" />
+    <Content Include="Views\Message\Conversations.cshtml" />
+    <Content Include="Views\Position\Positions.cshtml" />
+    <Content Include="Views\Home\_AdminPositions.cshtml" />
+    <Content Include="Views\Home\_AdminApplications.cshtml" />
+    <Content Include="Views\Home\_UserApplications.cshtml" />
+    <Content Include="Views\Home\_UserPositions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

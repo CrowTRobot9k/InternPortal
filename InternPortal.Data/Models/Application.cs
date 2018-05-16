@@ -21,10 +21,10 @@ namespace InternPortal.Data.Models
     {
         public int ApplicationId { get; set; } // ApplicationId (Primary key)
         public int UserId { get; set; } // UserId
+        public int? PositionId { get; set; } // PositionId
         public System.DateTime? ApplicationStartDate { get; set; } // ApplicationStartDate
         public System.DateTime? ApplicationCompleteDate { get; set; } // ApplicationCompleteDate
         public int? ApplicationStatusId { get; set; } // ApplicationStatusId
-        public int? ApplicationStatus { get; set; } // ApplicationStatus
 
         // Reverse navigation
 
@@ -47,6 +47,11 @@ namespace InternPortal.Data.Models
         /// Parent ApplicationStatu pointed by [Application].([ApplicationStatusId]) (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
         /// </summary>
         public virtual ApplicationStatu ApplicationStatu { get; set; } // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
+
+        /// <summary>
+        /// Parent Position pointed by [Application].([PositionId]) (FK_Application_Position)
+        /// </summary>
+        public virtual Position Position { get; set; } // FK_Application_Position
 
         /// <summary>
         /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)

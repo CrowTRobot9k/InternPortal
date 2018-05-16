@@ -35,6 +35,7 @@ namespace InternPortal.Data.Models
             Property(x => x.MessageSubject).HasColumnName(@"MessageSubject").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.MessageBody).HasColumnName(@"MessageBody").HasColumnType("nvarchar(max)").IsOptional();
             Property(x => x.DateTimeSent).HasColumnName(@"DateTimeSent").HasColumnType("datetime").IsOptional();
+            Property(x => x.DateTimeRead).HasColumnName(@"DateTimeRead").HasColumnType("datetime").IsOptional();
 
             // Foreign keys
             HasRequired(a => a.AspNetUser_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdFrom

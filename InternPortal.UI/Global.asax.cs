@@ -65,6 +65,9 @@ namespace InternPortal.UI
 
                 cfg.CreateMap<AspNetUser, AspNetUserDto>();
                 cfg.CreateMap<AspNetUserDto, AspNetUser>();
+
+                cfg.CreateMap<Position, PositionDto>();
+                cfg.CreateMap<PositionDto, Position>();
             });
 
         }
