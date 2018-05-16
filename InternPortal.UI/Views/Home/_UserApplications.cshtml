@@ -11,7 +11,7 @@
     function editApplication(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        var uri = '/Application/Application?applicationId=' + dataItem.ApplicationId;
+        var uri = "/Application/Application?positionId="+dataItem.PositionId+"&applicationId=" + dataItem.ApplicationId;
         location.href = uri;
     }
 
@@ -37,7 +37,10 @@
                                     UserId: { type: "number" },
                                     ApplicationStartDate: { type: "date" },
                                     ApplicationCompleteDate: { type: "date" },
-                                    ApplicationStatusId: { type: "number" }
+                                    ApplicationStatusId: { type: "number" },
+                                    PositionId: { type: "number" },
+                                    PositionName: { type: "string" }
+                                   
                                 }
 
 
@@ -51,6 +54,7 @@
             pageable: true,
             sortable: true,
             filterable: true,
+            dataBound: checkEmptyGrid,
             columns: [
                 {
                     headerAttributes: { "class": "column-header" },
@@ -60,6 +64,23 @@
                     hidden: true
                 },
                 { field: "UserId", title: "UserId", hidden: true },
+                { field: "Position.PositionId", title: "PositionId", hidden: true },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Position Applied",
+                    field: "Position.PositionName",
+                    type: "string",
+                    filterable: {
+                        extra: false,
+                        multi: false,
+                        operators: {
+                            number: {
+                                eq: "Equal to",
+                                neq: "Not equal to"
+                            }
+                        }
+                    }
+                },
                 {
                     headerAttributes: { "class": "column-header" },
                     title: "First Name",

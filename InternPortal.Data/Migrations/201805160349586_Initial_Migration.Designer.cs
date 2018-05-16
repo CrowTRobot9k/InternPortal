@@ -7,13 +7,13 @@ namespace InternPortal.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddDateTimeReadToMessages : IMigrationMetadata
+    public sealed partial class Initial_Migration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDateTimeReadToMessages));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Migration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805141826584_AddDateTimeReadToMessages"; }
+            get { return "201805160349586_Initial_Migration"; }
         }
         
         string IMigrationMetadata.Source

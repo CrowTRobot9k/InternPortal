@@ -33,14 +33,15 @@ namespace InternPortal.UI.Controllers
             { 
                 User = Mapper.Map<UserDto>(user),
                 //get in progress application or new
-                Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
-                                .Where(i => i.UserId == user.UserId && i.ApplicationId == applicationId && i.PositionId == positionId).FirstOrDefault()
-                                ?? 
+                Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.
+                Where(i => i.UserId == user.UserId
+                && i.PositionId == positionId).FirstOrDefault()
+                                ??
                                 new Application
                                 {
-                                    Position = _unitOfWork.Positions.Where(p=>p.PositionId == positionId).FirstOrDefault()
+                                    Position = _unitOfWork.Positions.Where(p => p.PositionId == positionId).FirstOrDefault()
                                 })
-            };
+        };
 
             //new application: assign user, start date, initial pending status (should interviews be pending if they are not completed?).
             if (viewModel.Application.ApplicationId == 0)
@@ -169,7 +170,7 @@ namespace InternPortal.UI.Controllers
 
                         var userUpload = viewModel.Application.UserUploads.FirstOrDefault();
 
-                        userUpload.UploadLocation = viewModel.Application.ApplicationId + "\\" + postedFile.FileName;
+                        userUpload.UploadLocation = "\\"+viewModel.Application.ApplicationId + "\\" + postedFile.FileName;
                     }
                     catch (Exception ex)
                     {

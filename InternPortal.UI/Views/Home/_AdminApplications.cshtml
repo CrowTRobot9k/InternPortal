@@ -134,8 +134,14 @@
                     headerAttributes: { "class": "column-header" },
                     title: "Application Id",
                     field: "ApplicationId",
-                    editor: readOnly,
                     type: "number",
+                    hidden: true
+                },
+                {
+                    headerAttributes: { "class": "column-header" },
+                    title: "Position",
+                    field: "Position.PositionName",
+                    type: "string",
                     filterable: {
                         extra: false,
                         multi: false,

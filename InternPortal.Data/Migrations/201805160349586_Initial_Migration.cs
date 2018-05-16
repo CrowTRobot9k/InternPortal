@@ -3,7 +3,7 @@ namespace InternPortal.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class Initial_Migration : DbMigration
     {
         public override void Up()
         {
@@ -32,15 +32,17 @@ namespace InternPortal.Data.Migrations
                     {
                         ApplicationId = c.Int(nullable: false, identity: true),
                         UserId = c.Int(nullable: false),
+                        PositionId = c.Int(),
                         ApplicationStartDate = c.DateTime(),
                         ApplicationCompleteDate = c.DateTime(),
                         ApplicationStatusId = c.Int(),
-                        ApplicationStatus = c.Int(),
                     })
                 .PrimaryKey(t => t.ApplicationId)
                 .ForeignKey("dbo.ApplicationStatus", t => t.ApplicationStatusId)
+                .ForeignKey("dbo.Position", t => t.PositionId)
                 .ForeignKey("dbo.User", t => t.UserId)
                 .Index(t => t.UserId)
+                .Index(t => t.PositionId)
                 .Index(t => t.ApplicationStatusId);
             
             CreateTable(
@@ -64,6 +66,16 @@ namespace InternPortal.Data.Migrations
                 .PrimaryKey(t => t.NoteId)
                 .ForeignKey("dbo.Application", t => t.ApplicationId)
                 .Index(t => t.ApplicationId);
+            
+            CreateTable(
+                "dbo.Position",
+                c => new
+                    {
+                        PositionId = c.Int(nullable: false, identity: true),
+                        PositionName = c.String(maxLength: 100),
+                        PositionDescription = c.String(),
+                    })
+                .PrimaryKey(t => t.PositionId);
             
             CreateTable(
                 "dbo.User",
@@ -151,6 +163,7 @@ namespace InternPortal.Data.Migrations
                         MessageSubject = c.String(),
                         MessageBody = c.String(),
                         DateTimeSent = c.DateTime(),
+                        DateTimeRead = c.DateTime(),
                     })
                 .PrimaryKey(t => t.MessageId)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserIdFrom)
@@ -240,6 +253,7 @@ namespace InternPortal.Data.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Application", "PositionId", "dbo.Position");
             DropForeignKey("dbo.Note", "ApplicationId", "dbo.Application");
             DropForeignKey("dbo.Application", "ApplicationStatusId", "dbo.ApplicationStatus");
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -255,6 +269,7 @@ namespace InternPortal.Data.Migrations
             DropIndex("dbo.User", new[] { "Id" });
             DropIndex("dbo.Note", new[] { "ApplicationId" });
             DropIndex("dbo.Application", new[] { "ApplicationStatusId" });
+            DropIndex("dbo.Application", new[] { "PositionId" });
             DropIndex("dbo.Application", new[] { "UserId" });
             DropIndex("dbo.Answer", new[] { "OptionId" });
             DropIndex("dbo.Answer", new[] { "QuestionId" });
@@ -270,6 +285,7 @@ namespace InternPortal.Data.Migrations
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.User");
+            DropTable("dbo.Position");
             DropTable("dbo.Note");
             DropTable("dbo.ApplicationStatus");
             DropTable("dbo.Application");

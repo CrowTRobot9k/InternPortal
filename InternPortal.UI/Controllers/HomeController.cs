@@ -33,7 +33,7 @@ namespace InternPortal.UI.Controllers
         [System.Web.Http.HttpGet]
         public void DownloadFile(int id)
         {
-            var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
+            var uploadLocation =System.Configuration.ConfigurationManager.AppSettings["UploadLocation"];
 
             var upload = _unitOfWork.UserUploads.Where(u => u.UploadId == id).FirstOrDefault();
 

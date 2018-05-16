@@ -88,13 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Migrations\201805120143065_InitialMigration.cs" />
-    <Compile Include="Migrations\201805120143065_InitialMigration.Designer.cs">
-      <DependentUpon>201805120143065_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805141826584_AddDateTimeReadToMessages.cs" />
-    <Compile Include="Migrations\201805141826584_AddDateTimeReadToMessages.Designer.cs">
-      <DependentUpon>201805141826584_AddDateTimeReadToMessages.cs</DependentUpon>
+    <Compile Include="Migrations\201805160349586_Initial_Migration.cs" />
+    <Compile Include="Migrations\201805160349586_Initial_Migration.Designer.cs">
+      <DependentUpon>201805160349586_Initial_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
@@ -874,11 +870,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805120143065_InitialMigration.resx">
-      <DependentUpon>201805120143065_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805141826584_AddDateTimeReadToMessages.resx">
-      <DependentUpon>201805141826584_AddDateTimeReadToMessages.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805160349586_Initial_Migration.resx">
+      <DependentUpon>201805160349586_Initial_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

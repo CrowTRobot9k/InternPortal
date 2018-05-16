@@ -24,6 +24,16 @@
     }
 </div>
 <script>
+
+    function checkEmptyGrid(e) 
+    {
+        var grid = e.sender;
+        if (grid.dataSource.total() == 0) {
+            //Hide grid
+            $(e.sender.element).hide();
+        }
+    }
+
     function formatDate(data) {
         var date = kendo.toString(kendo.parseDate(data), "yyyy-MM-dd") || "N/A";
         return date;

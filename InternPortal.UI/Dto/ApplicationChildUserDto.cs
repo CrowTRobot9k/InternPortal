@@ -18,5 +18,6 @@ namespace InternPortal.UI.Dto
         public List<AnswerDto> Answers { get; set; } // Answers.FK_dbo.Answers_dbo.Application_ApplicationId
         public List<UserUploadDto> UserUploads { get; set; } // UserUploads.FK_dbo.UserUploads_dbo.Application_ApplicationId
         public UserNoAppDto User { get; set; } // FK_dbo.Application_dbo.User_UserId
+        public PositionDto Position { get; set; } // FK_Application_Position
     }
 }
