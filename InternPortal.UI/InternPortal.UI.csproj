@@ -314,6 +314,7 @@
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
+    <Compile Include="ViewModels\PositionViewModel.cs" />
     <Compile Include="ViewModels\QuestionAnswerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1149,6 +1150,10 @@
     <Content Include="Views\Message\Messages.cshtml" />
     <Content Include="Views\Message\Conversations.cshtml" />
     <Content Include="Views\Position\Positions.cshtml" />
+    <Content Include="Views\Home\_AdminPositions.cshtml" />
+    <Content Include="Views\Home\_AdminApplications.cshtml" />
+    <Content Include="Views\Home\_UserApplications.cshtml" />
+    <Content Include="Views\Home\_UserPositions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

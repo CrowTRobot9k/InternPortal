@@ -6,20 +6,28 @@
 
 <h2>Positions</h2>
 <div>
-<div id="PositionsGrid"></div>
+    <div id="PositionsGrid"></div>
 </div>
 <script id="popup-editor" type="text/x-kendo-template">
-            <hidden data-bind="value:PositionId" />
-            <div class="text-center">
-                <div class="col-md-12">
-                <label>Position Name: </label><input data-bind="value:PositionName" class="k-textbox textbox" style="width:100%" />
-                </div>
+    <hidden data-bind="value:PositionId" />
+    <div class="text-center">
+        <div class="col-md-12">
+            <label>Position Name: </label><input data-bind="value:PositionName" class="k-textbox textbox" style="width:100%" />
+        </div>
+    </div>
+    <div class="text-center">
+        <div class="col-md-12">
+            <label>Position Description: </label><textarea data-bind="value:PositionDescription" rows="15" class="form-control" style="width:100%" />
+        </div>
+    </div>
+</script>
+
+<script type="text/x-kendo-template" id="PositionTemplate">
+        <div>
+            <div class='PositionDescription col-lg-12 col-md-12'>
+                <label>Application Description: </label><pre> #:PositionDescription # </pre>
             </div>
-            <div class="text-center">
-                <div class="col-md-12">
-                    <label>Position Description: </label><textarea data-bind="value:PositionDescription" rows="15" class="form-control" style="width:100%" />
-                </div>
-            </div>
+        </div>
 </script>
 <script>
     function formatDateTime(data) {
@@ -31,7 +39,7 @@
 
     $(document).ready(function () {
 
-       
+
         var positionsUri = "/API/InternService/GetPositions"
         window.record = 0;
         $('#PositionsGrid').kendoGrid({
@@ -70,7 +78,7 @@
                                 id: "PositionId",
                                 fields:
                                     {
-                                        PositionId: { type: "number"},
+                                        PositionId: { type: "number" },
                                         PositionName: { type: "string" },
                                         PositionDescription: { type: "string" }
                                     }
@@ -83,13 +91,15 @@
                     mode: "popup",
                     template: kendo.template($("#popup-editor").html()),
                     window:
-                    {
-                        title: "Add/Edit Position",
-                        width: "500px",
+                        {
+                            title: "Add/Edit Position",
+                            width: "500px",
                             height: "500px",
                             modal: true
-                    }
+                        }
                 },
+            detailTemplate: kendo.template($("#PositionTemplate").html()),
+            //detailInit: detailInit,
             columns: [
                 {
                     title: "#",
@@ -98,14 +108,13 @@
                 },
                 { field: "PositionId", title: "PositionId", hidden: true },
                 { field: "PositionName", title: "Position Name" },
-                { field: "PositionDescription", title: "Position Description" },
+                //{ field: "PositionDescription", title: "Position Description" },
                 { command: ["edit", "destroy"], title: "&nbsp;" }
             ],
             pageable: false,
             dataBinding: function () {
                 window.record = 0;
             }
-        }); 
-    }); 
+        });
+    });
 </script>
-

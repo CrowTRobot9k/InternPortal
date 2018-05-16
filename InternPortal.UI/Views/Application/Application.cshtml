@@ -9,45 +9,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="text-center">
+    <h2>Application for @Model.Application.Position.PositionName</h2>
+</div>
+<hr>
+
 @using (Html.BeginForm("SaveApplication", "Application", FormMethod.Post, new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
 {
     <div class="row">
         <div class="col-md-12">
             @(Html.Kendo().ProgressBar()
-                                              .Name("ApplicationProgress")
-                                              .Type(ProgressBarType.Value)
-                                              .ChunkCount(3)
-                                              .ShowStatus(false) // Don't display the value, we'll let the tab strip do that.
-                                              .Min(0)
-                                              .Max(3) // Number of steps in the form
-                                              .Value(1)
-                                              .HtmlAttributes(new { style = "width: 100%;" })
+                                                      .Name("ApplicationProgress")
+                                                      .Type(ProgressBarType.Value)
+                                                      .ChunkCount(3)
+                                                      .ShowStatus(false) // Don't display the value, we'll let the tab strip do that.
+                                                      .Min(0)
+                                                      .Max(3) // Number of steps in the form
+                                                      .Value(1)
+                                                      .HtmlAttributes(new { style = "width: 100%;" })
             )
         </div>
     </div>
     <br>
     @(Html.Kendo().TabStrip()
-                                          .Name("ApplicationProgressStrip")
-                                          .Items(tabstrip =>
-                                          {
-                                              tabstrip.Add().Text("Profile")
-                                                  .Selected(true)
-                                                  .Content(m => Html.Partial("_ApplicationProfile", m));
+                                                  .Name("ApplicationProgressStrip")
+                                                  .Items(tabstrip =>
+                                                  {
+                                                      tabstrip.Add().Text("Profile")
+                                                          .Selected(true)
+                                                          .Content(m => Html.Partial("_ApplicationProfile", m));
 
-                                              tabstrip.Add().Text("Questions")
-                                                  //.Enabled(false)
-                                                  .Content(m => Html.Partial("_ApplicationQuestions", m));
+                                                      tabstrip.Add().Text("Questions")
+                                                          //.Enabled(false)
+                                                          .Content(m => Html.Partial("_ApplicationQuestions", m));
 
-                                              tabstrip.Add().Text("Resume")
-                                                  //.Enabled(false)
-                                                  .Content(m => Html.Partial("_ApplicationResume", m));
+                                                      tabstrip.Add().Text("Resume")
+                                                          //.Enabled(false)
+                                                          .Content(m => Html.Partial("_ApplicationResume", m));
 
-                                          })
-                                        .Events(ev =>
-                                        {
-                                            ev.Select("onSelect");
-                                            ev.Show("onShow");
-                                        })
+                                                  })
+                                                .Events(ev =>
+                                                {
+                                                    ev.Select("onSelect");
+                                                    ev.Show("onShow");
+                                                })
 
     )
     <br>

@@ -24,24 +24,29 @@ namespace InternPortal.UI.Controllers
             return View();
         }
 
-        public ActionResult Application(int applicationId=0)
+        public ActionResult Application(int positionId,int applicationId=0)
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault() ?? new User();
 
-            var viewModel = new ApplicationViewModel()
+            var viewModel = new ApplicationViewModel
             { 
                 User = Mapper.Map<UserDto>(user),
                 //get in progress application or new
                 Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.GetAll()
-                                .Where(i => i.UserId == user.UserId && i.ApplicationId == applicationId).FirstOrDefault()
-                                ?? new Application())
+                                .Where(i => i.UserId == user.UserId && i.ApplicationId == applicationId && i.PositionId == positionId).FirstOrDefault()
+                                ?? 
+                                new Application
+                                {
+                                    Position = _unitOfWork.Positions.Where(p=>p.PositionId == positionId).FirstOrDefault()
+                                })
             };
 
             //new application: assign user, start date, initial pending status (should interviews be pending if they are not completed?).
             if (viewModel.Application.ApplicationId == 0)
             {
                 viewModel.Application.UserId = user.UserId;
+                viewModel.Application.PositionId = positionId;
                 viewModel.Application.ApplicationStartDate = DateTime.Now;
                 viewModel.Application.ApplicationStatusId = (int)Constants.ApplicationStatus.Pending;
             }
@@ -232,7 +237,7 @@ namespace InternPortal.UI.Controllers
             _unitOfWork.Complete();
 
             //TODO: return the viewModel instead.
-            return RedirectToAction("Application");
+            return RedirectToAction("Application",new { viewModel.Application.PositionId, viewModel.Application.ApplicationId });
         }
 
         public ActionResult SubmitApplication(int id)
