@@ -8,7 +8,7 @@ namespace InternPortal.Data.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Answers",
+                "dbo.Answer",
                 c => new
                     {
                         AnswerId = c.Int(nullable: false, identity: true),
@@ -21,7 +21,7 @@ namespace InternPortal.Data.Migrations
                 .PrimaryKey(t => t.AnswerId)
                 .ForeignKey("dbo.Application", t => t.ApplicationId)
                 .ForeignKey("dbo.Question", t => t.QuestionId)
-                .ForeignKey("dbo.QuestionOptions", t => t.OptionId)
+                .ForeignKey("dbo.QuestionOption", t => t.OptionId)
                 .Index(t => t.ApplicationId)
                 .Index(t => t.QuestionId)
                 .Index(t => t.OptionId);
@@ -34,11 +34,36 @@ namespace InternPortal.Data.Migrations
                         UserId = c.Int(nullable: false),
                         ApplicationStartDate = c.DateTime(),
                         ApplicationCompleteDate = c.DateTime(),
+                        ApplicationStatusId = c.Int(),
                         ApplicationStatus = c.Int(),
                     })
                 .PrimaryKey(t => t.ApplicationId)
+                .ForeignKey("dbo.ApplicationStatus", t => t.ApplicationStatusId)
                 .ForeignKey("dbo.User", t => t.UserId)
-                .Index(t => t.UserId);
+                .Index(t => t.UserId)
+                .Index(t => t.ApplicationStatusId);
+            
+            CreateTable(
+                "dbo.ApplicationStatus",
+                c => new
+                    {
+                        ApplicationStatusId = c.Int(nullable: false),
+                        Status = c.String(maxLength: 50),
+                    })
+                .PrimaryKey(t => t.ApplicationStatusId);
+            
+            CreateTable(
+                "dbo.Note",
+                c => new
+                    {
+                        NoteId = c.Int(nullable: false, identity: true),
+                        ApplicationId = c.Int(nullable: false),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        Note = c.String(unicode: false),
+                    })
+                .PrimaryKey(t => t.NoteId)
+                .ForeignKey("dbo.Application", t => t.ApplicationId)
+                .Index(t => t.ApplicationId);
             
             CreateTable(
                 "dbo.User",
@@ -57,6 +82,7 @@ namespace InternPortal.Data.Migrations
                         DateOfBirth = c.DateTime(storeType: "date"),
                         Gender = c.String(maxLength: 50),
                         Ethnicity = c.String(maxLength: 50),
+                        Email = c.String(maxLength: 100),
                     })
                 .PrimaryKey(t => t.UserId)
                 .ForeignKey("dbo.AspNetUsers", t => t.Id)
@@ -116,27 +142,27 @@ namespace InternPortal.Data.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.Messages",
+                "dbo.Message",
                 c => new
                     {
                         MessageId = c.Int(nullable: false, identity: true),
-                        UserIdFrom = c.Int(nullable: false),
-                        UserIdTo = c.Int(nullable: false),
+                        UserIdFrom = c.String(nullable: false, maxLength: 128),
+                        UserIdTo = c.String(nullable: false, maxLength: 128),
                         MessageSubject = c.String(),
                         MessageBody = c.String(),
                         DateTimeSent = c.DateTime(),
                     })
                 .PrimaryKey(t => t.MessageId)
-                .ForeignKey("dbo.User", t => t.UserIdFrom)
-                .ForeignKey("dbo.User", t => t.UserIdTo)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserIdFrom)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserIdTo)
                 .Index(t => t.UserIdFrom)
                 .Index(t => t.UserIdTo);
             
             CreateTable(
-                "dbo.UserUploads",
+                "dbo.UserUpload",
                 c => new
                     {
-                        UploadId = c.Int(nullable: false),
+                        UploadId = c.Int(nullable: false, identity: true),
                         UserId = c.Int(),
                         ApplicationId = c.Int(),
                         UploadLocation = c.String(),
@@ -158,11 +184,11 @@ namespace InternPortal.Data.Migrations
                         Question = c.String(),
                     })
                 .PrimaryKey(t => t.QuestionId)
-                .ForeignKey("dbo.QuestionTypes", t => t.QuestionTypeId)
+                .ForeignKey("dbo.QuestionType", t => t.QuestionTypeId)
                 .Index(t => t.QuestionTypeId);
             
             CreateTable(
-                "dbo.QuestionOptions",
+                "dbo.QuestionOption",
                 c => new
                     {
                         OptionId = c.Int(nullable: false, identity: true),
@@ -174,22 +200,13 @@ namespace InternPortal.Data.Migrations
                 .Index(t => t.QuestionId);
             
             CreateTable(
-                "dbo.QuestionTypes",
+                "dbo.QuestionType",
                 c => new
                     {
                         QuestionTypeId = c.Int(nullable: false),
                         QuestionType = c.String(maxLength: 100),
                     })
                 .PrimaryKey(t => t.QuestionTypeId);
-            
-            CreateTable(
-                "dbo.ApplicationStatus",
-                c => new
-                    {
-                        ApplicationStatusId = c.Int(nullable: false),
-                        Status = c.String(maxLength: 50),
-                    })
-                .PrimaryKey(t => t.ApplicationStatusId);
             
             CreateTable(
                 "dbo.AspNetUserRoles",
@@ -208,50 +225,55 @@ namespace InternPortal.Data.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Answers", "OptionId", "dbo.QuestionOptions");
-            DropForeignKey("dbo.Answers", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.Question", "QuestionTypeId", "dbo.QuestionTypes");
-            DropForeignKey("dbo.QuestionOptions", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.Answers", "ApplicationId", "dbo.Application");
+            DropForeignKey("dbo.Answer", "OptionId", "dbo.QuestionOption");
+            DropForeignKey("dbo.Answer", "QuestionId", "dbo.Question");
+            DropForeignKey("dbo.Question", "QuestionTypeId", "dbo.QuestionType");
+            DropForeignKey("dbo.QuestionOption", "QuestionId", "dbo.Question");
+            DropForeignKey("dbo.Answer", "ApplicationId", "dbo.Application");
             DropForeignKey("dbo.Application", "UserId", "dbo.User");
-            DropForeignKey("dbo.UserUploads", "UserId", "dbo.User");
-            DropForeignKey("dbo.UserUploads", "ApplicationId", "dbo.Application");
-            DropForeignKey("dbo.Messages", "UserIdTo", "dbo.User");
-            DropForeignKey("dbo.Messages", "UserIdFrom", "dbo.User");
+            DropForeignKey("dbo.UserUpload", "UserId", "dbo.User");
+            DropForeignKey("dbo.UserUpload", "ApplicationId", "dbo.Application");
             DropForeignKey("dbo.User", "Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Message", "UserIdTo", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Message", "UserIdFrom", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Note", "ApplicationId", "dbo.Application");
+            DropForeignKey("dbo.Application", "ApplicationStatusId", "dbo.ApplicationStatus");
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.QuestionOptions", new[] { "QuestionId" });
+            DropIndex("dbo.QuestionOption", new[] { "QuestionId" });
             DropIndex("dbo.Question", new[] { "QuestionTypeId" });
-            DropIndex("dbo.UserUploads", new[] { "ApplicationId" });
-            DropIndex("dbo.UserUploads", new[] { "UserId" });
-            DropIndex("dbo.Messages", new[] { "UserIdTo" });
-            DropIndex("dbo.Messages", new[] { "UserIdFrom" });
+            DropIndex("dbo.UserUpload", new[] { "ApplicationId" });
+            DropIndex("dbo.UserUpload", new[] { "UserId" });
+            DropIndex("dbo.Message", new[] { "UserIdTo" });
+            DropIndex("dbo.Message", new[] { "UserIdFrom" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.User", new[] { "Id" });
+            DropIndex("dbo.Note", new[] { "ApplicationId" });
+            DropIndex("dbo.Application", new[] { "ApplicationStatusId" });
             DropIndex("dbo.Application", new[] { "UserId" });
-            DropIndex("dbo.Answers", new[] { "OptionId" });
-            DropIndex("dbo.Answers", new[] { "QuestionId" });
-            DropIndex("dbo.Answers", new[] { "ApplicationId" });
+            DropIndex("dbo.Answer", new[] { "OptionId" });
+            DropIndex("dbo.Answer", new[] { "QuestionId" });
+            DropIndex("dbo.Answer", new[] { "ApplicationId" });
             DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.ApplicationStatus");
-            DropTable("dbo.QuestionTypes");
-            DropTable("dbo.QuestionOptions");
+            DropTable("dbo.QuestionType");
+            DropTable("dbo.QuestionOption");
             DropTable("dbo.Question");
-            DropTable("dbo.UserUploads");
-            DropTable("dbo.Messages");
+            DropTable("dbo.UserUpload");
+            DropTable("dbo.Message");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.User");
+            DropTable("dbo.Note");
+            DropTable("dbo.ApplicationStatus");
             DropTable("dbo.Application");
-            DropTable("dbo.Answers");
+            DropTable("dbo.Answer");
         }
     }
 }

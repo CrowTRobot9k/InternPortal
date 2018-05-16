@@ -184,6 +184,24 @@
         location.href = uri;
     }
 
+    
+    function onChange(e)
+    {
+        alert("fired");
+        if (e.sender._data.length == 0)
+        { 
+            $(e.sender.table).hide();
+        }
+    }
+
+    function onDataBound(e)
+    {
+        alert("fired");
+        if (e.sender._data.length == 0)
+        { 
+            $(e.sender.table).hide();
+        }
+    }
 
     $(document).ready(function ()
     {
@@ -346,6 +364,8 @@
 
         $('#ApplicationGrid').kendoGrid({
             dataSource: applicationDs,
+            //change: onChange(),
+            dataBound: onDataBound(),
             pageable: true,
             sortable: true,
             filterable: true,

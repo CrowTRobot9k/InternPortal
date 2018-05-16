@@ -88,21 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Migrations\201805071831153_InitialMigration.cs" />
-    <Compile Include="Migrations\201805071831153_InitialMigration.Designer.cs">
-      <DependentUpon>201805071831153_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805081712409_AddEmailToUserTable.cs" />
-    <Compile Include="Migrations\201805081712409_AddEmailToUserTable.Designer.cs">
-      <DependentUpon>201805081712409_AddEmailToUserTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805091901337_FixApplicationForeignKeyName.cs" />
-    <Compile Include="Migrations\201805091901337_FixApplicationForeignKeyName.Designer.cs">
-      <DependentUpon>201805091901337_FixApplicationForeignKeyName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805092006391_FixApplicationStatus.cs" />
-    <Compile Include="Migrations\201805092006391_FixApplicationStatus.Designer.cs">
-      <DependentUpon>201805092006391_FixApplicationStatus.cs</DependentUpon>
+    <Compile Include="Migrations\201805120143065_InitialMigration.cs" />
+    <Compile Include="Migrations\201805120143065_InitialMigration.Designer.cs">
+      <DependentUpon>201805120143065_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs">
@@ -638,7 +626,9 @@
     <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Code Generation\EF.Reverse.POCO.Core.ttinclude" />
     <None Include="Code Generation\EF.Reverse.POCO.ttinclude" />
     <None Include="Code Generation\T4Helper.ttinclude" />
@@ -670,17 +660,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805071831153_InitialMigration.resx">
-      <DependentUpon>201805071831153_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805081712409_AddEmailToUserTable.resx">
-      <DependentUpon>201805081712409_AddEmailToUserTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805091901337_FixApplicationForeignKeyName.resx">
-      <DependentUpon>201805091901337_FixApplicationForeignKeyName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805092006391_FixApplicationStatus.resx">
-      <DependentUpon>201805092006391_FixApplicationStatus.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805120143065_InitialMigration.resx">
+      <DependentUpon>201805120143065_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
