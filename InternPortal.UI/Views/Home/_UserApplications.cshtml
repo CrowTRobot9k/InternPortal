@@ -11,7 +11,7 @@
     function editApplication(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        var uri = "/Application/Application?positionId="+dataItem.PositionId+"&applicationId=" + dataItem.ApplicationId;
+        var uri = "/Application/Application?positionId="+dataItem.Position.PositionId+"&applicationId=" + dataItem.ApplicationId;
         location.href = uri;
     }
 

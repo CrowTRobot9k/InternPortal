@@ -177,10 +177,6 @@ namespace InternPortal.UI.Controllers
                         //Todo: add logger.
                     }
                 }
-                else
-                {
-                    viewModel.Application.UserUploads.Clear();
-                }
             }
 
             var applicationToSave = _unitOfWork.Applications.Where(i => i.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
