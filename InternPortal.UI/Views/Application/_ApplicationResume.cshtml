@@ -9,7 +9,7 @@
     <div class="panel-body">
         <div class="row">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Application.UserUploads[0].UploadId)
+            @Html.HiddenFor(model => model.Application.UserUploads[0].UploadId, new { id = "UploadId" })
             @Html.HiddenFor(model => model.Application.UserUploads[0].UserId)
             @Html.HiddenFor(model => model.Application.UserUploads[0].UploadLocation, new { htmlAttributes = new { @id = "Uploadlocation" } })
             <div class="col-md-10">

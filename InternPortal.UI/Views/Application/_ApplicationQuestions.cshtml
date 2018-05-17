@@ -10,17 +10,7 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            @Html.HiddenFor(model => model.Application.ApplicationId)
-
-            @Html.HiddenFor(model => model.Application.UserId)
-
-             @Html.HiddenFor(model => model.Application.PositionId)
-
-            @Html.HiddenFor(model => model.Application.ApplicationStartDate)
-
-            @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
-
-            @Html.HiddenFor(model => model.Application.ApplicationStatusId)
+           
 
             @for (var i = 0; i < Model.Questions.Count(); i++)
             {
