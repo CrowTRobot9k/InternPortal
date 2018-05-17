@@ -37,8 +37,8 @@ namespace InternPortal.Data.Models
             Property(x => x.ApplicationStatusId).HasColumnName(@"ApplicationStatusId").HasColumnType("int").IsOptional();
 
             // Foreign keys
-            HasOptional(a => a.ApplicationStatu).WithMany(b => b.Applications).HasForeignKey(c => c.ApplicationStatusId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
-            HasOptional(a => a.Position).WithMany(b => b.Applications).HasForeignKey(c => c.PositionId).WillCascadeOnDelete(false); // FK_Application_Position
+            HasOptional(a => a.ApplicationStatu).WithMany(b => b.Applications).HasForeignKey(c => c.ApplicationStatusId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatusId
+            HasOptional(a => a.Position).WithMany(b => b.Applications).HasForeignKey(c => c.PositionId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.Position_PositionId
             HasRequired(a => a.User).WithMany(b => b.Applications).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_dbo.Application_dbo.User_UserId
             InitializePartial();
         }

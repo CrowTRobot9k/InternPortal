@@ -29,29 +29,29 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answer].[ApplicationId] point to this entity (FK_dbo.Answers_dbo.Application_ApplicationId)
+        /// Child Answers where [Answer].[ApplicationId] point to this entity (FK_dbo.Answer_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answers_dbo.Application_ApplicationId
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answer_dbo.Application_ApplicationId
         /// <summary>
-        /// Child Notes where [Note].[ApplicationId] point to this entity (FK_Note_Application)
+        /// Child Notes where [Note].[ApplicationId] point to this entity (FK_dbo.Note_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Note> Notes { get; set; } // Note.FK_Note_Application
+        public virtual System.Collections.Generic.ICollection<Note> Notes { get; set; } // Note.FK_dbo.Note_dbo.Application_ApplicationId
         /// <summary>
-        /// Child UserUploads where [UserUpload].[ApplicationId] point to this entity (FK_dbo.UserUploads_dbo.Application_ApplicationId)
+        /// Child UserUploads where [UserUpload].[ApplicationId] point to this entity (FK_dbo.UserUpload_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUploads_dbo.Application_ApplicationId
+        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUpload_dbo.Application_ApplicationId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatusId]) (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
+        /// Parent ApplicationStatu pointed by [Application].([ApplicationStatusId]) (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatusId)
         /// </summary>
-        public virtual ApplicationStatu ApplicationStatu { get; set; } // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
+        public virtual ApplicationStatu ApplicationStatu { get; set; } // FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatusId
 
         /// <summary>
-        /// Parent Position pointed by [Application].([PositionId]) (FK_Application_Position)
+        /// Parent Position pointed by [Application].([PositionId]) (FK_dbo.Application_dbo.Position_PositionId)
         /// </summary>
-        public virtual Position Position { get; set; } // FK_Application_Position
+        public virtual Position Position { get; set; } // FK_dbo.Application_dbo.Position_PositionId
 
         /// <summary>
         /// Parent User pointed by [Application].([UserId]) (FK_dbo.Application_dbo.User_UserId)

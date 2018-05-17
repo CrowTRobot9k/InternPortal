@@ -26,16 +26,16 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Answers where [Answer].[OptionId] point to this entity (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
+        /// Child Answers where [Answer].[OptionId] point to this entity (FK_dbo.Answer_dbo.QuestionOption_OptionId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answers_dbo.QuestionOptions_OptionId
+        public virtual System.Collections.Generic.ICollection<Answer> Answers { get; set; } // Answer.FK_dbo.Answer_dbo.QuestionOption_OptionId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent Question pointed by [QuestionOption].([QuestionId]) (FK_dbo.QuestionOptions_dbo.Question_QuestionId)
+        /// Parent Question pointed by [QuestionOption].([QuestionId]) (FK_dbo.QuestionOption_dbo.Question_QuestionId)
         /// </summary>
-        public virtual Question Question { get; set; } // FK_dbo.QuestionOptions_dbo.Question_QuestionId
+        public virtual Question Question { get; set; } // FK_dbo.QuestionOption_dbo.Question_QuestionId
 
         public QuestionOption()
         {

@@ -37,9 +37,9 @@ namespace InternPortal.Data.Models
             Property(x => x.OptionValue).HasColumnName(@"OptionValue").HasColumnType("bit").IsOptional();
 
             // Foreign keys
-            HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.QuestionOptions_OptionId
-            HasRequired(a => a.Application).WithMany(b => b.Answers).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.Application_ApplicationId
-            HasRequired(a => a.Question).WithMany(b => b.Answers).HasForeignKey(c => c.QuestionId).WillCascadeOnDelete(false); // FK_dbo.Answers_dbo.Question_QuestionId
+            HasOptional(a => a.QuestionOption).WithMany(b => b.Answers).HasForeignKey(c => c.OptionId).WillCascadeOnDelete(false); // FK_dbo.Answer_dbo.QuestionOption_OptionId
+            HasRequired(a => a.Application).WithMany(b => b.Answers).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_dbo.Answer_dbo.Application_ApplicationId
+            HasRequired(a => a.Question).WithMany(b => b.Answers).HasForeignKey(c => c.QuestionId).WillCascadeOnDelete(false); // FK_dbo.Answer_dbo.Question_QuestionId
             InitializePartial();
         }
         partial void InitializePartial();

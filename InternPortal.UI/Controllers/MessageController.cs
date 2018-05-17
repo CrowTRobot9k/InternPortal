@@ -21,15 +21,9 @@ namespace InternPortal.UI.Controllers
         {
             var userLoggedIn = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
 
-            var receivedMessages = _unitOfWork.Messages.Where(m => m.UserIdTo == userLoggedIn.Id).Select(u => u.AspNetUser_UserIdFrom).ToList();
-            var sentMessages = _unitOfWork.Messages.Where(m => m.UserIdFrom == userLoggedIn.Id).Select(u => u.AspNetUser_UserIdTo).ToList();
+            var converstations = Mapper.Map<IEnumerable<AspNetUserDto>>(_unitOfWork.Messages.GetConversations(userLoggedIn));
 
-            var userConversations = new List<AspNetUserDto>();
-
-            userConversations.AddRange(Mapper.Map<IEnumerable<AspNetUserDto>>(receivedMessages));
-            userConversations.AddRange(Mapper.Map<IEnumerable<AspNetUserDto>>(sentMessages));
-
-            return View(userConversations.GroupBy(i=>i.Id).Select(i=>i.FirstOrDefault()).ToList());
+            return View(converstations.GroupBy(i=>i.Id).Select(i=>i.FirstOrDefault()).ToList());
         }
 
         //if accessing from grid
@@ -40,23 +34,7 @@ namespace InternPortal.UI.Controllers
             var UserTo = _unitOfWork.Users.Where(i => i.UserId == userId).FirstOrDefault();
             var aspUserTo = UserTo.AspNetUser;
 
-            //get conversations containing both users.
-            var messages = _unitOfWork.Messages.Where(m => (m.UserIdFrom == aspUserFrom.Id && m.UserIdTo == aspUserTo.Id) ||
-            m.UserIdTo == aspUserFrom.Id && m.UserIdFrom == aspUserTo.Id);
-
-           
-            var viewModel = new MessageViewModel()
-            {
-                User = Mapper.Map<AspNetUserDto>(aspUserFrom),
-                UserTo = Mapper.Map<AspNetUserDto>(aspUserTo),
-                Messages = Mapper.Map<IEnumerable<MessageDto>>(messages).ToList(),
-                //initialize new message to send.
-                Message = new MessageDto
-                {
-                    UserIdFrom = aspUserFrom.Id,
-                    UserIdTo = aspUserTo.Id
-                }
-            };
+            var viewModel = GetConversation(aspUserFrom, aspUserTo);
 
             return View("Messages",viewModel);
         }
@@ -68,12 +46,19 @@ namespace InternPortal.UI.Controllers
             var aspUserFrom = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var aspUserTo = _unitOfWork.AspNetUsers.Where(i => i.Id == userId).FirstOrDefault();
 
+            var viewModel = GetConversation(aspUserFrom, aspUserTo);
+
+            return View("Messages", viewModel);
+        }
+
+        private MessageViewModel GetConversation(AspNetUser aspUserFrom, AspNetUser aspUserTo)
+        {
             //get conversations containing both users.
             var messages = _unitOfWork.Messages.Where(m => (m.UserIdFrom == aspUserFrom.Id && m.UserIdTo == aspUserTo.Id) ||
             m.UserIdTo == aspUserFrom.Id && m.UserIdFrom == aspUserTo.Id);
 
             //if messages are addressed to user mark as viewed.
-           foreach (var message in messages)
+            foreach (var message in messages)
             {
                 if (message.UserIdTo == aspUserFrom.Id)
                 {
@@ -81,7 +66,7 @@ namespace InternPortal.UI.Controllers
                 }
             }
 
-           _unitOfWork.Complete();
+            _unitOfWork.Complete();
 
             var viewModel = new MessageViewModel()
             {
@@ -95,8 +80,7 @@ namespace InternPortal.UI.Controllers
                     UserIdTo = aspUserTo.Id
                 }
             };
-
-            return View("Messages",viewModel);
+            return viewModel;
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternPortal.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -13,14 +14,14 @@ namespace InternPortal.Data
     {
         private bool _disposed = false;
 
-        public readonly IDbContext _context;
+        public readonly IInternPortalContext _context;
 
-        protected Repository(IDbContext context)
+        protected Repository(IInternPortalContext context)
         {
             _context = context;
         }
 
-        public IDbContext Context()
+        public IInternPortalContext Context()
         {
             return _context;
         }

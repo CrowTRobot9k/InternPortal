@@ -29,19 +29,19 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent Application pointed by [Answer].([ApplicationId]) (FK_dbo.Answers_dbo.Application_ApplicationId)
+        /// Parent Application pointed by [Answer].([ApplicationId]) (FK_dbo.Answer_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual Application Application { get; set; } // FK_dbo.Answers_dbo.Application_ApplicationId
+        public virtual Application Application { get; set; } // FK_dbo.Answer_dbo.Application_ApplicationId
 
         /// <summary>
-        /// Parent Question pointed by [Answer].([QuestionId]) (FK_dbo.Answers_dbo.Question_QuestionId)
+        /// Parent Question pointed by [Answer].([QuestionId]) (FK_dbo.Answer_dbo.Question_QuestionId)
         /// </summary>
-        public virtual Question Question { get; set; } // FK_dbo.Answers_dbo.Question_QuestionId
+        public virtual Question Question { get; set; } // FK_dbo.Answer_dbo.Question_QuestionId
 
         /// <summary>
-        /// Parent QuestionOption pointed by [Answer].([OptionId]) (FK_dbo.Answers_dbo.QuestionOptions_OptionId)
+        /// Parent QuestionOption pointed by [Answer].([OptionId]) (FK_dbo.Answer_dbo.QuestionOption_OptionId)
         /// </summary>
-        public virtual QuestionOption QuestionOption { get; set; } // FK_dbo.Answers_dbo.QuestionOptions_OptionId
+        public virtual QuestionOption QuestionOption { get; set; } // FK_dbo.Answer_dbo.QuestionOption_OptionId
 
         public Answer()
         {

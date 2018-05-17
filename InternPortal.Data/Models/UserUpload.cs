@@ -29,14 +29,14 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent Application pointed by [UserUpload].([ApplicationId]) (FK_dbo.UserUploads_dbo.Application_ApplicationId)
+        /// Parent Application pointed by [UserUpload].([ApplicationId]) (FK_dbo.UserUpload_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual Application Application { get; set; } // FK_dbo.UserUploads_dbo.Application_ApplicationId
+        public virtual Application Application { get; set; } // FK_dbo.UserUpload_dbo.Application_ApplicationId
 
         /// <summary>
-        /// Parent User pointed by [UserUpload].([UserId]) (FK_dbo.UserUploads_dbo.User_UserId)
+        /// Parent User pointed by [UserUpload].([UserId]) (FK_dbo.UserUpload_dbo.User_UserId)
         /// </summary>
-        public virtual User User { get; set; } // FK_dbo.UserUploads_dbo.User_UserId
+        public virtual User User { get; set; } // FK_dbo.UserUpload_dbo.User_UserId
 
         public UserUpload()
         {

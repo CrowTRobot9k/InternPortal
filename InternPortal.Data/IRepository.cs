@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternPortal.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,7 +10,7 @@ namespace InternPortal.Data
 {
     public interface IRepository<T> where T : class
     {
-        IDbContext Context();
+        IInternPortalContext Context();
         IQueryable<T> GetAll();
         IQueryable<T> Where(Expression<Func<T, bool>> predicate);
         void Add(T entity);

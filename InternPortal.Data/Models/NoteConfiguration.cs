@@ -35,7 +35,7 @@ namespace InternPortal.Data.Models
             Property(x => x.Note_).HasColumnName(@"Note").HasColumnType("varchar(max)").IsOptional().IsUnicode(false);
 
             // Foreign keys
-            HasRequired(a => a.Application).WithMany(b => b.Notes).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_Note_Application
+            HasRequired(a => a.Application).WithMany(b => b.Notes).HasForeignKey(c => c.ApplicationId).WillCascadeOnDelete(false); // FK_dbo.Note_dbo.Application_ApplicationId
             InitializePartial();
         }
         partial void InitializePartial();

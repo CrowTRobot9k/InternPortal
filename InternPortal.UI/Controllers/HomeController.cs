@@ -18,16 +18,7 @@ namespace InternPortal.UI.Controllers
 
         public ActionResult Index()
         {
-            var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
-            var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault();
-
-            var viewModel = new HomePageViewModel()
-            {
-                DomainUser = aspUser,
-                User = user
-            };
-
-            return View(viewModel);
+            return View();
         }
 
         [System.Web.Http.HttpGet]

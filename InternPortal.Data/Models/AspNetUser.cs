@@ -47,13 +47,13 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<AspNetUserLogin> AspNetUserLogins { get; set; } // AspNetUserLogins.FK_dbo.AspNetUserLogins_dbo.AspNetUsers_UserId
         /// <summary>
-        /// Child Messages where [Message].[UserIdFrom] point to this entity (FK_dbo.Messages_dbo.User_UserIdFrom)
+        /// Child Messages where [Message].[UserIdFrom] point to this entity (FK_dbo.Message_dbo.AspNetUsers_UserIdFrom)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdFrom
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdFrom { get; set; } // Message.FK_dbo.Message_dbo.AspNetUsers_UserIdFrom
         /// <summary>
-        /// Child Messages where [Message].[UserIdTo] point to this entity (FK_dbo.Messages_dbo.User_UserIdTo)
+        /// Child Messages where [Message].[UserIdTo] point to this entity (FK_dbo.Message_dbo.AspNetUsers_UserIdTo)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Message.FK_dbo.Messages_dbo.User_UserIdTo
+        public virtual System.Collections.Generic.ICollection<Message> Messages_UserIdTo { get; set; } // Message.FK_dbo.Message_dbo.AspNetUsers_UserIdTo
         /// <summary>
         /// Child Users where [User].[Id] point to this entity (FK_dbo.User_dbo.AspNetUsers_Id)
         /// </summary>

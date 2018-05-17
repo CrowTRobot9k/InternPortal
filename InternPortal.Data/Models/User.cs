@@ -41,9 +41,9 @@ namespace InternPortal.Data.Models
         /// </summary>
         public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_dbo.Application_dbo.User_UserId
         /// <summary>
-        /// Child UserUploads where [UserUpload].[UserId] point to this entity (FK_dbo.UserUploads_dbo.User_UserId)
+        /// Child UserUploads where [UserUpload].[UserId] point to this entity (FK_dbo.UserUpload_dbo.User_UserId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUploads_dbo.User_UserId
+        public virtual System.Collections.Generic.ICollection<UserUpload> UserUploads { get; set; } // UserUpload.FK_dbo.UserUpload_dbo.User_UserId
 
         // Foreign keys
 

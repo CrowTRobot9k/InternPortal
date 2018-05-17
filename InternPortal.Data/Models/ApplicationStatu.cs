@@ -25,9 +25,9 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Applications where [Application].[ApplicationStatusId] point to this entity (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus)
+        /// Child Applications where [Application].[ApplicationStatusId] point to this entity (FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatusId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatus
+        public virtual System.Collections.Generic.ICollection<Application> Applications { get; set; } // Application.FK_dbo.Application_dbo.ApplicationStatus_ApplicationStatusId
 
         public ApplicationStatu()
         {

@@ -25,9 +25,9 @@ namespace InternPortal.Data.Models
         // Reverse navigation
 
         /// <summary>
-        /// Child Questions where [Question].[QuestionTypeId] point to this entity (FK_dbo.Question_dbo.QuestionTypes_QuestionTypeId)
+        /// Child Questions where [Question].[QuestionTypeId] point to this entity (FK_dbo.Question_dbo.QuestionType_QuestionTypeId)
         /// </summary>
-        public virtual System.Collections.Generic.ICollection<Question> Questions { get; set; } // Question.FK_dbo.Question_dbo.QuestionTypes_QuestionTypeId
+        public virtual System.Collections.Generic.ICollection<Question> Questions { get; set; } // Question.FK_dbo.Question_dbo.QuestionType_QuestionTypeId
 
         public QuestionType()
         {
