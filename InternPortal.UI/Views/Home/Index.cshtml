@@ -34,6 +34,17 @@
         }
     }
 
+    //refresh grid on add to get id of element created.
+    function refreshOnCreate(e)
+    {
+        var tmp = e.type;
+        if (tmp == "create")
+        {
+            var dataSource = this;
+            dataSource.read();
+        }
+    }
+
     function formatDate(data) {
         var date = kendo.toString(kendo.parseDate(data), "yyyy-MM-dd") || "N/A";
         return date;
