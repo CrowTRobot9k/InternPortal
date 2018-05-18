@@ -50,33 +50,27 @@ namespace InternPortal.Data.Migrations
             var roleStore = new RoleStore<IdentityRole>(appContext);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            if (!context.AspNetUsers.Any(u => u.Email == "peteramathieu@gmail.com"))
+            if (!context.AspNetUsers.Any(u => u.Email == "admin1@gmail.com"))
             {
-                var user = new ApplicationUser { UserName = "peteramathieu@gmail.com",Email= "peteramathieu@gmail.com" };
+                var user = new ApplicationUser { UserName = "admin1@gmail.com",Email= "admin1@gmail.com" };
 
                 userManager.Create(user, "p@ssw0rd");
                 userManager.AddToRole(user.Id, "admin");
             }
 
-            if (!context.AspNetUsers.Any(u => u.Email == "peter_mathieu@yahoo.com"))
+            //test intern 1
+            if (!context.AspNetUsers.Any(u => u.Email == "intern1@yahoo.com"))
             {
-                var user = new ApplicationUser { UserName = "peter_mathieu@yahoo.com", Email = "peter_mathieu@yahoo.com" };
+                var user = new ApplicationUser { UserName = "intern1@yahoo.com", Email = "inter1@yahoo.com" };
 
                 userManager.Create(user, "p@ssw0rd");
                 userManager.AddToRole(user.Id, "intern");
             }
 
-            if (!context.AspNetUsers.Any(u => u.Email == "michaelli@arctrade.com"))
+            //test intern 2
+            if (!context.AspNetUsers.Any(u => u.Email == "intern2@gmail.com"))
             {
-                var user = new ApplicationUser { UserName = "michaelli@arctrade.com", Email = "michaelli@arctrade.com" };
-
-                userManager.Create(user, "p@ssw0rd");
-                userManager.AddToRole(user.Id, "admin");
-            }
-
-            if (!context.AspNetUsers.Any(u => u.Email == "michaelli@gmail.com"))
-            {
-                var user = new ApplicationUser { UserName = "michaelli@gmail.com", Email = "michaelli@gmail.com" };
+                var user = new ApplicationUser { UserName = "intern2@gmail.com", Email = "intern2@gmail.com" };
 
                 userManager.Create(user, "p@ssw0rd");
                 userManager.AddToRole(user.Id, "intern");
