@@ -30,7 +30,7 @@ namespace InternPortal.Data.Migrations
             SeedQuestions(context);
         }
 
-        private void SeedRoles(IInternPortalContext context)
+        private static void SeedRoles(IInternPortalContext context)
         {
             var appContext = new ApplicationDbContext();
 
@@ -41,7 +41,7 @@ namespace InternPortal.Data.Migrations
             roleManager.Create(new IdentityRole { Name = "intern" });
         }
 
-        private void SeedUsers(IInternPortalContext context)
+        private static void SeedUsers(IInternPortalContext context)
         {
             var appContext = new ApplicationDbContext();
             var userStore = new UserStore<ApplicationUser>(appContext);
@@ -79,7 +79,7 @@ namespace InternPortal.Data.Migrations
 
         }
 
-        private void SeedApplicationStatus(IInternPortalContext context)
+        private static void SeedApplicationStatus(IInternPortalContext context)
         {
             context.ApplicationStatus.AddOrUpdate(a => a.Status,
                 new ApplicationStatu { ApplicationStatusId = 1, Status = "Pending" },
@@ -91,7 +91,7 @@ namespace InternPortal.Data.Migrations
                 new ApplicationStatu { ApplicationStatusId = 7, Status = "Rejected" });
         }
 
-        private void SeedQuestionType(IInternPortalContext context)
+        private static void SeedQuestionType(IInternPortalContext context)
         {
             context.QuestionTypes.AddOrUpdate(q => q.QuestionType_,
                 new QuestionType { QuestionTypeId = 1, QuestionType_ = "TextBox" },
@@ -103,7 +103,7 @@ namespace InternPortal.Data.Migrations
                 new QuestionType { QuestionTypeId = 7, QuestionType_ ="Numeric"});
         }
 
-        private void SeedQuestions(IInternPortalContext context)
+        private static void SeedQuestions(IInternPortalContext context)
         {
             
             var textBox = new Question()

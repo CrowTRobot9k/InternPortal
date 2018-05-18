@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace InternPortal.UI.Controllers.API
 {
-    public abstract partial class BaseApiController : ApiController
+    public abstract class BaseApiController : ApiController
     {    
         protected IInternUnitOfWork _unitOfWork;
         

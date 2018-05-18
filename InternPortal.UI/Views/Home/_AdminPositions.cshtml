@@ -20,8 +20,8 @@
 </script>
 
 <script type="text/x-kendo-template" id="PositionTemplate">
-    <div>
-        <div class='PositionDescription col-lg-12 col-md-12'>
+    <div class="row">
+        <div class='PositionDescription col-lg-11 col-md-11'>
             <label>Application Description: </label><pre> #:PositionDescription # </pre>
         </div>
     </div>
@@ -80,7 +80,8 @@
                                                 PositionDescription: { type: "string" }
                                             }
                                     }
-                            }
+                            },
+                        requestEnd: refreshOnCreate
                     },
                     toolbar: ["create"],
                     editable:

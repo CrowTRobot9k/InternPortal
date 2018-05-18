@@ -38,8 +38,8 @@ namespace InternPortal.Data.Models
             Property(x => x.DateTimeRead).HasColumnName(@"DateTimeRead").HasColumnType("datetime").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.AspNetUser_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdFrom
-            HasRequired(a => a.AspNetUser_UserIdTo).WithMany(b => b.Messages_UserIdTo).HasForeignKey(c => c.UserIdTo).WillCascadeOnDelete(false); // FK_dbo.Messages_dbo.User_UserIdTo
+            HasRequired(a => a.AspNetUser_UserIdFrom).WithMany(b => b.Messages_UserIdFrom).HasForeignKey(c => c.UserIdFrom).WillCascadeOnDelete(false); // FK_dbo.Message_dbo.AspNetUsers_UserIdFrom
+            HasRequired(a => a.AspNetUser_UserIdTo).WithMany(b => b.Messages_UserIdTo).HasForeignKey(c => c.UserIdTo).WillCascadeOnDelete(false); // FK_dbo.Message_dbo.AspNetUsers_UserIdTo
             InitializePartial();
         }
         partial void InitializePartial();

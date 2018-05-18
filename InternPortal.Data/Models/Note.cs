@@ -27,9 +27,9 @@ namespace InternPortal.Data.Models
         // Foreign keys
 
         /// <summary>
-        /// Parent Application pointed by [Note].([ApplicationId]) (FK_Note_Application)
+        /// Parent Application pointed by [Note].([ApplicationId]) (FK_dbo.Note_dbo.Application_ApplicationId)
         /// </summary>
-        public virtual Application Application { get; set; } // FK_Note_Application
+        public virtual Application Application { get; set; } // FK_dbo.Note_dbo.Application_ApplicationId
 
         public Note()
         {

@@ -9,16 +9,17 @@
 <hr>
 <div class="row">
     <div class="col-md-6 text-center">
-        <p>From: @Model.User.UserName</p>
-    </div>
-    <div class="col-md-6 text-center">
         <p>To: @Model.UserTo.UserName</p>
     </div>
+    <div class="col-md-6 text-center">
+        <p>From: @Model.User.UserName</p>
+    </div>
+
 </div>
     @foreach (var message in Model.Messages)
     {
         <div class="row">
-            <div class="col-md-6 @(message.UserIdTo != Model.User.Id ? "pull-left" : "pull-right")">
+            <div class="col-md-6 @(message.UserIdTo != Model.User.Id ? "pull-right":"pull-left")">
                 <div class="alert @(message.UserIdTo != Model.User.Id ? "alert-success" : "alert alert-info")" role="alert"><strong>@message.MessageSubject:</strong><br>@message.MessageBody<br><small> Sent: @message.DateTimeSent.Value.ToShortDateString()</small></div>
             </div>
         </div>

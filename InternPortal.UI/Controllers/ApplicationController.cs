@@ -18,30 +18,12 @@ namespace InternPortal.UI.Controllers
         {
         }
 
-        //View all applications to manage
-        public ActionResult ViewAll()
-        {
-            return View();
-        }
-
         public ActionResult Application(int positionId,int applicationId=0)
         {
             var aspUser = _unitOfWork.AspNetUsers.Where(i => i.UserName == User.Identity.Name).FirstOrDefault();
             var user = _unitOfWork.Users.Where(i => i.Id == aspUser.Id).FirstOrDefault() ?? new User();
 
-            var viewModel = new ApplicationViewModel
-            { 
-                User = Mapper.Map<UserDto>(user),
-                //get in progress application or new
-                Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.
-                Where(i => i.UserId == user.UserId
-                && i.PositionId == positionId).FirstOrDefault()
-                                ??
-                                new Application
-                                {
-                                    Position = _unitOfWork.Positions.Where(p => p.PositionId == positionId).FirstOrDefault()
-                                })
-        };
+            var viewModel = GetCurrentApplication(positionId, applicationId, user);
 
             //new application: assign user, start date, initial pending status (should interviews be pending if they are not completed?).
             if (viewModel.Application.ApplicationId == 0)
@@ -52,6 +34,61 @@ namespace InternPortal.UI.Controllers
                 viewModel.Application.ApplicationStatusId = (int)Constants.ApplicationStatus.Pending;
             }
 
+            GetApplicationQuestionsAnswers(viewModel);
+
+            //get upload
+            if (!viewModel.Application.UserUploads.Any())
+            {
+                viewModel.Application.UserUploads.Add(new UserUploadDto());
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SaveApplication(ApplicationViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Application", viewModel);
+            }
+
+            SaveUser(viewModel);
+
+            SaveUpload(viewModel);
+
+            SaveApplicationData(viewModel);
+
+            _unitOfWork.Complete();
+
+            //TODO: return the viewModel instead.
+            return RedirectToAction("Application", new { viewModel.Application.PositionId, viewModel.Application.ApplicationId });
+        }
+
+
+        private ApplicationViewModel GetCurrentApplication(int positionId, int applicationId, User user)
+        {
+            return new ApplicationViewModel
+            {
+                User = Mapper.Map<UserDto>(user),
+                //user can specifically get application, get most recent open application, or get new one.
+                Application = Mapper.Map<ApplicationDto>(_unitOfWork.Applications.
+                            Where(i => i.UserId == user.UserId
+                                        && i.PositionId == positionId
+                            && i.ApplicationId == applicationId).FirstOrDefault()
+                            ?? (_unitOfWork.Applications.
+                            Where(i => i.UserId == user.UserId
+                            && i.PositionId == positionId).OrderBy(i => i.ApplicationId).FirstOrDefault()
+                                            ??
+                                            new Application
+                                            {
+                                                Position = _unitOfWork.Positions.Where(p => p.PositionId == positionId).FirstOrDefault()
+                                            }))
+            };
+        }
+
+        private void GetApplicationQuestionsAnswers(ApplicationViewModel viewModel)
+        {
             //get all questions
             viewModel.Questions = Mapper.Map<IEnumerable<QuestionDto>>(_unitOfWork.Questions.GetAll().ToList()).ToList();
 
@@ -88,24 +125,10 @@ namespace InternPortal.UI.Controllers
                     }
                 }
             }
-
-            //get upload
-            if (!viewModel.Application.UserUploads.Any())
-            {
-                viewModel.Application.UserUploads.Add(new UserUploadDto());
-            }
-
-            return View(viewModel);
         }
 
-        [HttpPost]
-        public ActionResult SaveApplication(ApplicationViewModel viewModel)
+        private void SaveUser(ApplicationViewModel viewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Application", viewModel);
-            }
-
             //save user
             //add or update user
             //Todo?:Maybe change to "Profile" with 1 to 1 relationship with Application.
@@ -123,66 +146,10 @@ namespace InternPortal.UI.Controllers
 
                 _unitOfWork.Users.Add(Mapper.Map<User>(viewModel.User));
             }
-            //_unitOfWork.Complete();
-            //save user
+        }
 
-            //delete old upload and save new one.
-            //Todo?: allow for multiple file uploads and delete upload function. For now Appplication only has one upload.
-            foreach (string file in Request.Files)
-            {
-                var postedFile = Request.Files[file];
-                if (!string.IsNullOrEmpty(postedFile.FileName))
-                {
-                    try
-                    {
-                        var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
-
-                        //Todo: maybe find better way to store files. Current format is Uploads\ApplicationId\
-                        var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "\\";
-
-                        if (!Directory.Exists(applicationDirectory))
-                        {
-                            Directory.CreateDirectory(applicationDirectory);
-                        }
-
-                        //delete old files
-                        var di = new DirectoryInfo(applicationDirectory);
-
-                        foreach (var oldFile in di.GetFiles())
-                        {
-                            oldFile.Delete();
-                        }
-
-                        //Save new file
-                        var fullFilePath = applicationDirectory + postedFile.FileName;
-
-                        if (!System.IO.File.Exists(fullFilePath))
-                        {
-                            try
-                            {
-                                postedFile.SaveAs(fullFilePath);
-                            }
-                            catch (Exception ex)
-                            {
-                                //Todo: add logger.
-                            }
-                        }
-
-                        var userUpload = viewModel.Application.UserUploads.FirstOrDefault();
-
-                        userUpload.UploadLocation = "\\"+viewModel.Application.ApplicationId + "\\" + postedFile.FileName;
-                    }
-                    catch (Exception ex)
-                    {
-                        //Todo: add logger.
-                    }
-                }
-                else
-                {
-                    viewModel.Application.UserUploads.Clear();
-                }
-            }
-
+        private void SaveApplicationData(ApplicationViewModel viewModel)
+        {
             var applicationToSave = _unitOfWork.Applications.Where(i => i.ApplicationId == viewModel.Application.ApplicationId).FirstOrDefault();
 
             if (applicationToSave != null)
@@ -234,11 +201,62 @@ namespace InternPortal.UI.Controllers
             {
                 _unitOfWork.Applications.Add(Mapper.Map<Application>(viewModel.Application));
             }
+        }
 
-            _unitOfWork.Complete();
+        private void SaveUpload(ApplicationViewModel viewModel)
+        {
+            //delete old upload and save new one.
+            //Todo?: allow for multiple file uploads and delete upload function. For now Appplication only has one upload.
+            foreach (string file in Request.Files)
+            {
+                var postedFile = Request.Files[file];
+                if (!string.IsNullOrEmpty(postedFile.FileName))
+                {
+                    try
+                    {
+                        var uploadLocation = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["UploadLocation"]);
 
-            //TODO: return the viewModel instead.
-            return RedirectToAction("Application",new { viewModel.Application.PositionId, viewModel.Application.ApplicationId });
+                        //Todo: maybe find better way to store files. Current format is Uploads\ApplicationId\
+                        var applicationDirectory = uploadLocation + viewModel.Application.ApplicationId + "\\";
+
+                        if (!Directory.Exists(applicationDirectory))
+                        {
+                            Directory.CreateDirectory(applicationDirectory);
+                        }
+
+                        //delete old files
+                        var di = new DirectoryInfo(applicationDirectory);
+
+                        foreach (var oldFile in di.GetFiles())
+                        {
+                            oldFile.Delete();
+                        }
+
+                        //Save new file
+                        var fullFilePath = applicationDirectory + postedFile.FileName;
+
+                        if (!System.IO.File.Exists(fullFilePath))
+                        {
+                            try
+                            {
+                                postedFile.SaveAs(fullFilePath);
+                            }
+                            catch (Exception ex)
+                            {
+                                //TODO: add logger.
+                            }
+                        }
+
+                        var userUpload = viewModel.Application.UserUploads.FirstOrDefault();
+
+                        userUpload.UploadLocation = "\\" + viewModel.Application.ApplicationId + "\\" + postedFile.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        //TODO: add logger.
+                    }
+                }
+            }
         }
 
         public ActionResult SubmitApplication(int id)

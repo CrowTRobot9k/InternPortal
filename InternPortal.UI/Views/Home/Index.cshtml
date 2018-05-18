@@ -1,6 +1,4 @@
-﻿@model InternPortal.UI.ViewModels.HomePageViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Home Page";
     ViewBag.Decription = "";
 }
@@ -31,6 +29,17 @@
         if (grid.dataSource.total() == 0) {
             //Hide grid
             $(e.sender.element).hide();
+        }
+    }
+
+    //refresh grid on add to get id of element created.
+    function refreshOnCreate(e)
+    {
+        var tmp = e.type;
+        if (tmp == "create")
+        {
+            var dataSource = this;
+            dataSource.read();
         }
     }
 
