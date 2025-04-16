@@ -13,20 +13,21 @@
     <h2>Application for @Model.Application.Position.PositionName</h2>
 </div>
 <hr>
-@Html.HiddenFor(model => model.Application.ApplicationId, new { id = "ApplicationId"})
-
-@Html.HiddenFor(model => model.Application.UserId, new { id = "UserId" })
-
-@Html.HiddenFor(model => model.Application.PositionId)
-
-@Html.HiddenFor(model => model.Application.ApplicationStartDate)
-
-@Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
-
-@Html.HiddenFor(model => model.Application.ApplicationStatusId)
 
 @using (Html.BeginForm("SaveApplication", "Application", FormMethod.Post, new { id = "FormSaveApplication", enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(model => model.Application.ApplicationId, new { id = "ApplicationId" })
+
+    @Html.HiddenFor(model => model.Application.UserId, new { id = "UserId" })
+
+    @Html.HiddenFor(model => model.Application.PositionId)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStartDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationCompleteDate)
+
+    @Html.HiddenFor(model => model.Application.ApplicationStatusId)
+
     <div class="row">
         <div class="col-md-12">
             @(Html.Kendo().ProgressBar()
@@ -120,8 +121,7 @@
                 tabs,
                 currentIndex = 0;
         }
-        else if (applicationId < 1)
-        {
+        else if (applicationId < 1) {
             progress,
                 tabs,
                 currentIndex = 1;
@@ -131,10 +131,10 @@
                 tabs,
                 currentIndex = 2;
         }
-        
-            tabs.select(currentIndex);
-            progress.value(currentIndex);
-        
+
+        tabs.select(currentIndex);
+        progress.value(currentIndex);
+
     });
 
     function onSelect(e) {
